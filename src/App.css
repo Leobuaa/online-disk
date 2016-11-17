@@ -33,6 +33,10 @@ button {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 .group-inputs {
   padding: 0;
   border: 1px solid #d5d5d5;
@@ -67,6 +71,10 @@ button {
   margin-top: 18px;
 }
 
+.register-form-wrapper {
+  margin-top: 18px;
+}
+
 .register-form-wrapper .register-button {
   display: block;
   text-align: center;
@@ -78,4 +86,44 @@ button {
   border: 0;
   border-radius: 3px;
   color: #fff;
+}
+
+.navs-slider {
+  position: relative;
+  display: inline-block;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 18px;
+}
+
+.navs-slider .navs-slider-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 0 .8em;
+  width: 2.4em;
+  height: 2px;
+  background: #0f88eb;
+  transition: left .15s ease-in;
+}
+
+.navs-slider[data-active-index="1"] .navs-slider-bar {
+  left: 4em;
+}
+
+.navs-slider a {
+  float: left;
+  width: 4em;
+  line-height: 35px;
+  color: #555;
+  opacity: .7;
+}
+
+.navs-slider a:hover {
+  opacity: 1;
+}
+
+.navs-slider a.active {
+  opacity: 1;
+  color: #0f88eb;
 }
