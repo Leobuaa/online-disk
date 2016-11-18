@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import RegisterForm from './RegisterForm.js';
-import LoginRegisterTab from './LoginRegisterTab.js';
+import LoginRegisterBlock from './LoginRegisterBlock.js';
 
 class App extends Component {
   render() {
@@ -12,8 +11,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to Online Disk</h2>
         </div>
-        <LoginRegisterTab />
-        <RegisterForm />
+        <LoginRegisterBlock />
       </div>
     );
   }

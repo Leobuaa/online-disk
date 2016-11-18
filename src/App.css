@@ -37,6 +37,10 @@ a {
   text-decoration: none;
 }
 
+input:focus {
+  outline: none;
+}
+
 .group-inputs {
   padding: 0;
   border: 1px solid #d5d5d5;
