@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoginRegisterTab from './LoginRegisterTab.js';
 import RegisterForm from './RegisterForm.js';
+import LoginForm from './LoginForm.js';
 
 class LoginRegisterBlock extends Component {
   constructor() {
@@ -14,7 +15,7 @@ class LoginRegisterBlock extends Component {
         validtiy: false,
       },
       loginInfo: {
-        email: null,
+        username: null,
         password: null,
         validtiy: false,
       }
@@ -44,6 +45,17 @@ class LoginRegisterBlock extends Component {
     });
   }
 
+  handleLoginInfoChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    const loginInfo = this.state.loginInfo;
+    loginInfo[name] = value;
+    this.setState({
+      activeTab: 'login',
+      loginInfo: loginInfo,
+    });
+  }
+
   render() {
     return (
       <div>
@@ -54,7 +66,7 @@ class LoginRegisterBlock extends Component {
         {this.state.activeTab === 'register' ? (
           <RegisterForm registerInfo={this.state.registerInfo} onChange={(e) => this.handleRegisterInfoChange(e)}/>
         ) : (
-          <div></div>
+          <LoginForm loginInfo={this.state.loginInfo} onChange={(e) => this.handleLoginInfoChange(e)}/>
         )}
       </div>
     );
