@@ -19,8 +19,6 @@ class LoginRegisterBlock extends Component {
         validtiy: false,
       }
     };
-    this.handleRegisterTabClick = this.handleRegisterTabClick.bind(this);
-    this.handleLoginTabClick = this.handleLoginTabClick.bind(this);
   }
 
   handleRegisterTabClick(event) {
@@ -35,15 +33,26 @@ class LoginRegisterBlock extends Component {
     });
   }
 
+  handleRegisterInfoChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    const registerInfo = this.state.registerInfo;
+    registerInfo[name] = value;
+    this.setState({
+      activeTab: 'register',
+      registerInfo: registerInfo,
+    });
+  }
+
   render() {
     return (
       <div>
         <LoginRegisterTab
           activeTab={this.state.activeTab}
-          onRegisterTabClick={this.handleRegisterTabClick}
-          onLoginTabClick={this.handleLoginTabClick} />
+          onRegisterTabClick={(e) => this.handleRegisterTabClick(e)}
+          onLoginTabClick={(e) => this.handleLoginTabClick(e)} />
         {this.state.activeTab === 'register' ? (
-          <RegisterForm registerInfo={this.state.registerInfo} />
+          <RegisterForm registerInfo={this.state.registerInfo} onChange={(e) => this.handleRegisterInfoChange(e)}/>
         ) : (
           <div></div>
         )}
