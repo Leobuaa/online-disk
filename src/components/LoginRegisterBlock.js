@@ -12,12 +12,10 @@ class LoginRegisterBlock extends Component {
         username: null,
         email: null,
         password: null,
-        validtiy: false,
       },
       loginInfo: {
         username: null,
         password: null,
-        validtiy: false,
       }
     };
   }

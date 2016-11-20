@@ -3,11 +3,19 @@ import React, { Component } from 'react';
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      validtiy: false,
+      checkInfos: {
+        username: null,
+        email: null,
+        password: null,
+      },
+    };
   }
 
   handleRegisterSubmit(event) {
     event.preventDefault();
-    if (!this.props.registerInfo.validtiy) {
+    if (!this.state.validtiy) {
       //this.props.showWarning();
       console.log('The register info is invalid!');
     }

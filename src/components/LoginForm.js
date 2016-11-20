@@ -3,11 +3,18 @@ import React, { Component } from 'react';
 class LoginForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      validtiy: false,
+      checkInfos: {
+        username: null,
+        password: null,
+      },
+    };
   }
 
   handleLoginSubmit(event) {
     event.preventDefault();
-    if (!this.props.loginInfo.validtiy) {
+    if (!this.state.validtiy) {
       //this.props.showWarning();
       console.log('The login info is invalid!');
     }
