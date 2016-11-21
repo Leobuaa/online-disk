@@ -23,12 +23,12 @@ class RegisterForm extends Component {
       checkInfos.username = '请输入用户名';
       this.setState({checkInfos: checkInfos});
     }
-    alert(JSON.stringify(this.props.registerInfo, null, 4));
+    console.log(JSON.stringify(this.props.registerInfo, null, 4));
   }
 
   handleInputChange(event) {
-    this.props.onchange(event);
-    console.log(this.props.registerinfo);
+    this.props.onChange(event);
+    console.log(this.props.registerInfo);
   }
 
   handleInputFocus(event) {
