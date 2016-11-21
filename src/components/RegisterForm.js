@@ -16,15 +16,25 @@ class RegisterForm extends Component {
   handleRegisterSubmit(event) {
     event.preventDefault();
     if (!this.state.validtiy) {
-      //this.props.showWarning();
       console.log('The register info is invalid!');
+    }
+    if (!this.props.registerInfo.username || this.props.registerInfo.username == '') {
+      const checkInfos = this.state.checkInfos;
+      checkInfos.username = '请输入用户名';
+      this.setState({checkInfos: checkInfos});
     }
     alert(JSON.stringify(this.props.registerInfo, null, 4));
   }
 
   handleInputChange(event) {
-    this.props.onChange(event);
-    console.log(this.props.registerInfo);
+    this.props.onchange(event);
+    console.log(this.props.registerinfo);
+  }
+
+  handleInputFocus(event) {
+    const checkInfos = this.state.checkInfos;
+    checkInfos[event.target.name] = '';
+    this.setState({checkInfos: checkInfos});
   }
 
   render() {
@@ -35,7 +45,11 @@ class RegisterForm extends Component {
             <div className="username input-wrapper">
               <input name="username" type="text" placeholder="用户名"
                      value={this.props.registerInfo.username || ''}
-                     onChange={(e) => this.handleInputChange(e)} />
+                     onChange={(e) => this.handleInputChange(e)}
+                     onFocus={(e) => this.handleInputFocus(e)} />
+              {this.state.checkInfos != null &&
+                <label className="error">{this.state.checkInfos.username}</label>
+              }
             </div>
             <div className="email input-wrapper">
               <input name="email" type="text" placeholder="邮箱地址"

@@ -140,3 +140,16 @@ input:-webkit-autofill {
   opacity: 1;
   color: #0f88eb;
 }
+
+label.error {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  padding: 0 8px;
+  line-height: 48px;
+  color: #c33;
+  visibility: visible;
+  opacity: 1;
+  cursor: text;
+  text-align: left;
+}
