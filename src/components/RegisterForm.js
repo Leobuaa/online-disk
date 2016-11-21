@@ -4,7 +4,7 @@ class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      validtiy: false,
+      validity: true,
       checkInfos: {
         username: null,
         email: null,
@@ -15,13 +15,10 @@ class RegisterForm extends Component {
 
   handleRegisterSubmit(event) {
     event.preventDefault();
-    if (!this.state.validtiy) {
+    this.checkRegisterInfo();
+    if (this.state.validity === false) {
+      // 实际上这里输出的上一个状态的有效性
       console.log('The register info is invalid!');
-    }
-    if (!this.props.registerInfo.username || this.props.registerInfo.username == '') {
-      const checkInfos = this.state.checkInfos;
-      checkInfos.username = '请输入用户名';
-      this.setState({checkInfos: checkInfos});
     }
     console.log(JSON.stringify(this.props.registerInfo, null, 4));
   }
@@ -37,6 +34,62 @@ class RegisterForm extends Component {
     this.setState({checkInfos: checkInfos});
   }
 
+  checkRegisterInfo() {
+    const checkInfos = this.state.checkInfos;
+    let validity = true;
+    validity = this.checkInfoIsNull(checkInfos) &
+               this.checkInfoWhiteSpace(checkInfos) &
+               this.checkPasswordLength(checkInfos);
+
+    validity = validity == 1 ? true : false;
+
+    this.setState({
+      validity: validity,
+      checkInfos: checkInfos,
+    });
+  }
+
+  checkInfoIsNull(checkInfos) {
+    const registerInfo = this.props.registerInfo;
+    let validity = true;
+    if (!registerInfo.username || registerInfo.username === '') {
+      checkInfos.username = '请输入用户名';
+      validity = false;
+    }
+    if (!registerInfo.email || registerInfo.email === '') {
+      checkInfos.email = '请输入邮箱地址';
+      validity = false;
+    }
+    if (!registerInfo.password || registerInfo.password === '') {
+      checkInfos.password = '请输入密码';
+      validity = false;
+    }
+    return validity;
+  }
+
+  checkInfoWhiteSpace(checkInfos) {
+    const registerInfo = this.props.registerInfo;
+    let validity = true;
+    if (registerInfo.username && registerInfo.username.search(' ') != -1) {
+      checkInfos.username = '用户名中不能包含空格';
+      validity = false;
+    }
+    if (registerInfo.email && registerInfo.email.search(' ') != -1) {
+      checkInfos.email = '邮箱中不能包含空格';
+      validity = false;
+    }
+    return validity;
+  }
+
+  checkPasswordLength(checkInfos) {
+    const registerInfo = this.props.registerInfo;
+    if (registerInfo.password && registerInfo.password.length < 6) {
+      checkInfos.password = '密码长度小于6';
+      return false;
+    }
+    return true;
+  }
+
   render() {
     return (
       <div className="register-form-wrapper">
@@ -47,19 +100,21 @@ class RegisterForm extends Component {
                      value={this.props.registerInfo.username || ''}
                      onChange={(e) => this.handleInputChange(e)}
                      onFocus={(e) => this.handleInputFocus(e)} />
-              {this.state.checkInfos != null &&
-                <label className="error">{this.state.checkInfos.username}</label>
-              }
+              <label className="error">{this.state.checkInfos.username}</label>
             </div>
             <div className="email input-wrapper">
               <input name="email" type="text" placeholder="邮箱地址"
                      value={this.props.registerInfo.email || ''}
-                     onChange={(e) => this.handleInputChange(e)} />
+                     onChange={(e) => this.handleInputChange(e)}
+                     onFocus={(e) => this.handleInputFocus(e)} />
+              <label className="error">{this.state.checkInfos.email}</label>
             </div>
             <div className="password input-wrapper">
               <input name="password" type="password" placeholder="密码（不少于6位）"
                      value={this.props.registerInfo.password || ''}
-                     onChange={(e) => this.handleInputChange(e)} />
+                     onChange={(e) => this.handleInputChange(e)}
+                     onFocus={(e) => this.handleInputFocus(e)} />
+              <label className="error">{this.state.checkInfos.password}</label>
             </div>
           </div>
           <div className="register-button-wrapper">

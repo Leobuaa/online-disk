@@ -148,6 +148,7 @@ label.error {
   padding: 0 8px;
   line-height: 48px;
   color: #c33;
+  font-size: 12px;
   visibility: visible;
   opacity: 1;
   cursor: text;
