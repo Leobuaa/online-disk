@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'whatwg-fetch';
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -20,6 +21,19 @@ class RegisterForm extends Component {
       // 实际上这里输出的上一个状态的有效性
       console.log('The register info is invalid!');
     }
+    fetch('http://localhost:3001/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: this.props.registerInfo,
+        credentials: 'include',
+      })
+      .then(function(response) {
+        return response.json();
+      }).then(function(json) {
+        console.log(json);
+      });
     console.log(JSON.stringify(this.props.registerInfo, null, 4));
   }
 
