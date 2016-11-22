@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'whatwg-fetch';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -15,9 +16,26 @@ class LoginForm extends Component {
   handleLoginSubmit(event) {
     event.preventDefault();
     this.checkLoginInfo();
-    if (!this.state.validity) {
-      //this.props.showWarning();
+  }
+
+  submitLoginInfo() {
+    if (this.state.validity === false) {
       console.log('The login info is invalid!');
+    } else {
+      console.log('The login info is valid!');
+      fetch('http://localhost:3001/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: this.props.loginInfo,
+        credentials: 'include'
+      })
+        .then(function(response) {
+          return response.json();
+        }).then(function(json) {
+          console.log(json);
+        });
     }
     console.log(JSON.stringify(this.props.loginInfo, null, 4));
   }
@@ -44,7 +62,7 @@ class LoginForm extends Component {
     this.setState({
       validity: validity,
       checkInfos: checkInfos,
-    });
+    }, this.submitLoginInfo);
   }
 
   checkInfoIsNull(checkInfos) {

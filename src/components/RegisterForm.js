@@ -17,11 +17,14 @@ class RegisterForm extends Component {
   handleRegisterSubmit(event) {
     event.preventDefault();
     this.checkRegisterInfo();
+  }
+
+  submitRegisterInfo() {
     if (this.state.validity === false) {
-      // 实际上这里输出的上一个状态的有效性
       console.log('The register info is invalid!');
-    }
-    fetch('http://localhost:3001/register', {
+    } else {
+      console.log('The register info is valid!');
+      fetch('http://localhost:3001/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,11 +32,12 @@ class RegisterForm extends Component {
         body: this.props.registerInfo,
         credentials: 'include',
       })
-      .then(function(response) {
-        return response.json();
-      }).then(function(json) {
-        console.log(json);
-      });
+        .then(function(response) {
+          return response.json();
+        }).then(function(json) {
+          console.log(json);
+        });
+    }
     console.log(JSON.stringify(this.props.registerInfo, null, 4));
   }
 
@@ -60,7 +64,7 @@ class RegisterForm extends Component {
     this.setState({
       validity: validity,
       checkInfos: checkInfos,
-    });
+    }, this.submitRegisterInfo);
   }
 
   checkInfoIsNull(checkInfos) {
