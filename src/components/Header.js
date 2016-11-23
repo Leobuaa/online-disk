@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import HeaderLinks from './HeaderLinks.js';
+import HeaderInfo from './HeaderInfo.js';
 
 class Header extends Component {
   constructor() {
@@ -35,6 +36,7 @@ class Header extends Component {
             <a href="#" title="online-disk"></a>
           </dt>
           <HeaderLinks headerLink={this.state.headerLink} onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}/>
+          <HeaderInfo />
         </dl>
       </div>
     )

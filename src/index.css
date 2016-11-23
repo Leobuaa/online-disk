@@ -219,3 +219,45 @@ label.error {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.index-header .header-info {
+  margin-right: 10px;
+  position: relative;
+  color: #fff;
+  height: 100%;
+  float: right;
+}
+
+.index-header .header-info .app-user-info {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  margin-right: 15px;
+}
+
+.index-header .header-info .app-user-info .user-photo-box {
+  display: inline-block;
+  vertical-align: middle;
+  width: 34px;
+  height: 34px;
+  background: rgb(0, 0, 0, .1);
+  background-position: center;
+  border-radius: 50%;
+}
+
+.index-header .app-user-info .user-photo {
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  margin: 2px;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 50%;
+  background-image: url(https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg);
+}
+
+.index-header .app-user-info .user-name {
+  margin-left: 10px;
+  line-height: 38px;
+}
