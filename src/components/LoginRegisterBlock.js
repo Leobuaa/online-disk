@@ -4,8 +4,8 @@ import RegisterForm from './RegisterForm.js';
 import LoginForm from './LoginForm.js';
 
 class LoginRegisterBlock extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       activeTab: 'register',
       registerInfo: {
@@ -62,9 +62,14 @@ class LoginRegisterBlock extends Component {
           onRegisterTabClick={(e) => this.handleRegisterTabClick(e)}
           onLoginTabClick={(e) => this.handleLoginTabClick(e)} />
         {this.state.activeTab === 'register' ? (
-          <RegisterForm registerInfo={this.state.registerInfo} onChange={(e) => this.handleRegisterInfoChange(e)}/>
+          <RegisterForm
+            registerInfo={this.state.registerInfo}
+            onChange={(e) => this.handleRegisterInfoChange(e)}/>
         ) : (
-          <LoginForm loginInfo={this.state.loginInfo} onChange={(e) => this.handleLoginInfoChange(e)}/>
+          <LoginForm
+            loginInfo={this.state.loginInfo}
+            onChange={(e) => this.handleLoginInfoChange(e)}
+            onLoginStateChange={this.props.onLoginStateChange}/>
         )}
       </div>
     );

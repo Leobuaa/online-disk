@@ -17,6 +17,7 @@ class RegisterForm extends Component {
   handleRegisterSubmit(event) {
     event.preventDefault();
     this.checkRegisterInfo();
+    // localStorage.setItem('username', this.props.registerInfo.username);
   }
 
   submitRegisterInfo() {

@@ -16,6 +16,7 @@ class LoginForm extends Component {
   handleLoginSubmit(event) {
     event.preventDefault();
     this.checkLoginInfo();
+    // console.log('Username: ' + localStorage.getItem('username'));
   }
 
   submitLoginInfo() {
@@ -33,8 +34,13 @@ class LoginForm extends Component {
       })
         .then(function(response) {
           return response.json();
-        }).then(function(json) {
+        }).then((json) => {
           console.log(json);
+          let isLogin = false;
+          if (json.success === 1) {
+            isLogin = true;
+          }
+          this.props.onLoginStateChange(isLogin);
         });
     }
     console.log(JSON.stringify(this.props.loginInfo, null, 4));
