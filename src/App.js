@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import LoginRegisterBlock from './components/LoginRegisterBlock.js';
+import Header from './components/Header.js';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLogin: false
+      isLogin: true
     };
   }
 
@@ -24,9 +25,11 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
-        <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>
-        {this.state.isLogin &&
-         <p>登录成功</p>}
+        {this.state.isLogin ? (
+          <Header />
+        ) : (
+          <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>
+        )}
       </div>
     );
   }
