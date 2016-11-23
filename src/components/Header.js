@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import HeaderLinks from './HeaderLinks.js';
 
 class Header extends Component {
   constructor() {
@@ -33,19 +34,7 @@ class Header extends Component {
           <dt className="header-logo">
             <a href="#" title="online-disk"></a>
           </dt>
-          <dd className="header-link" data-active-index={this.state.headerLink.index}>
-            <span className="link-item">
-              <a href="#" title="onlineDisk" onClick={(e) => this.handleHeaderLinkClick(e)}>网盘</a>
-            </span>
-            <span className="link-item">
-              <a href="#" title="share" onClick={(e) => this.handleHeaderLinkClick(e)}>分享</a>
-            </span>
-            <span className="link-item">
-              <a href="#" title="more" onClick={(e) => this.handleHeaderLinkClick(e)}>更多</a>
-            </span>
-            <span className="slider-bar"></span>
-          </dd>
-
+          <HeaderLinks headerLink={this.state.headerLink} onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}/>
         </dl>
       </div>
     )
