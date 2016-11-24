@@ -3,29 +3,8 @@ import HeaderLinks from './HeaderLinks.js';
 import HeaderInfo from './HeaderInfo.js';
 
 class Header extends Component {
-  constructor() {
-    super();
-    this.state = {
-      headerLink: {
-        index: 0
-      }
-    };
-  }
-
-  handleHeaderLinkClick(event) {
-    const titleClick = event.target.title;
-    const headerLink = this.state.headerLink;
-    if (titleClick === 'onlineDisk') {
-      headerLink.index = 0;
-    } else if (titleClick === 'share') {
-      headerLink.index = 1;
-    } else if (titleClick === 'more') {
-      headerLink.index = 2;
-    }
-
-    this.setState({
-      headerLink: headerLink
-    });
+  constructor(props) {
+    super(props);
   }
 
   render() {
@@ -38,7 +17,7 @@ class Header extends Component {
           <dt className="header-logo">
             <a href="#" title="online-disk"></a>
           </dt>
-          <HeaderLinks headerLink={this.state.headerLink} onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}/>
+          <HeaderLinks headerLink={this.props.header} onHeaderLinkClick={this.props.onHeaderLinkClick}/>
           <HeaderInfo />
         </dl>
       </div>

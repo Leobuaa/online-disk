@@ -9,7 +9,13 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLogin: true
+      isLogin: true,
+      header: {
+        linkActiveIndex: 0,
+      },
+      menuAside: {
+        buttonActiveIndex: 0,
+      }
     };
   }
 
@@ -18,6 +24,54 @@ class App extends Component {
     this.setState({
       isLogin: isLogin
     });
+  }
+
+  handleHeaderLinkClick(event) {
+    const titleClick = event.target.title;
+    const header = this.state.header;
+    if (titleClick === 'onlineDisk') {
+      header.linkActiveIndex = 0;
+    } else if (titleClick === 'share') {
+      header.linkActiveIndex = 1;
+    } else if (titleClick === 'more') {
+      header.linkActiveIndex = 2;
+    }
+
+    this.setState({
+      header: header
+    });
+  }
+
+  handleMenuAsideButtonClick(event) {
+    const name = event.target.name;
+    const menuAside = this.state.menuAside;
+    menuAside.buttonActiveIndex = this.getMenuAsideButtonIndexByName(name); 
+    this.setState({
+      menuAside: menuAside
+    });
+  }
+
+  getMenuAsideButtonIndexByName(name) {
+    let index = 0;
+    switch (name) {
+      case 'all':
+        index = 0;
+        break;
+      case 'image':
+        index = 1;
+        break;
+      case 'doc':
+        index = 2;
+        break;
+      case 'video':
+        index = 3;
+        break;
+      case 'music':
+        index = 4;
+        break;
+      default:
+    }
+    return index;
   }
 
   render() {
@@ -30,8 +84,8 @@ class App extends Component {
         }
         {this.state.isLogin ? (
           <div>
-            <Header />
-            <MenuAside />
+            <Header header={this.state.header} onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}/>
+            <MenuAside menuAside={this.state.menuAside} onMenuAsideButtonClick={(e) => this.handleMenuAsideButtonClick(e)}/>
           </div>
         ) : (
           <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>

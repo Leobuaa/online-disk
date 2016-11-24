@@ -7,7 +7,7 @@ class HeaderLinks extends Component {
 
   render() {
     return (
-      <dd className="header-link" data-active-index={this.props.headerLink.index}>
+      <dd className="header-link" data-active-index={this.props.headerLink.linkActiveIndex}>
         <span className="link-item">
           <a href="#" title="onlineDisk" onClick={this.props.onHeaderLinkClick}>网盘</a>
         </span>
