@@ -35,6 +35,9 @@ class Header extends Component {
           <dt className="header-logo">
             <a href="#" title="online-disk"></a>
           </dt>
+          <dt className="header-logo">
+            <a href="#" title="online-disk"></a>
+          </dt>
           <HeaderLinks headerLink={this.state.headerLink} onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}/>
           <HeaderInfo />
         </dl>

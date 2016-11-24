@@ -82,6 +82,7 @@ class MenuAside extends Component {
 
     const menuLists = lists.map((obj) =>
       <button
+        key={obj.name}
         name={obj.name}
         type="button"
         className={'list-group-item list-item ' + this.isActiveButton(obj.index)}
