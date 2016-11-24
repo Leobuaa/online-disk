@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import LoginRegisterBlock from './components/LoginRegisterBlock.js';
 import Header from './components/Header.js';
+import MenuAside from './components/MenuAside.js';
 
 class App extends Component {
   constructor() {
@@ -28,7 +29,10 @@ class App extends Component {
           </div>
         }
         {this.state.isLogin ? (
-          <Header />
+          <div>
+            <Header />
+            <MenuAside />
+          </div>
         ) : (
           <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>
         )}
