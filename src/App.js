@@ -12,6 +12,7 @@ class App extends Component {
       isLogin: true,
       header: {
         linkActiveIndex: 0,
+        userMenuActiveIndex: -1,
       },
       menuAside: {
         buttonActiveIndex: 0,
@@ -45,7 +46,7 @@ class App extends Component {
   handleMenuAsideButtonClick(event) {
     const name = event.target.name;
     const menuAside = this.state.menuAside;
-    menuAside.buttonActiveIndex = this.getMenuAsideButtonIndexByName(name); 
+    menuAside.buttonActiveIndex = this.getMenuAsideButtonIndexByName(name);
     this.setState({
       menuAside: menuAside
     });
@@ -84,7 +85,10 @@ class App extends Component {
         }
         {this.state.isLogin ? (
           <div>
-            <Header header={this.state.header} onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}/>
+            <Header
+              header={this.state.header}
+              onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}
+              onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>
             <MenuAside menuAside={this.state.menuAside} onMenuAsideButtonClick={(e) => this.handleMenuAsideButtonClick(e)}/>
           </div>
         ) : (

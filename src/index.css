@@ -225,7 +225,7 @@ label.error {
   margin-right: 10px;
   position: relative;
   color: #fff;
-  height: 100%;
+  height: 62px;
   float: right;
 }
 
@@ -234,6 +234,35 @@ label.error {
   position: relative;
   z-index: 1;
   margin-right: 15px;
+}
+
+.index-header .user-info-desc-wrapper {
+  display: block;
+  position: absolute;
+  top: 62px;
+  right: 0px;
+  background: #438aee;
+  border-radius: 5px 5px 0 0;
+  padding-top: 20px;
+  width: 200px;
+  text-align: left;
+}
+
+.index-header .user-info-desc-wrapper .desc-header {
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+
+.index-header .user-info-desc-wrapper .menu-list {
+  width: 100%;
+  margin-bottom: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.index-header .user-info-desc-wrapper .menu-list .list-group-item:first-child,
+.index-header .user-info-desc-wrapper .menu-list .list-group-item:last-child {
+  border-radius: 0 !important;
 }
 
 .index-header .header-info .app-user-info .user-photo-box {
@@ -246,7 +275,7 @@ label.error {
   border-radius: 50%;
 }
 
-.index-header .app-user-info .user-photo {
+.index-header .app-user-info .user-photo, .index-header .user-info-desc-wrapper .desc-header .user-photo{
   display: inline-block;
   vertical-align: middle;
   width: 30px;
@@ -258,7 +287,8 @@ label.error {
   background-image: url(https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg);
 }
 
-.index-header .app-user-info .user-name {
+.index-header .app-user-info .user-name, .index-header .user-info-desc-wrapper .desc-header .user-name {
+  display: inline-block;
   margin-left: 10px;
   line-height: 38px;
 }
@@ -281,7 +311,7 @@ label.error {
   box-shadow: none !important;
 }
 
-.menu-aside-wrapper .menu-list .list-item {
+.menu-aside-wrapper .menu-list .list-item{
   border-radius: 0 !important;
   border: 0 !important;
   background-color: #e9eef1;
