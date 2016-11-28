@@ -357,7 +357,12 @@ label.error {
   right: 10px;
 }
 
-.body-toolbar .search-bar input[name="searchInfo"] {
+.body-toolbar .search-bar input[name="searchInfo"][value=""] {
+  text-align: center;
+}
+
+.body-toolbar .search-bar input[name="searchInfo"],
+.body-toolbar .search-bar input[name="searchInfo"]:focus {
   height: 34px;
   width: 200px;
   border-radius: 20px;
@@ -366,7 +371,8 @@ label.error {
   background-color: #f1f2f4;
   position: relative;
   top: 1px;
-  text-align: center;
+  text-align: left;
+  padding-left: 20px;
 }
 
 .body-toolbar .search-bar button[name="searchButton"] {
