@@ -5,6 +5,7 @@ import LoginRegisterBlock from './components/LoginRegisterBlock.js';
 import Header from './components/Header.js';
 import MenuAside from './components/MenuAside.js';
 import BodyToolBar from './components/BodyToolBar.js';
+import BodyContent from './components/BodyContent.js';
 
 class App extends Component {
   constructor() {
@@ -140,6 +141,7 @@ class App extends Component {
               bodyToolBar={this.state.bodyToolBar}
               onToolBarButtonClick={(e) => this.handleToolBarButtonClick(e)}
               onToolBarSearchInfoChange={(e) => this.handleToolBarSearchInfoChange(e)}/>
+            <BodyContent />
           </div>
         ) : (
           <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>
