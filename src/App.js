@@ -4,6 +4,7 @@ import './App.css';
 import LoginRegisterBlock from './components/LoginRegisterBlock.js';
 import Header from './components/Header.js';
 import MenuAside from './components/MenuAside.js';
+import BodyToolBar from './components/BodyToolBar.js';
 
 class App extends Component {
   constructor() {
@@ -16,6 +17,10 @@ class App extends Component {
       },
       menuAside: {
         buttonActiveIndex: 0,
+      },
+      bodyToolBar: {
+        buttonActiveIndex: -1,
+        searchInfo: '',
       }
     };
   }
@@ -75,6 +80,45 @@ class App extends Component {
     return index;
   }
 
+  handleToolBarButtonClick(event) {
+    const name = event.target.name;
+    const bodyToolBar = this.state.bodyToolBar;
+    bodyToolBar.buttonActiveIndex = this.getToolBarButtonIndexByName(name);
+    this.setState({
+      bodyToolBar: bodyToolBar
+    });
+  }
+
+  handleToolBarSearchInfoChange(event) {
+    const value = event.target.value;
+    const bodyToolBar = this.state.bodyToolBar;
+    bodyToolBar.searchInfo = value;
+    this.setState({
+      bodyToolBar: bodyToolBar
+    });
+  }
+
+  getToolBarButtonIndexByName(name) {
+    let index = -1;
+    switch (name) {
+      case 'upload':
+        index = 0;
+        break;
+      case 'newDirectory':
+        index = 1;
+        break;
+      case 'download':
+        index = 2;
+        break;
+      case 'searchButton':
+        index = 3;
+        break;
+      default:
+
+    }
+    return index;
+  }
+
   render() {
     return (
       <div className="App">
@@ -89,7 +133,13 @@ class App extends Component {
               header={this.state.header}
               onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}
               onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>
-            <MenuAside menuAside={this.state.menuAside} onMenuAsideButtonClick={(e) => this.handleMenuAsideButtonClick(e)}/>
+            <MenuAside
+              menuAside={this.state.menuAside}
+              onMenuAsideButtonClick={(e) => this.handleMenuAsideButtonClick(e)}/>
+            <BodyToolBar
+              bodyToolBar={this.state.bodyToolBar}
+              onToolBarButtonClick={(e) => this.handleToolBarButtonClick(e)}
+              onToolBarSearchInfoChange={(e) => this.handleToolBarSearchInfoChange(e)}/>
           </div>
         ) : (
           <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>

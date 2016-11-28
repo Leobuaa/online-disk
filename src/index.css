@@ -20,7 +20,7 @@ a {
 }
 
 input:focus, button:focus {
-  outline: none;
+  outline: none !important;
 }
 
 /*去除自动填充后的黄色背景*/
@@ -287,10 +287,19 @@ label.error {
   background-image: url(https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg);
 }
 
+.index-header .user-info-desc-wrapper .desc-header .user-photo {
+  width: 50px;
+  height: 50px;
+}
+
 .index-header .app-user-info .user-name, .index-header .user-info-desc-wrapper .desc-header .user-name {
   display: inline-block;
   margin-left: 10px;
   line-height: 38px;
+}
+
+.index-header .user-info-desc-wrapper .desc-header .user-name {
+  font-size: 14px;
 }
 
 .menu-aside-wrapper {
@@ -299,7 +308,7 @@ label.error {
   bottom: 0;
   z-index: 0;
   position: absolute;
-  width: 194px;
+  width: 13.5%;
   height: 100%;
   padding-top: 10px;
   background: #e9eef1;
@@ -325,4 +334,78 @@ label.error {
 
 .menu-aside-wrapper .menu-list .list-item .glyphicon {
   margin-right: 10px;
+}
+
+/*body style*/
+.body-toolbar {
+  position: absolute;
+  background-color: #fff;
+  top: 62px;
+  left: 13.5%;
+  width: 86.5%;
+  padding-top: 10px;
+}
+
+.body-toolbar .button-group {
+  position: relative;
+  float: left;
+}
+
+.body-toolbar .search-bar {
+  position: relative;
+  float: right;
+  right: 10px;
+}
+
+.body-toolbar .search-bar input[name="searchInfo"] {
+  height: 34px;
+  width: 200px;
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: none;
+  background-color: #f1f2f4;
+  position: relative;
+  top: 1px;
+  text-align: center;
+}
+
+.body-toolbar .search-bar button[name="searchButton"] {
+  border-radius: 15px;
+}
+
+.body-toolbar .button-group button, .body-toolbar .search-bar button {
+  margin-left: 10px;
+}
+
+.body-toolbar .button-group, .body-toolbar .search-bar {
+  display: inline-block;
+}
+
+/*bootstrap4 outline button*/
+.btn-primary-outline {
+  border: 1px solid #c0d9fe !important;
+  background-color: #fff;
+  color: #0375d8 !important;
+}
+
+.btn-primary-outline:hover {
+  background-color: #0375db;
+  color: #fff !important;
+}
+
+.btn-success-outline {
+  border: 1px solid #5cb85c !important;
+  background-color: #fff;
+  color: #5cb85c !important;
+}
+
+.btn-success-outline:hover {
+  background-color: #5cb85c;
+  color: #fff !important;
+}
+
+.body-toolbar button span {
+  margin-right: 4px;
+  position: relative;
+  top: 2px;
 }
