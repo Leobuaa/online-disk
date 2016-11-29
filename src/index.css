@@ -477,11 +477,14 @@ label.error {
   border-left-width: 0;
   border-right-width: 0;
   height: 46px;
-}
-
-.body-content .list-group .list-group-item {
   border-radius: 0;
 }
+
+.body-content .list-group .list-group-item:hover,
+.body-content .list-group .item-checked {
+  background-color: #f6faff;
+}
+
 
 .body-toolbar .check-btn-group {
   position: relative;

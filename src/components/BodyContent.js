@@ -51,7 +51,9 @@ class BodyContent extends Component {
     lists = this.filterLists(lists);
 
     const fileLists = lists.map((obj) =>
-      <li className="list-group-item" key={obj.id}>
+      <li
+        className={ "list-group-item " + (((id) => this.itemIsChecked(id))(obj.id) ? 'item-checked' : '') }
+        key={obj.id}>
         <div className="check">
           <input
             value={obj.id}
