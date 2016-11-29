@@ -5,27 +5,44 @@ class BodyContent extends Component {
    super(props);
   }
 
+  filterLists(lists) {
+    let searchInfo = this.props.searchInfo;
+    if (searchInfo === null || searchInfo === '') {
+      return lists;
+    }
+
+    searchInfo = searchInfo.trim();
+    const reg = /\s+/;
+    const stringLists = searchInfo.split(reg);
+    if (stringLists.length === 0) {
+      return lists;
+    }
+
+    // Debug Info
+    for (let str of stringLists) {
+      console.log(str);
+    }
+
+    return lists.filter((obj) => {
+      for (let str of stringLists) {
+        str = str.trim();
+        if (str === null || str === '') {
+          return true;
+        }
+
+        let title = obj.title.toLowerCase();
+        str = str.toLowerCase();
+        if (title.search(str) !== -1) {
+          return true;
+        }
+      }
+      return false;
+    });
+  }
+
   render() {
-    const lists = [];
-    const size = 30;
-
-    for (let i = 0; i < size; i++) {
-      lists.push({
-        id: i,
-        title: '生活大爆炸',
-        size: '223MB',
-        updatedAt: '2016-11-28 11:22:30',
-        checked: false,
-      });
-
-      lists.push({
-        id: i + size,
-        title: '神探夏洛克',
-        size: '588MB',
-        updatedAt: '2016-11-28 12:20:11',
-        checked: false,
-      });
-   }
+    let lists = this.props.bodyContent.allLists;
+    lists = this.filterLists(lists);
 
     const fileLists = lists.map((obj) =>
       <li className="list-group-item" key={obj.id}>

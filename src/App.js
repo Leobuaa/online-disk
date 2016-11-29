@@ -22,8 +22,65 @@ class App extends Component {
       bodyToolBar: {
         buttonActiveIndex: -1,
         searchInfo: '',
+      },
+      bodyContent: {
+        allLists: [],
+        activeLists: [],
       }
     };
+  }
+
+  componentDidMount() {
+    const lists= [];
+    const bodyContent = this.state.bodyContent;
+    const size = 10;
+
+    for (let i = 0; i < size; i++) {
+      lists.push({
+        id: i,
+        title: '生活大爆炸',
+        size: '223 MB',
+        updatedAt: '2016-11-28 11:22:30',
+        checked: false,
+      });
+
+      lists.push({
+        id: i + size,
+        title: '神探夏洛克',
+        size: '588 MB',
+        updatedAt: '2016-11-28 12:20:11',
+        checked: false,
+      });
+
+      lists.push({
+        id: i + size * 2,
+        title: 'Fantatic Beasts and Where to Find Them',
+        size: '2048 MB',
+        updatedAt: '2016-11-29 12:20:11',
+        checked: false,
+      });
+
+      lists.push({
+        id: i + size * 3,
+        title: 'About Time',
+        size: '3048 MB',
+        updatedAt: '2016-11-30 12:20:11',
+        checked: false,
+      });
+
+      lists.push({
+        id: i + size * 4,
+        title: 'Harry Potter',
+        size: '1059 MB',
+        updatedAt: '2016-11-30 12:20:11',
+        checked: false,
+      });
+    }
+
+    bodyContent.allLists = lists;
+    this.setState({
+      bodyContent: bodyContent
+    });
   }
 
   handleLoginStateChange(isLogin) {
@@ -141,7 +198,9 @@ class App extends Component {
               bodyToolBar={this.state.bodyToolBar}
               onToolBarButtonClick={(e) => this.handleToolBarButtonClick(e)}
               onToolBarSearchInfoChange={(e) => this.handleToolBarSearchInfoChange(e)}/>
-            <BodyContent />
+            <BodyContent
+              bodyContent={this.state.bodyContent}
+              searchInfo={this.state.bodyToolBar.searchInfo}/>
           </div>
         ) : (
           <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>
