@@ -482,3 +482,8 @@ label.error {
 .body-content .list-group .list-group-item {
   border-radius: 0;
 }
+
+.body-toolbar .check-btn-group {
+  position: relative;
+  margin-left: 10px;
+}

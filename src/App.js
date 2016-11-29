@@ -26,6 +26,7 @@ class App extends Component {
       bodyContent: {
         allLists: [],
         activeLists: [],
+        listCheckedIds: [],
       }
     };
   }
@@ -173,6 +174,48 @@ class App extends Component {
     return index;
   }
 
+  handleListItemsAllCheck(event) {
+    const checked = event.target.checked;
+    let listCheckedIds = [];
+    if (checked === true) {
+      const lists = this.state.bodyContent.activeLists;
+      for (let item of lists) {
+        listCheckedIds.push(item.id);
+      }
+    }
+    const bodyContent = this.state.bodyContent;
+    bodyContent.listCheckedIds = listCheckedIds;
+    this.setState({
+      bodyContent: bodyContent
+    });
+
+    console.log(listCheckedIds);
+  }
+
+  handleListItemCheck(event) {
+    const value = event.target.value;
+    const checked = event.target.checked;
+    console.log(value);
+    console.log(checked);
+    let listCheckedIds = this.state.bodyContent.listCheckedIds;
+    const filterArray = listCheckedIds.filter((val) => val === value);
+
+    if (filterArray.length > 0 && checked === false) {
+      listCheckedIds = listCheckedIds.filter((val) => val !== value);
+    }
+
+    if (filterArray.length === 0 && checked === true) {
+      listCheckedIds.push(value);
+    }
+
+    const bodyContent = this.state.bodyContent;
+    bodyContent.listCheckedIds = listCheckedIds;
+    this.setState({
+      bodyContent: bodyContent
+    });
+    console.log(listCheckedIds);
+  }
+
   render() {
     return (
       <div className="App">
@@ -193,10 +236,14 @@ class App extends Component {
             <BodyToolBar
               bodyToolBar={this.state.bodyToolBar}
               onToolBarButtonClick={(e) => this.handleToolBarButtonClick(e)}
-              onToolBarSearchInfoChange={(e) => this.handleToolBarSearchInfoChange(e)}/>
+              onToolBarSearchInfoChange={(e) => this.handleToolBarSearchInfoChange(e)}
+              isItemsChecked={this.state.bodyContent.listCheckedIds.length > 0}/>
             <BodyContent
               bodyContent={this.state.bodyContent}
-              searchInfo={this.state.bodyToolBar.searchInfo}/>
+              searchInfo={this.state.bodyToolBar.searchInfo}
+              listCheckedIds={this.state.bodyContent.listCheckedIds}
+              onItemCheck={(e) => this.handleListItemCheck(e)}
+              onItemsAllCheck={(e) => this.handleListItemsAllCheck(e)}/>
           </div>
         ) : (
           <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>
