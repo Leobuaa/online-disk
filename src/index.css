@@ -453,6 +453,7 @@ label.error {
   position: relative;
   display: inline-block;
   text-align: left;
+  top: 2px;
 }
 
 
@@ -475,6 +476,7 @@ label.error {
 .body-content .list-group .list-group-item {
   border-left-width: 0;
   border-right-width: 0;
+  height: 46px;
 }
 
 .body-content .list-group .list-group-item {

@@ -37,47 +37,43 @@ class App extends Component {
 
     for (let i = 0; i < size; i++) {
       lists.push({
-        id: i,
+        id: i.toString(),
         title: '生活大爆炸',
         size: '223 MB',
         updatedAt: '2016-11-28 11:22:30',
-        checked: false,
       });
 
       lists.push({
-        id: i + size,
+        id: (i + size).toString(),
         title: '神探夏洛克',
         size: '588 MB',
         updatedAt: '2016-11-28 12:20:11',
-        checked: false,
       });
 
       lists.push({
-        id: i + size * 2,
+        id: (i + size * 2).toString(),
         title: 'Fantatic Beasts and Where to Find Them',
         size: '2048 MB',
         updatedAt: '2016-11-29 12:20:11',
-        checked: false,
       });
 
       lists.push({
-        id: i + size * 3,
+        id: (i + size * 3).toString(),
         title: 'About Time',
         size: '3048 MB',
         updatedAt: '2016-11-30 12:20:11',
-        checked: false,
       });
 
       lists.push({
-        id: i + size * 4,
+        id: (i + size * 4).toString(),
         title: 'Harry Potter',
         size: '1059 MB',
         updatedAt: '2016-11-30 12:20:11',
-        checked: false,
       });
     }
 
     bodyContent.allLists = lists;
+    bodyContent.activeLists = lists;
     this.setState({
       bodyContent: bodyContent
     });
