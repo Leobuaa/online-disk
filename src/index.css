@@ -496,7 +496,7 @@ label.error {
 }
 
 .user-info-card {
-  width: 550px;
+  width: 780px;
   margin: 0 auto;
   margin-top: 20px;
 }
@@ -510,14 +510,14 @@ label.error {
 
 .user-info-card .user-profile-progress .progress-name {
   display: inline-block;
-  width: 150px;
+  width: 250px;
   position: relative;
   vertical-align: middle;
 }
 
 .user-info-card .user-profile-progress .progress {
   display: inline-block;
-  width: 350px;
+  width: 450px;
   position: relative;
   vertical-align: middle;
   margin: 12px 0;
@@ -528,4 +528,64 @@ label.error {
   background-color: #48a5e6;
   background-image: none;
   border-radius: 10px;
+}
+
+.user-info-card .user-info-content {
+  position: relative;
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+}
+
+.user-info-card .user-info-content .user-avatar {
+  display: inline-block;;
+  position: relative;
+  width: 35%;
+  vertical-align: top;
+}
+
+.user-info-card .user-info-content .user-avatar .avatar-large {
+  width: 180px;
+  height: 180px;
+}
+
+.user-info-card .user-info-content .user-field-list {
+  display: inline-block;
+  position: relative;
+  width: 65%;
+  text-align: left;
+}
+
+.user-info-card .user-info-content .user-field-list .list-header {
+  margin-bottom: 60px;
+}
+
+.user-info-card .user-info-content .user-field-list .user-filed-list-item {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-label,
+.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content {
+  display: inline-block;
+}
+
+.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content {
+  margin-left: 100px;
+  font-size: 16px;
+}
+
+.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content button {
+  color: #3e7ac2;
+  background-color: #ffffff;
+  position: relative;
+  bottom: 2px;
+  display: none;
+}
+
+.user-info-card .user-info-content .user-field-list .user-filed-list-item:hover .field-content button {
+  display: inline;
 }

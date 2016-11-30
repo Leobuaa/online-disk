@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import UserInfoContent from './UserInfoContent.js';
 
 class UserInfoCard extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class UserInfoCard extends Component {
             </div>
           </div>
         </div>
+        <UserInfoContent />
       </div>
     );
   }
