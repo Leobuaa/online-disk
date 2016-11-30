@@ -43,7 +43,7 @@ class UserInfoContent extends Component {
     // Update userInfoUnSave to userInfo
     const userInfo = this.state.userInfo;
     const userInfoUnSave = this.state.userInfoUnSave;
-    this.copyTo(userInfoUnSave, userInfo);
+    userInfo[name] = userInfoUnSave[name];
     this.setState({
       fieldListEditState: fieldListEditState,
       userInfo: userInfo
@@ -59,17 +59,11 @@ class UserInfoContent extends Component {
     // Update userInfo to userInfoUnSave
     const userInfo = this.state.userInfo;
     const userInfoUnSave = this.state.userInfoUnSave;
-    this.copyTo(userInfo, userInfoUnSave);
+    userInfoUnSave[name] = userInfo[name];
     this.setState({
       fieldListEditState: fieldListEditState,
       userInfoUnSave: userInfoUnSave
     });
-  }
-
-  copyTo(a, b) {
-    for (let prop in b) {
-      b[prop] = a[prop];
-    }
   }
 
   handleRadioInputChange(event) {
