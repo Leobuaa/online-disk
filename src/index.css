@@ -576,16 +576,57 @@ label.error {
 .user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content {
   margin-left: 100px;
   font-size: 16px;
+  padding-top: 3px;
 }
 
-.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content button {
+.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-label {
+  vertical-align: top;
+}
+
+.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .btn-edit {
   color: #3e7ac2;
   background-color: #ffffff;
   position: relative;
-  bottom: 2px;
-  display: none;
+  visibility: hidden;
 }
 
-.user-info-card .user-info-content .user-field-list .user-filed-list-item:hover .field-content button {
-  display: inline;
+.user-info-card .user-info-content .user-field-list .user-filed-list-item:hover .field-content .btn-edit {
+  visibility: visible;
+}
+
+.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .field-input {
+  margin-top: 5px;
+}
+
+.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .field-input input:nth-child(3n) {
+  margin-left: 15px;
+}
+
+.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .edit-button-group {
+  margin-top: 30px;
+}
+
+.edit-button-group button:nth-child(2n) {
+  margin-left: 20px;
+}
+
+.edit-button-group .btn-save {
+  background-color: #0f88eb;
+  color: #fff;
+}
+
+.edit-button-group .btn-save:hover {
+  background-color: #0d79d1;
+  color: #fff;
+}
+
+.edit-button-group .btn-cancel {
+  background-color: #fff;
+  color: #9aaabf;
+  border:1px solid #ccd8e1;
+}
+
+.edit-button-group .btn-cancel:hover {
+  background-color: rgba(207,216,230,.1);
+  color: #9aaabf;
 }
