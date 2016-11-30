@@ -17,8 +17,12 @@ class Header extends Component {
           <dt className="header-logo">
             <a href="#" title="online-disk"></a>
           </dt>
-          <HeaderLinks headerLink={this.props.header} onHeaderLinkClick={this.props.onHeaderLinkClick}/>
-          <HeaderInfo onLoginStateChange={this.props.onLoginStateChange}/>
+          <HeaderLinks
+            headerLink={this.props.header}
+            onHeaderLinkClick={this.props.onHeaderLinkClick}/>
+          <HeaderInfo
+            onLoginStateChange={this.props.onLoginStateChange}
+            onUserMenuButtonClick={this.props.onUserMenuButtonClick}/>
         </dl>
       </div>
     )

@@ -21,8 +21,16 @@ class UserInfoDesc extends Component {
           </span>
         </div>
         <div className="menu-list list-group">
-          <button name="userInfo" type="button" className="list-group-item">个人资料</button>
-          <button name="help" type="button" className="list-group-item">帮助</button>
+          <button
+            name="userInfo"
+            type="button"
+            className="list-group-item"
+            onClick={this.props.onUserMenuButtonClick}>个人资料</button>
+          <button
+            name="help"
+            type="button"
+            className="list-group-item"
+            onClick={this.props.onUserMenuButtonClick}>帮助</button>
           <button name="logout"
             type="button"
             className="list-group-item"

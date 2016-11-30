@@ -28,6 +28,10 @@ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }
 
+.App {
+  margin: 0 auto;
+}
+
 .group-inputs {
   padding: 0;
   border: 1px solid #d5d5d5;
@@ -489,4 +493,39 @@ label.error {
 .body-toolbar .check-btn-group {
   position: relative;
   margin-left: 10px;
+}
+
+.user-info-card {
+  width: 550px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.user-info-card .user-profile-progress {
+  position: relative;
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+}
+
+.user-info-card .user-profile-progress .progress-name {
+  display: inline-block;
+  width: 150px;
+  position: relative;
+  vertical-align: middle;
+}
+
+.user-info-card .user-profile-progress .progress {
+  display: inline-block;
+  width: 350px;
+  position: relative;
+  vertical-align: middle;
+  margin: 12px 0;
+  border-radius: 10px;
+}
+
+.user-info-card .user-profile-progress .progress .progress-bar {
+  background-color: #48a5e6;
+  background-image: none;
+  border-radius: 10px;
 }

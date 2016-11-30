@@ -6,6 +6,7 @@ import Header from './components/Header.js';
 import MenuAside from './components/MenuAside.js';
 import BodyToolBar from './components/BodyToolBar.js';
 import BodyContent from './components/BodyContent.js';
+import UserInfoCard from './components/UserInfoCard.js';
 
 class App extends Component {
   constructor() {
@@ -80,7 +81,25 @@ class App extends Component {
     });
   }
 
+  initState() {
+    this.setState({
+      isLogin: true,
+      header: {
+        linkActiveIndex: 0,
+        userMenuActiveIndex: -1,
+      },
+      menuAside: {
+        buttonActiveIndex: 0,
+      },
+      bodyToolBar: {
+        buttonActiveIndex: -1,
+        searchInfo: '',
+      },
+    });
+  }
+
   handleLoginStateChange(isLogin) {
+    this.initState();
     console.log(isLogin);
     this.setState({
       isLogin: isLogin
@@ -96,6 +115,22 @@ class App extends Component {
       header.linkActiveIndex = 1;
     } else if (titleClick === 'more') {
       header.linkActiveIndex = 2;
+    }
+
+    header.userMenuActiveIndex = -1;
+
+    this.setState({
+      header: header
+    });
+  }
+
+  handleUserMenuButtonClick(event) {
+    const name = event.target.name;
+    const header = this.state.header;
+    if (name === 'userInfo') {
+      header.userMenuActiveIndex = 0;
+    } else if (name === 'help') {
+      header.userMenuActiveIndex = 1;
     }
 
     this.setState({
@@ -217,19 +252,37 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-        {!this.state.isLogin &&
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-          </div>
-        }
-        {this.state.isLogin ? (
+    let appHeader = null;
+    let appBody = null;
+
+    if (!this.state.isLogin) {
+      appHeader =
+        <div className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+        </div>;
+      appBody = <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>;
+    }
+
+    if (this.state.isLogin) {
+      const activeIndex = this.state.header.userMenuActiveIndex;
+      if (activeIndex === 0) {
+        appBody =
           <div>
             <Header
               header={this.state.header}
               onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}
-              onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>
+              onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}
+              onUserMenuButtonClick={(e) => this.handleUserMenuButtonClick(e)}/>
+            <UserInfoCard />
+          </div>
+      } else if (activeIndex === -1) {
+        appBody =
+          <div>
+            <Header
+              header={this.state.header}
+              onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}
+              onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}
+              onUserMenuButtonClick={(e) => this.handleUserMenuButtonClick(e)}/>
             <MenuAside
               menuAside={this.state.menuAside}
               onMenuAsideButtonClick={(e) => this.handleMenuAsideButtonClick(e)}/>
@@ -244,10 +297,14 @@ class App extends Component {
               listCheckedIds={this.state.bodyContent.listCheckedIds}
               onItemCheck={(e) => this.handleListItemCheck(e)}
               onItemsAllCheck={(e) => this.handleListItemsAllCheck(e)}/>
-          </div>
-        ) : (
-          <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>
-        )}
+          </div>;
+      }
+    }
+
+    return (
+      <div className="App">
+        {appHeader}
+        {appBody}
       </div>
     );
   }

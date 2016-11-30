@@ -36,7 +36,9 @@ class HeaderInfo extends Component {
           </span>
         </span>
         {this.state.showInfoDesc &&
-          <UserInfoDesc onLoginStateChange={this.props.onLoginStateChange}/>
+          <UserInfoDesc
+            onLoginStateChange={this.props.onLoginStateChange}
+            onUserMenuButtonClick={this.props.onUserMenuButtonClick}/>
         }
       </dd>
     );
