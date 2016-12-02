@@ -8,17 +8,20 @@ class UserInfoContent extends Component {
         username: 'Leo Peng',
         gender: '男',
         email: '616690602@qq.com',
+        phone: '18888888888',
         userDesc: '程序员',
       },
       userInfoUnSave: {
         username: 'Leo Peng',
         gender: '男',
         email: '616690602@qq.com',
+        phone: '18888888888',
         userDesc: '程序员',
       },
       fieldListEditState: {
         gender: false,
         email: false,
+        phone: false,
         userDesc: false,
       }
     }
@@ -76,7 +79,16 @@ class UserInfoContent extends Component {
     });
   }
 
-  render() {
+  getUserFieldLists() {
+    const userInfo = this.state.userInfo;
+    let userFieldLists = [];
+    userFieldLists.push(this.getGenderFieldItem());
+    userFieldLists.push(this.getOtherFieldItems());
+
+    return userFieldLists;
+  }
+
+  getGenderFieldContent() {
     let genderFieldContent;
     if (this.state.fieldListEditState.gender) {
       genderFieldContent =
@@ -88,22 +100,7 @@ class UserInfoContent extends Component {
             <input name="gender" type="radio" value="女"
               checked={this.state.userInfoUnSave.gender === '女'}
               onChange={(e) => this.handleRadioInputChange(e)}/> <span>女</span>
-          </div>
-          <div className="edit-button-group">
-            <button
-              name="gender"
-              type="button"
-              className="btn btn-save"
-              onClick={(e) => this.handleSaveButtonClick(e)}>
-              保存
-            </button>
-            <button
-              name="gender"
-              type="button"
-              className="btn btn-cancel"
-              onClick={(e) => this.handleCancelButtonClick(e)}>
-              取消
-            </button>
+            {this.getEditButtonGroup('gender')}
           </div>
         </div>
     } else {
@@ -112,15 +109,103 @@ class UserInfoContent extends Component {
           <span className="filed-text">
             {this.state.userInfo.gender}
           </span>
-          <button
-            name="gender"
-            className="btn btn-edit"
-            onClick={(e) => this.handleEditButtonClick(e)}>
-            <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span> 修改
-          </button>
+          {this.getEditButton('gender')}
         </div>;
     }
 
+    return genderFieldContent;
+  }
+
+  getGenderFieldItem() {
+    return (
+      <div className="user-filed-list-item">
+          <form>
+            <div className="field-label">
+              <h4>性别</h4>
+            </div>
+            {this.getGenderFieldContent()}
+          </form>
+      </div>
+    );
+  }
+
+  getOtherFieldContent(name) {
+    let fieldContent;
+    if (this.state.fieldListEditState[name]) {
+      fieldContent =
+        <div className="field-content">
+          <div className="field-input">
+
+            {this.getEditButtonGroup(name)}
+          </div>
+        </div>
+    } else {
+      fieldContent =
+        <div className="field-content">
+          <span className="filed-text">
+            {this.state.userInfo[name]}
+          </span>
+          {this.getEditButton(name)}
+        </div>;
+    }
+    return fieldContent;
+  }
+
+  getOtherFieldItems() {
+    const userInfo = this.state.userInfo;
+    let otherFieldItems = [];
+    for (let prop in userInfo) {
+      if (prop === 'username' || prop === 'gender') {
+        continue;
+      }
+      const fieldItem =
+        <div className="user-filed-list-item">
+          <form>
+            <div className="field-label">
+              <h4>{prop}</h4>
+            </div>
+            {this.getOtherFieldContent(prop)}
+          </form>
+        </div>;
+      otherFieldItems.push(fieldItem);
+    }
+
+    return otherFieldItems;
+  }
+
+  getEditButtonGroup(name) {
+    return (
+      <div className="edit-button-group">
+        <button
+          name={name}
+          type="button"
+          className="btn btn-save"
+          onClick={(e) => this.handleSaveButtonClick(e)}>
+          保存
+        </button>
+        <button
+          name={name}
+          type="button"
+          className="btn btn-cancel"
+          onClick={(e) => this.handleCancelButtonClick(e)}>
+          取消
+        </button>
+      </div>
+    );
+  }
+
+  getEditButton(name) {
+    return (
+      <button
+        name={name}
+        className="btn btn-edit"
+        onClick={(e) => this.handleEditButtonClick(e)}>
+        <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span> 修改
+      </button>
+    );
+  }
+
+  render() {
     return (
       <div className="user-info-content">
         <div className="user-avatar">
@@ -137,17 +222,8 @@ class UserInfoContent extends Component {
             <h3>
               {this.state.userInfo.username}
             </h3>
-
           </div>
-
-          <div className="user-filed-list-item">
-              <form>
-                <div className="field-label">
-                  <h4>性别</h4>
-                </div>
-                {genderFieldContent}
-              </form>
-          </div>
+          {this.getUserFieldLists()}
         </div>
       </div>
     );

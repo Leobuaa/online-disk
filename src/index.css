@@ -543,8 +543,10 @@ label.error {
 .user-info-card .user-info-content .user-avatar {
   display: inline-block;;
   position: relative;
-  width: 35%;
+  width: 32%;
   vertical-align: top;
+  top: 30px;
+  margin-right: 30px;
 }
 
 .user-info-card .user-info-content .user-avatar .avatar-large {
@@ -555,7 +557,7 @@ label.error {
 .user-info-card .user-info-content .user-field-list {
   display: inline-block;
   position: relative;
-  width: 65%;
+  width: 63%;
   text-align: left;
 }
 
@@ -564,8 +566,13 @@ label.error {
 }
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item {
+  margin-top: 40px;
   padding-bottom: 20px;
   border-bottom: 1px solid #dddddd;
+}
+
+.user-info-card .user-info-content .user-field-list div:last-child {
+  border-bottom: none;
 }
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item .field-label,
@@ -581,6 +588,7 @@ label.error {
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item .field-label {
   vertical-align: top;
+  width: 80px;
 }
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .btn-edit {
