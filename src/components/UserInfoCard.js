@@ -4,6 +4,9 @@ import UserInfoContent from './UserInfoContent.js';
 class UserInfoCard extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      compeletedVal: '80',
+    }
   }
 
   render() {
@@ -17,11 +20,11 @@ class UserInfoCard extends Component {
             <div
               className="progress-bar"
               role="progressbar"
-              aria-valuenow="60"
+              aria-valuenow={this.state.compeletedVal}
               aria-valuemin="0"
               aria-valuemax="100"
-              style={{width: '60%'}}>
-              60%
+              style={{width: this.state.compeletedVal + '%'}}>
+              {this.state.compeletedVal + '%'}
             </div>
           </div>
         </div>

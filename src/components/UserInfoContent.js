@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Helper from '../helper.js';
 
 class UserInfoContent extends Component {
   constructor(props) {
@@ -69,7 +70,7 @@ class UserInfoContent extends Component {
     });
   }
 
-  handleRadioInputChange(event) {
+  handleInputChange(event) {
     const name = event.target.name;
     const value = event.target.value;
     const userInfoUnSave = this.state.userInfoUnSave;
@@ -96,10 +97,10 @@ class UserInfoContent extends Component {
           <div className="field-input">
             <input name="gender" type="radio" value="男"
               checked={this.state.userInfoUnSave.gender === '男'}
-              onChange={(e) => this.handleRadioInputChange(e)}/> <span>男</span>
+              onChange={(e) => this.handleInputChange(e)}/> <span>男</span>
             <input name="gender" type="radio" value="女"
               checked={this.state.userInfoUnSave.gender === '女'}
-              onChange={(e) => this.handleRadioInputChange(e)}/> <span>女</span>
+              onChange={(e) => this.handleInputChange(e)}/> <span>女</span>
             {this.getEditButtonGroup('gender')}
           </div>
         </div>
@@ -121,7 +122,7 @@ class UserInfoContent extends Component {
       <div className="user-filed-list-item">
           <form>
             <div className="field-label">
-              <h4>性别</h4>
+              <p>性别</p>
             </div>
             {this.getGenderFieldContent()}
           </form>
@@ -135,7 +136,13 @@ class UserInfoContent extends Component {
       fieldContent =
         <div className="field-content">
           <div className="field-input">
-
+            <input
+              name={name}
+              type="text"
+              className="input-text"
+              placeholder={"请输入" + Helper.getCNFromEN(name)}
+              value={this.state.userInfoUnSave[name]}
+              onChange={(e) => this.handleInputChange(e)}/>
             {this.getEditButtonGroup(name)}
           </div>
         </div>
@@ -162,7 +169,7 @@ class UserInfoContent extends Component {
         <div className="user-filed-list-item">
           <form>
             <div className="field-label">
-              <h4>{prop}</h4>
+              <p>{Helper.getCNFromEN(prop)}</p>
             </div>
             {this.getOtherFieldContent(prop)}
           </form>

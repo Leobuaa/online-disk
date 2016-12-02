@@ -504,7 +504,7 @@ label.error {
 .user-info-card .user-profile-progress {
   position: relative;
   width: 100%;
-  border: 1px solid #dddddd;
+  border: 1px solid #efeaf1;
   border-radius: 3px;
 }
 
@@ -533,7 +533,7 @@ label.error {
 .user-info-card .user-info-content {
   position: relative;
   width: 100%;
-  border: 1px solid #dddddd;
+  border: 1px solid #efeaf1;
   border-radius: 3px;
   margin-top: 20px;
   padding: 10px;
@@ -566,9 +566,9 @@ label.error {
 }
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item {
-  margin-top: 40px;
+  margin-top: 35px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #efeaf1;
 }
 
 .user-info-card .user-info-content .user-field-list div:last-child {
@@ -582,13 +582,18 @@ label.error {
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content {
   margin-left: 100px;
-  font-size: 16px;
+  font-size: 14px;
   padding-top: 3px;
 }
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item .field-label {
   vertical-align: top;
-  width: 80px;
+  width: 60px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+  position: relative;
+  top: 8px;
 }
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .btn-edit {
@@ -604,6 +609,17 @@ label.error {
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .field-input {
   margin-top: 5px;
+}
+
+.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .field-input .input-text {
+  border: 1px solid #e7eaf1;
+  border-radius: 3px;
+  width: 300px;
+  padding: 5px 0 5px 10px;
+}
+
+.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .field-input .input-text:focus {
+  border: 1px solid #9fadc7;
 }
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .field-input input:nth-child(3n) {
