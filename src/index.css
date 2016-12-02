@@ -513,6 +513,9 @@ label.error {
   width: 250px;
   position: relative;
   vertical-align: middle;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
 }
 
 .user-info-card .user-profile-progress .progress {
@@ -552,6 +555,7 @@ label.error {
 .user-info-card .user-info-content .user-avatar .avatar-large {
   width: 180px;
   height: 180px;
+  border-radius: 15px;
 }
 
 .user-info-card .user-info-content .user-field-list {
@@ -615,15 +619,13 @@ label.error {
   border: 1px solid #e7eaf1;
   border-radius: 3px;
   width: 300px;
-  padding: 5px 0 5px 10px;
+  padding: 7px 0 7px 10px;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .field-input .input-text:focus {
   border: 1px solid #9fadc7;
-}
-
-.user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .field-input input:nth-child(3n) {
-  margin-left: 15px;
 }
 
 .user-info-card .user-info-content .user-field-list .user-filed-list-item .field-content .edit-button-group {
@@ -634,7 +636,7 @@ label.error {
   margin-left: 20px;
 }
 
-.edit-button-group .btn-save {
+.edit-button-group .btn-save, .edit-button-group .btn-save:focus {
   background-color: #0f88eb;
   color: #fff;
 }
