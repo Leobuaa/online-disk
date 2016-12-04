@@ -47,15 +47,56 @@ class BodyContent extends Component {
   }
 
   handleWholeItemClick(event) {
-    event.stopPropagation();
     const id = event.target.dataset.id;
     const inputItem = document.getElementById('input_' + id);
     console.log(event.target);
     console.log('click' + id);
     if (inputItem) {
-      console.log('input click ' + id);
-      inputItem.click();
+      this.props.onUpdateListCheckedIds(id);
     }
+  }
+
+  handleBodyTitleLinkClick(event) {
+    const dir = event.target.dataset.dir;
+    this.props.onCurrentDirChange(dir);
+  }
+
+  getBodyTitle() {
+    let currentDir = this.props.bodyContent.currentDir;
+
+    if (currentDir === '/') {
+      currentDir = '/全部文件';
+    }
+
+    let dirs = currentDir.split('/').filter((val) => val !== '');
+    console.log(dirs);
+
+    let dirsList = [];
+    let dir = '';
+    for (let i = 0; i < dirs.length - 1; i++) {
+        dir += ('/' + dirs[i]);
+        dirsList.push(
+          <li>
+            <a
+              href="#"
+              data-dir={dir}
+              onClick={(e) => this.handleBodyTitleLinkClick(e)}>{dirs[i]}</a>
+          </li>
+        );
+    }
+
+    dirsList.push(
+      <li className="active">
+        {dirs[dirs.length - 1]}
+      </li>
+    );
+
+    let bodyTitle =
+      <ol className="breadcrumb">
+        {dirsList}
+      </ol>
+
+    return bodyTitle;
   }
 
   render() {
@@ -85,7 +126,7 @@ class BodyContent extends Component {
     return (
       <div className="body-content">
         <div className="body-title">
-          <p>全部文件</p>
+          {this.getBodyTitle()}
           <ul className="list-group">
             <li className="list-group-item" key='listTitle'>
               <div className="check">

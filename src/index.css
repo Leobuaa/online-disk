@@ -435,11 +435,15 @@ label.error {
   padding-top: 10px;
 }
 
-.body-content .body-title p {
+.body-content .body-title {
   position: relative;
   text-align: left;
-  margin-left: 10px;
   color: #666666;
+}
+
+.body-content .body-title .breadcrumb {
+  margin-bottom: 10px;
+  background-color: #fff;
 }
 
 .body-content .file-list {

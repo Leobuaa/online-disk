@@ -28,6 +28,7 @@ class App extends Component {
         allLists: [],
         activeLists: [],
         listCheckedIds: [],
+        currentDir: '/全部文件/生活大爆炸/第一季S01',
       }
     };
   }
@@ -251,6 +252,30 @@ class App extends Component {
     console.log(listCheckedIds);
   }
 
+  updateListCheckedIds(id) {
+    let listCheckedIds = this.state.bodyContent.listCheckedIds;
+    const filterArray = listCheckedIds.filter((val) => val === id);
+    if (filterArray.length > 0) {
+      listCheckedIds = listCheckedIds.filter((val) => val !== id);
+    } else {
+      listCheckedIds.push(id);
+    }
+
+    const bodyContent = this.state.bodyContent;
+    bodyContent.listCheckedIds = listCheckedIds;
+    this.setState({
+      bodyContent: bodyContent
+    });
+  }
+
+  handleCurrentDirChange(currentDir) {
+    const bodyContent = this.state.bodyContent;
+    bodyContent.currentDir = currentDir;
+    this.setState({
+      bodyContent: bodyContent
+    });
+  }
+
   render() {
     let appHeader = null;
     let appBody = null;
@@ -295,6 +320,8 @@ class App extends Component {
               bodyContent={this.state.bodyContent}
               searchInfo={this.state.bodyToolBar.searchInfo}
               listCheckedIds={this.state.bodyContent.listCheckedIds}
+              onUpdateListCheckedIds={(id) => this.updateListCheckedIds(id)}
+              onCurrentDirChange={(currentDir) => this.handleCurrentDirChange(currentDir)}
               onItemCheck={(e) => this.handleListItemCheck(e)}
               onItemsAllCheck={(e) => this.handleListItemsAllCheck(e)}/>
           </div>;
