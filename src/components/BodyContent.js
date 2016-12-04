@@ -46,6 +46,18 @@ class BodyContent extends Component {
     return isChecked;
   }
 
+  handleWholeItemClick(event) {
+    event.stopPropagation();
+    const id = event.target.dataset.id;
+    const inputItem = document.getElementById('input_' + id);
+    console.log(event.target);
+    console.log('click' + id);
+    if (inputItem) {
+      console.log('input click ' + id);
+      inputItem.click();
+    }
+  }
+
   render() {
     let lists = this.props.bodyContent.activeLists;
     lists = this.filterLists(lists);
@@ -53,17 +65,20 @@ class BodyContent extends Component {
     const fileLists = lists.map((obj) =>
       <li
         className={ "list-group-item " + (((id) => this.itemIsChecked(id))(obj.id) ? 'item-checked' : '') }
-        key={obj.id}>
+        key={obj.id}
+        data-id={obj.id}
+        onClick={(e) => this.handleWholeItemClick(e)}>
         <div className="check">
           <input
+            id={'input_' + obj.id}
             value={obj.id}
             type="checkbox"
             checked={((id) => this.itemIsChecked(id))(obj.id)}
             onChange={this.props.onItemCheck}/>
         </div>
-        <div className="title">{obj.title}</div>
-        <div className="size">{obj.size}</div>
-        <div className="updatedAt">{obj.updatedAt}</div>
+        <div className="title" data-id={obj.id}>{obj.title}</div>
+        <div className="size" data-id={obj.id}>{obj.size}</div>
+        <div className="updatedAt" data-id={obj.id}>{obj.updatedAt}</div>
       </li>
     );
 
