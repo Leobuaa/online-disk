@@ -442,7 +442,7 @@ label.error {
 }
 
 .body-content .body-title .breadcrumb {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   background-color: #fff;
 }
 
@@ -462,6 +462,9 @@ label.error {
   display: inline-block;
   text-align: left;
   top: 2px;
+  height: 100%;
+  line-height: 40px;
+  padding-left: 10px;
 }
 
 
@@ -486,6 +489,7 @@ label.error {
   border-right-width: 0;
   height: 46px;
   border-radius: 0;
+  padding: 0;
 }
 
 .body-content .list-group .list-group-item:hover,
@@ -493,6 +497,19 @@ label.error {
   background-color: #f6faff;
 }
 
+.body-content .list-group .list-group-title {
+  border-top: none;
+}
+
+.body-content .list-group .list-group-title:hover {
+  background-color: #fff;
+}
+
+.body-content .list-group .list-group-title .title:hover,
+.body-content .list-group .list-group-title .size:hover,
+.body-content .list-group .list-group-title .updatedAt:hover {
+  background-color: #f6faff;
+}
 
 .body-toolbar .check-btn-group {
   position: relative;

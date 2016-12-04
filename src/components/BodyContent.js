@@ -76,7 +76,7 @@ class BodyContent extends Component {
     for (let i = 0; i < dirs.length - 1; i++) {
         dir += ('/' + dirs[i]);
         dirsList.push(
-          <li>
+          <li key={dir}>
             <a
               href="#"
               data-dir={dir}
@@ -86,7 +86,7 @@ class BodyContent extends Component {
     }
 
     dirsList.push(
-      <li className="active">
+      <li className="active" key={dir + '/' + dirs[dirs.length - 1]}>
         {dirs[dirs.length - 1]}
       </li>
     );
@@ -97,6 +97,21 @@ class BodyContent extends Component {
       </ol>
 
     return bodyTitle;
+  }
+
+  handleListItemTitleClick(event) {
+    const name = event.target.className;
+    const comp = (a, b) => {
+      if (a[name] < b[name]) {
+        return 1;
+      }
+      if (a[name] > b[name]) {
+        return -1;
+      }
+
+      return 0;
+    }
+    this.props.onSortActiveLists(comp);
   }
 
   render() {
@@ -128,16 +143,16 @@ class BodyContent extends Component {
         <div className="body-title">
           {this.getBodyTitle()}
           <ul className="list-group">
-            <li className="list-group-item" key='listTitle'>
+            <li className="list-group-item list-group-title" key='listTitle'>
               <div className="check">
                 <input
                   name="allCheck"
                   type="checkbox"
                   onClick={this.props.onItemsAllCheck}/>
               </div>
-              <div className="title">文件名</div>
-              <div className="size">文件大小</div>
-              <div className="updatedAt">修改时间</div>
+              <div className="title" onClick={(e) => this.handleListItemTitleClick(e)}>文件名</div>
+              <div className="size"  onClick={(e) => this.handleListItemTitleClick(e)}>文件大小</div>
+              <div className="updatedAt" onClick={(e) => this.handleListItemTitleClick(e)}>修改时间</div>
             </li>
           </ul>
         </div>
