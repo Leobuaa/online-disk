@@ -101,17 +101,20 @@ class BodyContent extends Component {
 
   handleListItemTitleClick(event) {
     const name = event.target.className;
+    const sortStatus = this.props.bodyContent.sortStatus;
+    const flag = sortStatus[name] === 0 ? 1 : -1;
+
     const comp = (a, b) => {
       if (a[name] < b[name]) {
-        return 1;
+        return flag;
       }
       if (a[name] > b[name]) {
-        return -1;
+        return -flag;
       }
 
       return 0;
     }
-    this.props.onSortActiveLists(comp);
+    this.props.onSortActiveLists(comp, name);
   }
 
   render() {
@@ -138,6 +141,15 @@ class BodyContent extends Component {
       </li>
     );
 
+    const sortStatus = this.props.bodyContent.sortStatus;
+    const arrowStyle = {
+      color: '#0d79d1',
+      fontSize: '12px',
+      position: 'relative',
+      top: '1px',
+      left: '2px'
+    };
+
     return (
       <div className="body-content">
         <div className="body-title">
@@ -150,9 +162,27 @@ class BodyContent extends Component {
                   type="checkbox"
                   onClick={this.props.onItemsAllCheck}/>
               </div>
-              <div className="title" onClick={(e) => this.handleListItemTitleClick(e)}>文件名</div>
-              <div className="size"  onClick={(e) => this.handleListItemTitleClick(e)}>文件大小</div>
-              <div className="updatedAt" onClick={(e) => this.handleListItemTitleClick(e)}>修改时间</div>
+              <div className="title" onClick={(e) => this.handleListItemTitleClick(e)}>
+                文件名
+                { (sortStatus.title !== -1) &&
+                  <span
+                    className={"glyphicon glyphicon-arrow-" + (sortStatus.title === 0 ? "up" : "down") }
+                    aria-hidden="true"
+                    style={arrowStyle}></span> }</div>
+              <div className="size"  onClick={(e) => this.handleListItemTitleClick(e)}>
+                文件大小
+                { (sortStatus.size !== -1) &&
+                  <span
+                    className={"glyphicon glyphicon-arrow-" + (sortStatus.size === 0 ? "up" : "down") }
+                    aria-hidden="true"
+                    style={arrowStyle}></span> }</div>
+              <div className="updatedAt" onClick={(e) => this.handleListItemTitleClick(e)}>
+                修改时间
+                { (sortStatus.updatedAt !== -1) &&
+                  <span
+                    className={"glyphicon glyphicon-arrow-" + (sortStatus.updatedAt === 0 ? "up" : "down") }
+                    aria-hidden="true"
+                    style={arrowStyle}></span> }</div>
             </li>
           </ul>
         </div>

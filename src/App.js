@@ -30,7 +30,7 @@ class App extends Component {
         listCheckedIds: [],
         currentDir: '/全部文件/生活大爆炸/第一季S01',
         sortStatus: {
-          'title': -1,
+          'title': -1, // -1 unsorted, 0 ascend, 1 descend
           'size': -1,
           'updatedAt': -1,
         },
@@ -281,11 +281,12 @@ class App extends Component {
     });
   }
 
-  sortActiveLists(comp) {
+  sortActiveLists(comp, name) {
     const activeLists = this.state.bodyContent.activeLists;
     activeLists.sort(comp);
     const bodyContent = this.state.bodyContent;
     bodyContent.activeLists = activeLists;
+    bodyContent.sortStatus[name] = bodyContent.sortStatus[name] === 0 ? 1 : 0;
     this.setState({
       bodyContent: bodyContent
     });
@@ -339,7 +340,7 @@ class App extends Component {
               onCurrentDirChange={(currentDir) => this.handleCurrentDirChange(currentDir)}
               onItemCheck={(e) => this.handleListItemCheck(e)}
               onItemsAllCheck={(e) => this.handleListItemsAllCheck(e)}
-              onSortActiveLists={(comp) => this.sortActiveLists(comp)}/>
+              onSortActiveLists={(comp, name) => this.sortActiveLists(comp, name)}/>
           </div>;
       }
     }
