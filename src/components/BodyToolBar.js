@@ -16,7 +16,18 @@ class BodyToolBar extends Component {
     }
   }
 
+  handleRemoveIconClick(event) {
+    this.props.onClearSearchInfo();
+  }
+
   render() {
+    const removeIconStyle = {
+      position: 'absolute',
+      left: '172px',
+      top: '10.5px',
+      cursor: 'pointer',
+    }
+
     return (
       <div className="body-toolbar">
         <div className="button-group">
@@ -36,6 +47,13 @@ class BodyToolBar extends Component {
             onFocus={(e) => this.handleInputFocus(e)}
             onBlur={(e) => this.handleInputBlur(e)}
             onChange={this.props.onToolBarSearchInfoChange}></input>
+          {this.props.bodyToolBar.searchInfo !== '' &&
+           <span
+             className="glyphicon glyphicon-remove"
+             aria-hidden="true"
+             style={removeIconStyle}
+             onClick={(e) => this.handleRemoveIconClick(e)}>
+             </span>}
           <button name="searchButton" type="button" className="btn btn-success-outline" onClick={this.props.onToolBarButtonClick}>
             <span className="glyphicon glyphicon-search" aria-hidden="true"></span> 搜索</button>
         </div>

@@ -300,6 +300,14 @@ class App extends Component {
     });
   }
 
+  clearSearchInfo() {
+    const bodyToolBar = this.state.bodyToolBar;
+    bodyToolBar.searchInfo = '';
+    this.setState({
+      bodyToolBar: bodyToolBar
+    });
+  }
+
   render() {
     let appHeader = null;
     let appBody = null;
@@ -339,6 +347,7 @@ class App extends Component {
               bodyToolBar={this.state.bodyToolBar}
               onToolBarButtonClick={(e) => this.handleToolBarButtonClick(e)}
               onToolBarSearchInfoChange={(e) => this.handleToolBarSearchInfoChange(e)}
+              onClearSearchInfo={() => this.clearSearchInfo()}
               isItemsChecked={this.state.bodyContent.listCheckedIds.length > 0}/>
             <BodyContent
               bodyContent={this.state.bodyContent}
