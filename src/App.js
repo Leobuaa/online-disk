@@ -78,6 +78,14 @@ class App extends Component {
         size: '1059 MB',
         updatedAt: '2016-11-30 12:20:11',
       });
+
+      lists.push({
+        id: (i + size * 5).toString(),
+        title: '生活大爆炸S01',
+        size: '-',
+        updatedAt: '2016-12-04 11:11:11',
+        type: 'directory',
+      });
     }
 
     bodyContent.allLists = lists;

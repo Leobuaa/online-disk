@@ -117,11 +117,41 @@ class BodyContent extends Component {
     this.props.onSortActiveLists(comp, name);
   }
 
-  render() {
+  getIconOfListItem(type) {
+    const icons = {
+      'directory': 'glyphicon glyphicon-folder-open',
+      'film': 'glyphicon glyphicon-film',
+      'file': 'glyphicon glyphicon-file',
+    }
+
+    return icons[type] || icons.file;
+  }
+
+  getIconStyleOfListItem(type) {
+    let iconStyle = {
+      color: '#8183f1',
+      fontSize: '20px',
+      position: 'relative',
+      top: '2px',
+      marginRight: '12px'
+    };
+
+    if (type == 'directory') {
+      iconStyle.color = '#7bd6fb';
+    }
+
+    return iconStyle;
+  }
+
+  getTitleOfListItem(obj) {
+    
+  }
+
+  getFileLists() {
     let lists = this.props.bodyContent.activeLists;
     lists = this.filterLists(lists);
 
-    const fileLists = lists.map((obj) =>
+    return lists.map((obj) =>
       <li
         className={ "list-group-item " + (((id) => this.itemIsChecked(id))(obj.id) ? 'item-checked' : '') }
         key={obj.id}
@@ -135,12 +165,19 @@ class BodyContent extends Component {
             checked={((id) => this.itemIsChecked(id))(obj.id)}
             onChange={this.props.onItemCheck}/>
         </div>
-        <div className="title" data-id={obj.id}>{obj.title}</div>
+        <div className="title" data-id={obj.id}>
+           <span
+             className={this.getIconOfListItem(obj.type)}
+             aria-hidden="true"
+             style={this.getIconStyleOfListItem(obj.type)}>
+           </span>{obj.title}</div>
         <div className="size" data-id={obj.id}>{obj.size}</div>
         <div className="updatedAt" data-id={obj.id}>{obj.updatedAt}</div>
       </li>
     );
+  }
 
+  getListGroupTitle() {
     const sortStatus = this.props.bodyContent.sortStatus;
     const arrowStyle = {
       color: '#0d79d1',
@@ -151,44 +188,50 @@ class BodyContent extends Component {
     };
 
     return (
+      <ul className="list-group">
+        <li className="list-group-item list-group-title" key='listTitle'>
+          <div className="check">
+            <input
+              name="allCheck"
+              type="checkbox"
+              onClick={this.props.onItemsAllCheck}/>
+          </div>
+          <div className="title" onClick={(e) => this.handleListItemTitleClick(e)}>
+            文件名
+            { (sortStatus.title !== -1) &&
+              <span
+                className={"glyphicon glyphicon-arrow-" + (sortStatus.title === 0 ? "up" : "down") }
+                aria-hidden="true"
+                style={arrowStyle}></span> }</div>
+          <div className="size"  onClick={(e) => this.handleListItemTitleClick(e)}>
+            文件大小
+            { (sortStatus.size !== -1) &&
+              <span
+                className={"glyphicon glyphicon-arrow-" + (sortStatus.size === 0 ? "up" : "down") }
+                aria-hidden="true"
+                style={arrowStyle}></span> }</div>
+          <div className="updatedAt" onClick={(e) => this.handleListItemTitleClick(e)}>
+            修改时间
+            { (sortStatus.updatedAt !== -1) &&
+              <span
+                className={"glyphicon glyphicon-arrow-" + (sortStatus.updatedAt === 0 ? "up" : "down") }
+                aria-hidden="true"
+                style={arrowStyle}></span> }</div>
+        </li>
+      </ul>
+    );
+  }
+
+  render() {
+    return (
       <div className="body-content">
         <div className="body-title">
           {this.getBodyTitle()}
-          <ul className="list-group">
-            <li className="list-group-item list-group-title" key='listTitle'>
-              <div className="check">
-                <input
-                  name="allCheck"
-                  type="checkbox"
-                  onClick={this.props.onItemsAllCheck}/>
-              </div>
-              <div className="title" onClick={(e) => this.handleListItemTitleClick(e)}>
-                文件名
-                { (sortStatus.title !== -1) &&
-                  <span
-                    className={"glyphicon glyphicon-arrow-" + (sortStatus.title === 0 ? "up" : "down") }
-                    aria-hidden="true"
-                    style={arrowStyle}></span> }</div>
-              <div className="size"  onClick={(e) => this.handleListItemTitleClick(e)}>
-                文件大小
-                { (sortStatus.size !== -1) &&
-                  <span
-                    className={"glyphicon glyphicon-arrow-" + (sortStatus.size === 0 ? "up" : "down") }
-                    aria-hidden="true"
-                    style={arrowStyle}></span> }</div>
-              <div className="updatedAt" onClick={(e) => this.handleListItemTitleClick(e)}>
-                修改时间
-                { (sortStatus.updatedAt !== -1) &&
-                  <span
-                    className={"glyphicon glyphicon-arrow-" + (sortStatus.updatedAt === 0 ? "up" : "down") }
-                    aria-hidden="true"
-                    style={arrowStyle}></span> }</div>
-            </li>
-          </ul>
+          {this.getListGroupTitle()}
         </div>
         <div className="file-list">
           <ul className="list-group">
-            {fileLists}
+            {this.getFileLists()}
           </ul>
         </div>
       </div>
