@@ -49,6 +49,7 @@ class App extends Component {
         title: '生活大爆炸',
         size: '223 MB',
         updatedAt: '2016-11-28 11:22:30',
+        isEdit: false,
       });
 
       lists.push({
@@ -56,6 +57,7 @@ class App extends Component {
         title: '神探夏洛克',
         size: '588 MB',
         updatedAt: '2016-11-28 12:20:11',
+        isEdit: false,
       });
 
       lists.push({
@@ -63,6 +65,7 @@ class App extends Component {
         title: 'Fantatic Beasts and Where to Find Them',
         size: '2048 MB',
         updatedAt: '2016-11-29 12:20:11',
+        isEdit: false,
       });
 
       lists.push({
@@ -70,6 +73,7 @@ class App extends Component {
         title: 'About Time',
         size: '3048 MB',
         updatedAt: '2016-11-30 12:20:11',
+        isEdit: false,
       });
 
       lists.push({
@@ -77,6 +81,7 @@ class App extends Component {
         title: 'Harry Potter',
         size: '1059 MB',
         updatedAt: '2016-11-30 12:20:11',
+        isEdit: false,
       });
 
       lists.push({
@@ -85,6 +90,7 @@ class App extends Component {
         size: '-',
         updatedAt: '2016-12-04 11:11:11',
         type: 'directory',
+        isEdit: true,
       });
     }
 
@@ -308,6 +314,23 @@ class App extends Component {
     });
   }
 
+  updateListItemContent(listItemContent) {
+    const activeLists = this.state.bodyContent.activeLists;
+    activeLists.forEach((obj) => {
+      if (obj.id === listItemContent.id) {
+        for (let props in obj) {
+          obj[props] = listItemContent[props];
+        }
+      }
+    });
+
+    const bodyContent = this.state.bodyContent;
+    bodyContent.activeLists = activeLists;
+    this.setState({
+      bodyContent: bodyContent,
+    });
+  }
+
   render() {
     let appHeader = null;
     let appBody = null;
@@ -357,7 +380,8 @@ class App extends Component {
               onCurrentDirChange={(currentDir) => this.handleCurrentDirChange(currentDir)}
               onItemCheck={(e) => this.handleListItemCheck(e)}
               onItemsAllCheck={(e) => this.handleListItemsAllCheck(e)}
-              onSortActiveLists={(comp, name) => this.sortActiveLists(comp, name)}/>
+              onSortActiveLists={(comp, name) => this.sortActiveLists(comp, name)}
+              onUpdateListItemContent={(listItemContent) => this.updateListItemContent(listItemContent)}/>
           </div>;
       }
     }

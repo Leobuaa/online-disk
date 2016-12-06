@@ -48,9 +48,9 @@ class BodyContent extends Component {
 
   handleWholeItemClick(event) {
     const id = event.target.dataset.id;
-    const inputItem = document.getElementById('input_' + id);
-    console.log(event.target);
-    console.log('click' + id);
+    const inputItem = document.getElementById('input_checkbox_' + id);
+    //console.log(event.target);
+    //console.log('click' + id);
     if (inputItem) {
       this.props.onUpdateListCheckedIds(id);
     }
@@ -117,6 +117,34 @@ class BodyContent extends Component {
     this.props.onSortActiveLists(comp, name);
   }
 
+  handleListItemOKButtonClick(event) {
+    event.stopPropagation();
+    const id = event.target.dataset.id;
+    const titleInputText = document.getElementById('input_text_' + id);
+    const activeLists = this.props.bodyContent.activeLists;
+    if (titleInputText) {
+      const listItemContent = activeLists.filter((val) => val.id === id);
+      if (listItemContent.length > 0) {
+        listItemContent[0].title = titleInputText.value;
+        listItemContent[0].isEdit = false;
+        this.props.onUpdateListItemContent(listItemContent[0]);
+        console.log('OK button click. Update list item succeed!');
+      }
+    }
+  }
+
+  handleListItemCancelButtonClick(event) {
+    event.stopPropagation();
+    const id = event.target.dataset.id;
+    const activeLists = this.props.bodyContent.activeLists;
+    const listItemContent = activeLists.filter((val) => val.id === id);
+    if (listItemContent.length > 0) {
+      listItemContent[0].isEdit = false;
+      this.props.onUpdateListItemContent(listItemContent[0]);
+      console.log('Cancel button click. Update list item succeed!');
+    }
+  }
+
   getIconOfListItem(type) {
     const icons = {
       'directory': 'glyphicon glyphicon-folder-open',
@@ -144,7 +172,25 @@ class BodyContent extends Component {
   }
 
   getTitleOfListItem(obj) {
-    
+    if (!obj.isEdit) {
+      return obj.title;
+    }
+
+    return (
+      <div className="list-item-edit">
+        <input
+          id={"input_text_" + obj.id}
+          type="text"
+          defaultValue={obj.title}
+          className="list-item-title"/>
+        <button type="button" className="btn" data-id={obj.id} onClick={(e) => this.handleListItemOKButtonClick(e)}>
+          <span className="glyphicon glyphicon-ok" data-id={obj.id}></span>
+        </button>
+        <button type="button" className="btn" data-id={obj.id} onClick={(e) => this.handleListItemCancelButtonClick(e)}>
+          <span className="glyphicon glyphicon-remove" data-id={obj.id}></span>
+        </button>
+      </div>
+    );
   }
 
   getFileLists() {
@@ -159,7 +205,7 @@ class BodyContent extends Component {
         onClick={(e) => this.handleWholeItemClick(e)}>
         <div className="check">
           <input
-            id={'input_' + obj.id}
+            id={'input_checkbox_' + obj.id}
             value={obj.id}
             type="checkbox"
             checked={((id) => this.itemIsChecked(id))(obj.id)}
@@ -170,7 +216,7 @@ class BodyContent extends Component {
              className={this.getIconOfListItem(obj.type)}
              aria-hidden="true"
              style={this.getIconStyleOfListItem(obj.type)}>
-           </span>{obj.title}</div>
+           </span>{this.getTitleOfListItem(obj)}</div>
         <div className="size" data-id={obj.id}>{obj.size}</div>
         <div className="updatedAt" data-id={obj.id}>{obj.updatedAt}</div>
       </li>

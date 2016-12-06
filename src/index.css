@@ -511,6 +511,34 @@ label.error {
   background-color: #f6faff;
 }
 
+.body-content .list-group .list-group-item .list-item-edit {
+  display: inline-block;
+}
+
+.body-content .list-group .list-group-item .list-item-edit .list-item-title {
+  border: 1px solid #e7eaf1;
+  border-radius: 3px;
+  width: 260px;
+  height: 30px;
+  padding-left: 6px;
+}
+
+.body-content .list-group .list-group-item .list-item-edit .list-item-title:focus {
+  border: 1px solid #9fadc7;
+}
+
+.body-content .list-group .list-group-item .list-item-edit .btn {
+  padding: 4px 5px;
+  background-color: #f6faff;
+  border: 1px solid #c0d9fe;
+  margin-left: 5px;
+  height: 24px;
+  position: relative;
+  top: -1px;
+  font-size: 12px;
+  color: #0375d8;
+}
+
 .body-toolbar .check-btn-group {
   position: relative;
   margin-left: 10px;
