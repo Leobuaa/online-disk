@@ -555,6 +555,7 @@ label.error {
   width: 100%;
   border: 1px solid #efeaf1;
   border-radius: 3px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .user-info-card .user-profile-progress .progress-name {
@@ -590,6 +591,7 @@ label.error {
   margin-top: 20px;
   padding: 10px;
   text-align: center;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .user-info-card .user-info-content .user-avatar {
