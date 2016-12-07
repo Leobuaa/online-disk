@@ -23,7 +23,20 @@ class ToolBarButtonGroup extends Component {
 
   handleDeleteButtonClick(event) {
     event.target.blur();
-    ReactDOM.render(<AlertBox alertTitle="确认删除" alertMessage="确定要删除以下文件吗?"/>,
+    const activeLists = this.props.bodyContent.activeLists;
+    const listCheckedIds = this.props.bodyContent.listCheckedIds;
+    const confirmClick = () => {
+      this.props.onUpdateActiveLists(activeLists.filter((obj) => {
+        for (let id of listCheckedIds) {
+          if (id === obj.id) {
+            return false;
+          }
+        }
+        return true;
+      }));
+    }
+    const alertMessage = '确定要删除已选的' + listCheckedIds.length + '个文件吗?';
+    ReactDOM.render(<AlertBox alertTitle="确认删除" alertMessage={alertMessage} confirm={confirmClick}/>,
                  document.getElementById('alertBox'));
   }
 

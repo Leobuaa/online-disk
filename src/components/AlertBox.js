@@ -10,6 +10,11 @@ class AlertBox extends Component {
     ReactDOM.render(<div></div>, document.getElementById('alertBox'));
   }
 
+  handleConfirmButtonClick(event) {
+    this.props.confirm();
+    ReactDOM.render(<div></div>, document.getElementById('alertBox'));
+  }
+
   render() {
     return (
       <div>
@@ -23,7 +28,7 @@ class AlertBox extends Component {
             <p>{this.props.alertMessage}</p>
           </div>
           <div className="alert-button-group">
-            <button type="button" className="btn btn-confirm">
+            <button type="button" className="btn btn-confirm" onClick={(e) => this.handleConfirmButtonClick(e)}>
               确定
             </button>
             <button type="button" className="btn btn-cancel" onClick={(e) => this.handleCancelButtonClick(e)}>

@@ -40,7 +40,8 @@ class BodyToolBar extends Component {
           {this.props.isItemsChecked &&
             <ToolBarButtonGroup
              bodyContent={this.props.bodyContent}
-             onUpdateListItemContent={this.props.onUpdateListItemContent}/>}
+             onUpdateListItemContent={this.props.onUpdateListItemContent}
+             onUpdateActiveLists={this.props.onUpdateActiveLists}/>}
         </div>
         <div className="search-bar">
           <input name="searchInfo"

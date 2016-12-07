@@ -331,6 +331,27 @@ class App extends Component {
     });
   }
 
+  updateActiveLists(activeLists) {
+    const bodyContent = this.state.bodyContent;
+    let listCheckedIds = bodyContent.listCheckedIds;
+
+    listCheckedIds = listCheckedIds.filter((id) => {
+      for (let obj of activeLists) {
+        if (id === obj.id) {
+          return true;
+        }
+        return false;
+      }
+    });
+
+    bodyContent.activeLists = activeLists;
+    bodyContent.listCheckedIds = listCheckedIds;
+
+    this.setState({
+      bodyContent: bodyContent
+    });
+  }
+
   render() {
     let appHeader = null;
     let appBody = null;
@@ -373,7 +394,8 @@ class App extends Component {
               onToolBarSearchInfoChange={(e) => this.handleToolBarSearchInfoChange(e)}
               onClearSearchInfo={() => this.clearSearchInfo()}
               isItemsChecked={this.state.bodyContent.listCheckedIds.length > 0}
-              onUpdateListItemContent={(listItemContent) => this.updateListItemContent(listItemContent)}/>
+              onUpdateListItemContent={(listItemContent) => this.updateListItemContent(listItemContent)}
+              onUpdateActiveLists={(activeLists) => this.updateActiveLists(activeLists)}/>
             <BodyContent
               bodyContent={this.state.bodyContent}
               searchInfo={this.state.bodyToolBar.searchInfo}
