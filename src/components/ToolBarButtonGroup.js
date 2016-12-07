@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import AlertBox from './AlertBox.js';
 
 class ToolBarButtonGroup extends Component {
   constructor(props) {
@@ -19,6 +21,12 @@ class ToolBarButtonGroup extends Component {
     }
   }
 
+  handleDeleteButtonClick(event) {
+    event.target.blur();
+    ReactDOM.render(<AlertBox alertTitle="确认删除" alertMessage="确定要删除以下文件吗?"/>,
+                 document.getElementById('alertBox'));
+  }
+
   render() {
     return (
       <div className="btn-group check-btn-group">
@@ -30,7 +38,8 @@ class ToolBarButtonGroup extends Component {
         <button
           name="delete"
           type="button"
-          className="btn btn-primary-outline">
+          className="btn btn-primary-outline"
+          onClick={(e) => this.handleDeleteButtonClick(e)}>
           <span className="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
         <button
           name="rename"

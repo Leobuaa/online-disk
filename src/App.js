@@ -392,6 +392,7 @@ class App extends Component {
       <div className="App">
         {appHeader}
         {appBody}
+        <div id="alertBox"></div>
       </div>
     );
   }

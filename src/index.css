@@ -698,13 +698,87 @@ label.error {
   color: #fff;
 }
 
-.edit-button-group .btn-cancel {
+.edit-button-group .btn-cancel,
+.alert-button-group .btn-cancel {
   background-color: #fff;
   color: #9aaabf;
   border:1px solid #ccd8e1;
 }
 
-.edit-button-group .btn-cancel:hover {
+.edit-button-group .btn-cancel:hover,
+.alert-button-group .btn-cancel:hover {
   background-color: rgba(207,216,230,.1);
   color: #9aaabf;
+}
+
+.alert-button-group .btn-confirm, .alert-button-group .btn-confirm:focus {
+  background-color: #d9534f;
+  border-color: #d9534f;
+  color: #fff;
+  margin-right: 40px;
+}
+
+.alert-button-group .btn-confirm:hover {
+  background-color: #c9302c;
+  color: #fff;
+}
+
+.alert-button-group {
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.alert-button-group .btn {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.alert-box {
+  position: fixed;
+  width: 400px;
+  top: -180px;
+  left: 520px;
+  padding-bottom: 25px;
+  border: 1px solid #efeaf1;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 1);
+  animation-name: slide-in;
+  animation-duration: .4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.alert-box .alert-message {
+  margin-top: 40px;
+}
+
+.alert-box .alert-title {
+  width: 100%;
+  height: 44px;
+  background-color: #f7faff;
+  border-bottom: 1px solid #c4dbfe;
+  text-align: left;
+  line-height: 44px;
+  padding-left: 15px;
+}
+
+.alert-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: block;
+}
+
+@keyframes slide-in {
+  from {
+    top: -180px;
+  }
+
+  to {
+    top: 140px;
+  }
 }
