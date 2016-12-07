@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Helper from '../helper.js';
 
 class BodyContent extends Component {
   constructor(props) {
@@ -69,7 +70,8 @@ class BodyContent extends Component {
     }
 
     let dirs = currentDir.split('/').filter((val) => val !== '');
-    console.log(dirs);
+    // console.log(dirs);
+    console.log('currentDir is: ' + currentDir);
 
     let dirsList = [];
     let dir = '';
@@ -127,6 +129,7 @@ class BodyContent extends Component {
       if (listItemContent.length > 0) {
         listItemContent[0].title = titleInputText.value;
         listItemContent[0].isEdit = false;
+        listItemContent[0].updatedAt = Helper.dateFormat(new Date());
         this.props.onUpdateListItemContent(listItemContent[0]);
         console.log('OK button click. Update list item succeed!');
       }

@@ -302,6 +302,8 @@ class App extends Component {
       listCheckedIds.push(id);
     }
 
+    console.log(listCheckedIds);
+
     const bodyContent = this.state.bodyContent;
     bodyContent.listCheckedIds = listCheckedIds;
     this.setState({
