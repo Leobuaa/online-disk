@@ -37,7 +37,10 @@ class BodyToolBar extends Component {
             <span className="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 新建文件夹</button>
           <button name="download" type="button" className="btn btn-primary-outline" onClick={this.props.onToolBarButtonClick}>
             <span className="glyphicon glyphicon-download" aria-hidden="true"></span> 下载</button>
-          {this.props.isItemsChecked && <ToolBarButtonGroup />}
+          {this.props.isItemsChecked &&
+            <ToolBarButtonGroup
+             bodyContent={this.props.bodyContent}
+             onUpdateListItemContent={this.props.onUpdateListItemContent}/>}
         </div>
         <div className="search-bar">
           <input name="searchInfo"

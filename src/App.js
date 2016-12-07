@@ -90,7 +90,7 @@ class App extends Component {
         size: '-',
         updatedAt: '2016-12-04 11:11:11',
         type: 'directory',
-        isEdit: true,
+        isEdit: false,
       });
     }
 
@@ -368,10 +368,12 @@ class App extends Component {
               onMenuAsideButtonClick={(e) => this.handleMenuAsideButtonClick(e)}/>
             <BodyToolBar
               bodyToolBar={this.state.bodyToolBar}
+              bodyContent={this.state.bodyContent}
               onToolBarButtonClick={(e) => this.handleToolBarButtonClick(e)}
               onToolBarSearchInfoChange={(e) => this.handleToolBarSearchInfoChange(e)}
               onClearSearchInfo={() => this.clearSearchInfo()}
-              isItemsChecked={this.state.bodyContent.listCheckedIds.length > 0}/>
+              isItemsChecked={this.state.bodyContent.listCheckedIds.length > 0}
+              onUpdateListItemContent={(listItemContent) => this.updateListItemContent(listItemContent)}/>
             <BodyContent
               bodyContent={this.state.bodyContent}
               searchInfo={this.state.bodyToolBar.searchInfo}

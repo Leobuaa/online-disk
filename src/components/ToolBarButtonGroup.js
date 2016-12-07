@@ -5,6 +5,20 @@ class ToolBarButtonGroup extends Component {
     super(props);
   }
 
+  handleRenameButtonClick(event) {
+    const activeLists = this.props.bodyContent.activeLists;
+    const listCheckedIds = this.props.bodyContent.listCheckedIds;
+
+    for (let id of listCheckedIds) {
+      activeLists.map((obj) => {
+        if (obj.id === id) {
+          obj.isEdit = !obj.isEdit;
+        }
+        this.props.onUpdateListItemContent(obj);
+      })
+    }
+  }
+
   render() {
     return (
       <div className="btn-group check-btn-group">
@@ -21,7 +35,8 @@ class ToolBarButtonGroup extends Component {
         <button
           name="rename"
           type="button"
-          className="btn btn-primary-outline">重命名</button>
+          className="btn btn-primary-outline"
+          onClick={(e) => this.handleRenameButtonClick(e)}>重命名</button>
         <button
           name="moveTo"
           type="button"
