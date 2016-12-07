@@ -7,6 +7,7 @@ import MenuAside from './components/MenuAside.js';
 import BodyToolBar from './components/BodyToolBar.js';
 import BodyContent from './components/BodyContent.js';
 import UserInfoCard from './components/UserInfoCard.js';
+import Helper from './helper.js';
 
 class App extends Component {
   constructor() {
@@ -193,9 +194,30 @@ class App extends Component {
   handleToolBarButtonClick(event) {
     const name = event.target.name;
     const bodyToolBar = this.state.bodyToolBar;
+    const bodyContent = this.state.bodyContent;
+    let activeLists = bodyContent.activeLists;
+    let listCheckedIds = bodyContent.listCheckedIds;
     bodyToolBar.buttonActiveIndex = this.getToolBarButtonIndexByName(name);
+
+    if (bodyToolBar.buttonActiveIndex === 1) {
+      const newItem = {
+        id: Date.now().toString(),
+        title: '新建文件夹',
+        size: '-',
+        updatedAt: Helper.dateFormat(new Date()),
+        type: 'directory',
+        isEdit: true,
+      };
+      activeLists.unshift(newItem);
+      listCheckedIds.push(newItem.id);
+      // console.log(activeLists);
+    }
+
+    bodyContent.activeLists = activeLists;
+
     this.setState({
-      bodyToolBar: bodyToolBar
+      bodyContent: bodyContent,
+      bodyToolBar: bodyToolBar,
     });
   }
 
