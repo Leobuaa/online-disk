@@ -8,6 +8,7 @@ import BodyToolBar from './components/BodyToolBar.js';
 import BodyContent from './components/BodyContent.js';
 import UserInfoCard from './components/UserInfoCard.js';
 import Helper from './helper.js';
+import uniqid from 'uniqid';
 
 class App extends Component {
   constructor() {
@@ -201,7 +202,7 @@ class App extends Component {
 
     if (bodyToolBar.buttonActiveIndex === 1) {
       const newItem = {
-        id: Date.now().toString(),
+        id: uniqid(),
         title: '新建文件夹',
         size: '-',
         updatedAt: Helper.dateFormat(new Date()),
@@ -218,6 +219,9 @@ class App extends Component {
     this.setState({
       bodyContent: bodyContent,
       bodyToolBar: bodyToolBar,
+    }, () => {
+      document.getElementById('input_text_' + activeLists[0].id).focus();
+      document.getElementById('input_text_' + activeLists[0].id).select();
     });
   }
 
