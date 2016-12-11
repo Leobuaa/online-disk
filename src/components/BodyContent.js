@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import NotifyBox from './NotifyBox.js';
 import Helper from '../helper.js';
 
 class BodyContent extends Component {
@@ -132,6 +134,11 @@ class BodyContent extends Component {
         listItemContent[0].updatedAt = Helper.dateFormat(new Date());
         this.props.onUpdateListItemContent(listItemContent[0]);
         console.log('OK button click. Update list item succeed!');
+        // Test NotifyBox
+        ReactDOM.render(<NotifyBox notifyMessage="更新成功"/>, document.getElementById('notifyBox'));
+        setTimeout(() => {
+          ReactDOM.render(<div></div>, document.getElementById('notifyBox'));
+        }, 2000);
       }
     }
   }

@@ -7,6 +7,7 @@ import MenuAside from './components/MenuAside.js';
 import BodyToolBar from './components/BodyToolBar.js';
 import BodyContent from './components/BodyContent.js';
 import UserInfoCard from './components/UserInfoCard.js';
+import NotifyBox from './components/NotifyBox.js';
 import Helper from './helper.js';
 import uniqid from 'uniqid';
 
@@ -443,6 +444,7 @@ class App extends Component {
         {appHeader}
         {appBody}
         <div id="alertBox"></div>
+        <div id="notifyBox"></div>
       </div>
     );
   }
