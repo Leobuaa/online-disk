@@ -25,7 +25,6 @@ class LoginForm extends Component {
       console.log('The login info is invalid!');
     } else {
       console.log('The login info is valid!');
-      console.log(JSON.stringify(this.props.loginInfo, null, 4));
       fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: {
@@ -47,6 +46,7 @@ class LoginForm extends Component {
           }
         });
     }
+    console.log(JSON.stringify(this.props.loginInfo, null, 4));
   }
 
   handleInputChange(event) {

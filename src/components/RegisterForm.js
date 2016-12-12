@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Helper from '../helper.js';
 import 'whatwg-fetch';
 
 class RegisterForm extends Component {
@@ -25,18 +26,27 @@ class RegisterForm extends Component {
       console.log('The register info is invalid!');
     } else {
       console.log('The register info is valid!');
+      const autoFillLoginForm = this.props.autoFillLoginForm;
       fetch('http://localhost:3001/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: this.props.registerInfo,
+        body: JSON.stringify(this.props.registerInfo),
         credentials: 'include',
       })
         .then(function(response) {
           return response.json();
         }).then(function(json) {
           console.log(json);
+          if (json.success === 1 || json.success === '1') {
+            Helper.notifyBox('注册成功, 点击登录即可.', 'success');
+            autoFillLoginForm();
+          } else {
+            if (json.code === '11000') {
+                Helper.notifyBox('该用户名已注册, 请更换用户名.', 'danger');
+            }
+          }
         });
     }
     console.log(JSON.stringify(this.props.registerInfo, null, 4));

@@ -54,6 +54,18 @@ class LoginRegisterBlock extends Component {
     });
   }
 
+  autoFillLoginForm() {
+    const registerInfo = this.state.registerInfo;
+    const loginInfo = this.state.loginInfo;
+
+    loginInfo.username = registerInfo.username;
+    loginInfo.password = registerInfo.password;
+    this.setState({
+      activeTab: 'login',
+      loginInfo: loginInfo,
+    });
+  }
+
   render() {
     return (
       <div>
@@ -64,6 +76,7 @@ class LoginRegisterBlock extends Component {
         {this.state.activeTab === 'register' ? (
           <RegisterForm
             registerInfo={this.state.registerInfo}
+            autoFillLoginForm={() => this.autoFillLoginForm()}
             onChange={(e) => this.handleRegisterInfoChange(e)}/>
         ) : (
           <LoginForm
