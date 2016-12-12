@@ -458,6 +458,15 @@ class App extends Component {
               onSortActiveLists={(comp, name) => this.sortActiveLists(comp, name)}
               onUpdateListItemContent={(listItemContent) => this.updateListItemContent(listItemContent)}/>
           </div>;
+      } else {
+        appBody =
+          <div>
+            <Header
+              header={this.state.header}
+              onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}
+              onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}
+              onUserMenuButtonClick={(e) => this.handleUserMenuButtonClick(e)}/>
+          </div>;
       }
     }
 
