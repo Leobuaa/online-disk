@@ -358,6 +358,9 @@ class App extends Component {
     this.setState({
       bodyContent: bodyContent,
     });
+
+    // Todo, update to the database
+    //Helper.notifyBox('更新成功');
   }
 
   updateActiveLists(activeLists) {
@@ -379,6 +382,9 @@ class App extends Component {
     this.setState({
       bodyContent: bodyContent
     });
+
+    // Todo, update to the database
+    Helper.notifyBox('更新成功');
   }
 
   render() {

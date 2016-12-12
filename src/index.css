@@ -786,7 +786,7 @@ label.error {
 .notify-box {
   position: absolute;
   top: 20px;
-  left: 520px;
+  left: 528px;
   opacity: 0;
   animation-name: slide-in-alpha;
   animation-duration: 2s;
@@ -803,12 +803,12 @@ label.error {
   }
 
   30% {
-    top: 62px;
+    top: 67px;
     opacity: 1;
   }
 
   70% {
-    top: 62px;
+    top: 67px;
     opacity: 1;
   }
 

@@ -1,3 +1,8 @@
+import NotifyBox from './components/NotifyBox.js';
+import ReactDOM from 'react-dom';
+import React from 'react';
+let notifyBoxTimeOut;
+
 // help function
 function getCNFromEN(name) {
   const dictionary = {
@@ -32,7 +37,20 @@ function dateFormat(date) {
   return '';
 }
 
+function notifyBox(message) {
+  // Test NotifyBox
+  if (notifyBoxTimeOut) {
+    clearTimeout(notifyBoxTimeOut);
+  }
+  ReactDOM.render(<div></div>, document.getElementById('notifyBox'));
+  ReactDOM.render(<NotifyBox notifyMessage={message}/>, document.getElementById('notifyBox'));
+  notifyBoxTimeOut = setTimeout(() => {
+    ReactDOM.render(<div></div>, document.getElementById('notifyBox'));
+  }, 2000);
+}
+
 export default {
   getCNFromEN: getCNFromEN,
   dateFormat: dateFormat,
+  notifyBox: notifyBox,
 }
