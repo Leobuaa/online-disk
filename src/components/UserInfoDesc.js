@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Helper from '../helper.js';
 
 class UserInfoDesc extends Component {
   constructor(props) {
@@ -6,7 +7,25 @@ class UserInfoDesc extends Component {
   }
 
   handleLogoutButtonClick(event) {
-    this.props.onLoginStateChange(false);
+    fetch('http://localhost:3001/logout', {
+      method: 'GET',
+      credentials: 'include',
+    }).then((response) => response.json() )
+      .then((json) => {
+        console.log(json);
+        if (json.success === 1 || json.success === '1') {
+          this.props.onLoginStateChange(false);
+          Helper.notifyBox('退出登录成功.', 'success');
+          console.log('localStorage: ', localStorage);
+          localStorage.removeItem('sessionId');
+          console.log('localStorage: ', localStorage);
+        } else {
+          Helper.notifyBox('退出登录失败, 请再次尝试.', 'danger');
+        }
+      }).catch((ex) => {
+        console.log(ex);
+        Helper.notifyBox('退出登录失败, 请再次尝试.', 'danger');
+      });
   }
 
   render() {

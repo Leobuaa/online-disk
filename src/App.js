@@ -15,7 +15,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLogin: false,
+      isLogin: Helper.isLogin(),
       header: {
         linkActiveIndex: 0,
         userMenuActiveIndex: -1,
@@ -106,7 +106,6 @@ class App extends Component {
 
   initState() {
     this.setState({
-      isLogin: true,
       header: {
         linkActiveIndex: 0,
         userMenuActiveIndex: -1,

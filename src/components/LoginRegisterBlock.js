@@ -7,7 +7,7 @@ class LoginRegisterBlock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: 'register',
+      activeTab: 'login',
       registerInfo: {
         username: null,
         email: null,

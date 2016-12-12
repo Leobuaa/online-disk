@@ -41,6 +41,8 @@ class LoginForm extends Component {
           if (json.success === 1 || json.success === '1') {
             isLogin = true;
             this.props.onLoginStateChange(isLogin);
+            localStorage.setItem('sessionId', json.sessionId);
+            console.log('localStorage: ', localStorage);
           } else {
             Helper.notifyBox('用户名或密码错误.', 'danger');
           }

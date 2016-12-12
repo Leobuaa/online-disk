@@ -1,6 +1,9 @@
 import NotifyBox from './components/NotifyBox.js';
 import ReactDOM from 'react-dom';
 import React from 'react';
+import App from './App.js';
+
+// Global variable
 let notifyBoxTimeOut;
 
 // help function
@@ -49,8 +52,31 @@ function notifyBox(message, type) {
   }, 2000);
 }
 
+function isLogin() {
+  const params = {
+    sessionId: localStorage.sessionId,
+  };
+  fetch('http://localhost:3001/isLogin', {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify(params),
+  }).then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      if (json.success === 1 || json.success === '1') {
+        return true;
+      } else {
+        return false;
+      }
+  }).catch((ex) => {
+      console.log(ex);
+      return false;
+  });
+}
+
 export default {
   getCNFromEN: getCNFromEN,
   dateFormat: dateFormat,
   notifyBox: notifyBox,
+  isLogin: isLogin,
 }
