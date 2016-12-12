@@ -37,13 +37,13 @@ function dateFormat(date) {
   return '';
 }
 
-function notifyBox(message) {
+function notifyBox(message, type) {
   // Test NotifyBox
   if (notifyBoxTimeOut) {
     clearTimeout(notifyBoxTimeOut);
   }
   ReactDOM.render(<div></div>, document.getElementById('notifyBox'));
-  ReactDOM.render(<NotifyBox notifyMessage={message}/>, document.getElementById('notifyBox'));
+  ReactDOM.render(<NotifyBox notifyMessage={message} type={type}/>, document.getElementById('notifyBox'));
   notifyBoxTimeOut = setTimeout(() => {
     ReactDOM.render(<div></div>, document.getElementById('notifyBox'));
   }, 2000);

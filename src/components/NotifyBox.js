@@ -7,7 +7,7 @@ class NotifyBox extends Component {
 
   render() {
     return (
-      <div className="alert alert-success notify-box" role="alert">
+      <div className={"alert notify-box " + "alert-" + this.props.type} role="alert">
         {this.props.notifyMessage}
       </div>
     )

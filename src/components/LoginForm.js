@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Helper from '../helper.js';
 import 'whatwg-fetch';
 
 class LoginForm extends Component {
@@ -24,12 +25,13 @@ class LoginForm extends Component {
       console.log('The login info is invalid!');
     } else {
       console.log('The login info is valid!');
+      console.log(JSON.stringify(this.props.loginInfo, null, 4));
       fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: this.props.loginInfo,
+        body: JSON.stringify(this.props.loginInfo),
         credentials: 'include'
       })
         .then(function(response) {
@@ -37,13 +39,14 @@ class LoginForm extends Component {
         }).then((json) => {
           console.log(json);
           let isLogin = false;
-          if (json.success === 1) {
+          if (json.success === 1 || json.success === '1') {
             isLogin = true;
+            this.props.onLoginStateChange(isLogin);
+          } else {
+            Helper.notifyBox('用户名或密码错误.', 'danger');
           }
-          this.props.onLoginStateChange(isLogin);
         });
     }
-    console.log(JSON.stringify(this.props.loginInfo, null, 4));
   }
 
   handleInputChange(event) {

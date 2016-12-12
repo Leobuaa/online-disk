@@ -15,7 +15,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLogin: true,
+      isLogin: false,
       header: {
         linkActiveIndex: 0,
         userMenuActiveIndex: -1,
@@ -213,6 +213,20 @@ class App extends Component {
       activeLists.unshift(newItem);
       listCheckedIds.push(newItem.id);
       // console.log(activeLists);
+      // update to the database.
+      fetch('http://localhost:3001/addItem', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newItem),
+        credentials: 'include'
+      })
+        .then(function(response) {
+          return response.json();
+        }).then((json) => {
+          console.log(json);
+        });
     }
 
     bodyContent.activeLists = activeLists;
@@ -384,7 +398,7 @@ class App extends Component {
     });
 
     // Todo, update to the database
-    Helper.notifyBox('更新成功');
+    Helper.notifyBox('更新成功', 'success');
   }
 
   render() {
