@@ -203,6 +203,21 @@ class App extends Component {
     let listCheckedIds = bodyContent.listCheckedIds;
     bodyToolBar.buttonActiveIndex = this.getToolBarButtonIndexByName(name);
 
+    const callback = (newItem) => {
+      activeLists.unshift(newItem);
+      listCheckedIds.push(newItem.id);
+      bodyContent.activeLists = activeLists;
+
+      this.setState({
+        bodyContent: bodyContent,
+        bodyToolBar: bodyToolBar,
+      }, () => {
+        document.getElementById('input_text_' + activeLists[0].id).focus();
+        document.getElementById('input_text_' + activeLists[0].id).select();
+      });
+    }
+
+    // 新建文件夹
     if (bodyToolBar.buttonActiveIndex === 1) {
       const newItem = {
         id: uniqid(),
@@ -212,8 +227,6 @@ class App extends Component {
         type: 'directory',
         isEdit: true,
       };
-      activeLists.unshift(newItem);
-      listCheckedIds.push(newItem.id);
       // console.log(activeLists);
       // update to the database.
       fetch('http://localhost:3001/addItem', {
@@ -228,18 +241,20 @@ class App extends Component {
           return response.json();
         }).then((json) => {
           console.log(json);
+          if (json.success === 1 || json.success === '1') {
+            callback(newItem);
+          } else {
+            // 用户未登录
+            if (json.code === '110') {
+              Helper.isLogin((state) => this.handleLoginStateChange(state));
+            }
+          }
+        }).catch((ex) => {
+          console.log(ex);
+          Helper.notifyBox('新建文件夹失败, 请稍后重试.', 'danger');
         });
     }
 
-    bodyContent.activeLists = activeLists;
-
-    this.setState({
-      bodyContent: bodyContent,
-      bodyToolBar: bodyToolBar,
-    }, () => {
-      document.getElementById('input_text_' + activeLists[0].id).focus();
-      document.getElementById('input_text_' + activeLists[0].id).select();
-    });
   }
 
   handleToolBarSearchInfoChange(event) {
