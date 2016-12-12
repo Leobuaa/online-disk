@@ -135,7 +135,7 @@ class BodyContent extends Component {
         this.props.onUpdateListItemContent(listItemContent[0]);
         console.log('OK button click. Update list item succeed!');
         // Todo, update to the database
-        Helper.notifyBox('更新成功');
+        Helper.notifyBox('更新成功', 'success');
       }
     }
   }

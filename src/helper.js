@@ -52,24 +52,31 @@ function notifyBox(message, type) {
   }, 2000);
 }
 
-function isLogin() {
+function isLogin(cb) {
   const params = {
     sessionId: localStorage.sessionId,
   };
+  console.log('isLogin params: ', params);
   fetch('http://localhost:3001/isLogin', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     credentials: 'include',
     body: JSON.stringify(params),
   }).then((response) => response.json())
     .then((json) => {
       console.log(json);
       if (json.success === 1 || json.success === '1') {
+        cb(true);
         return true;
       } else {
+        cb(false);
         return false;
       }
   }).catch((ex) => {
       console.log(ex);
+      cb(false);
       return false;
   });
 }

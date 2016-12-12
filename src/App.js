@@ -15,7 +15,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLogin: Helper.isLogin(),
+      isLogin: false,
       header: {
         linkActiveIndex: 0,
         userMenuActiveIndex: -1,
@@ -42,6 +42,9 @@ class App extends Component {
   }
 
   componentDidMount() {
+
+    Helper.isLogin((state) => this.handleLoginStateChange(state));
+
     const lists= [];
     const bodyContent = this.state.bodyContent;
     const size = 10;
