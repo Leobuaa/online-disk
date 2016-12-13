@@ -110,8 +110,8 @@ class App extends Component {
 
   getItemList() {
     const bodyContent = this.state.bodyContent;
-    const allLists = [];
-    const activeLists = [];
+    const allLists = bodyContent.allLists;
+    const activeLists = bodyContent.activeLists;
 
     console.log('http://localhost:3001/getItemList/' + bodyContent.currentDirId);
 
@@ -128,8 +128,6 @@ class App extends Component {
             allLists.push(obj);
             activeLists.push(obj);
           })
-          bodyContent.allLists = allLists;
-          bodyContent.activeLists = activeLists;
           this.setState({
             bodyContent: bodyContent
           });
@@ -141,6 +139,9 @@ class App extends Component {
 
   initState() {
     const bodyContent = this.state.bodyContent;
+    bodyContent.allLists = [];
+    bodyContent.activeLists = [];
+    bodyContent.listCheckedIds = [];
     let rootDir;
     try {
       rootDir = JSON.parse(localStorage.rootDir);
