@@ -40,9 +40,11 @@ class LoginForm extends Component {
           let isLogin = false;
           if (json.success === 1 || json.success === '1') {
             isLogin = true;
-            this.props.onLoginStateChange(isLogin);
             localStorage.setItem('sessionId', json.data.sessionId);
+            console.log(JSON.stringify(json.data.rootDir));
+            localStorage.setItem('rootDir', JSON.stringify(json.data.rootDir));
             console.log('localStorage: ', localStorage);
+            this.props.onLoginStateChange(isLogin);
           } else {
             if (json.code === '1') {
               Helper.notifyBox('该用户名尚未注册.', 'danger');

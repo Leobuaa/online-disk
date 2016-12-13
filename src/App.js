@@ -109,6 +109,19 @@ class App extends Component {
   }
 
   initState() {
+    const bodyContent = this.state.bodyContent;
+    let rootDir;
+    try {
+      rootDir = JSON.parse(localStorage.rootDir);
+    } catch(e) {
+      console.log('rootDir json ex: ', e);
+    }
+
+    if (rootDir) {
+      bodyContent.currentDir = rootDir.title || '';
+      bodyContent.currentDirId = rootDir._id || '';
+    }
+
     this.setState({
       header: {
         linkActiveIndex: 0,
@@ -121,15 +134,15 @@ class App extends Component {
         buttonActiveIndex: -1,
         searchInfo: '',
       },
+      bodyContent: bodyContent,
     });
   }
 
   handleLoginStateChange(isLogin) {
-    this.initState();
     console.log(isLogin);
     this.setState({
       isLogin: isLogin
-    });
+    }, this.initState);
   }
 
   handleHeaderLinkClick(event) {

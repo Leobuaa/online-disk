@@ -17,7 +17,7 @@ class UserInfoDesc extends Component {
           this.props.onLoginStateChange(false);
           Helper.notifyBox('退出登录成功.', 'success');
           console.log('localStorage: ', localStorage);
-          localStorage.removeItem('sessionId');
+          localStorage.clear();
           console.log('localStorage: ', localStorage);
         } else {
           Helper.notifyBox('退出登录失败, 请再次尝试.', 'danger');
