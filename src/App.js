@@ -101,11 +101,42 @@ class App extends Component {
       });
     }
 
-    bodyContent.allLists = lists;
-    bodyContent.activeLists = lists;
+    // bodyContent.allLists = lists;
+    // bodyContent.activeLists = lists;
     this.setState({
       bodyContent: bodyContent
     });
+  }
+
+  getItemList() {
+    const bodyContent = this.state.bodyContent;
+    const allLists = [];
+    const activeLists = [];
+
+    console.log('http://localhost:3001/getItemList/' + bodyContent.currentDirId);
+
+    fetch('http://localhost:3001/getItemList/' + bodyContent.currentDirId, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((response) => response.json())
+      .then((json) => {
+        if (json.success === '1' || json.success === 1) {
+          const data = json.data;
+          console.log(bodyContent.activeLists);
+          data.map((obj) => {
+            obj.isEdit = false;
+            allLists.push(obj);
+            activeLists.push(obj);
+          })
+          bodyContent.allLists = allLists;
+          bodyContent.activeLists = activeLists;
+          this.setState({
+            bodyContent: bodyContent
+          });
+        }
+      }).catch((e) => {
+        console.log(e);
+      })
   }
 
   initState() {
@@ -135,7 +166,7 @@ class App extends Component {
         searchInfo: '',
       },
       bodyContent: bodyContent,
-    });
+    }, this.getItemList);
   }
 
   handleLoginStateChange(isLogin) {
