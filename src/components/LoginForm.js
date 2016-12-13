@@ -44,7 +44,11 @@ class LoginForm extends Component {
             localStorage.setItem('sessionId', json.data.sessionId);
             console.log('localStorage: ', localStorage);
           } else {
-            Helper.notifyBox('用户名或密码错误.', 'danger');
+            if (json.code === '1') {
+              Helper.notifyBox('该用户名尚未注册.', 'danger');
+            } else {
+              Helper.notifyBox('用户名或密码错误.', 'danger');
+            }
           }
         });
     }

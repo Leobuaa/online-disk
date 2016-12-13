@@ -31,7 +31,8 @@ class App extends Component {
         allLists: [],
         activeLists: [],
         listCheckedIds: [],
-        currentDir: '/全部文件/生活大爆炸/第一季S01',
+        currentDir: '全部文件',
+        currentDirId: 'root',
         sortStatus: {
           'title': -1, // -1 unsorted, 0 ascend, 1 descend
           'size': -1,
@@ -219,14 +220,16 @@ class App extends Component {
 
     // 新建文件夹
     if (bodyToolBar.buttonActiveIndex === 1) {
-      const newItem = {
+       let newItem = {
         id: uniqid(),
+        parentId: bodyContent.currentDirId,
         title: '新建文件夹',
         size: '-',
         updatedAt: Helper.dateFormat(new Date()),
         type: 'directory',
         isEdit: true,
       };
+
       // console.log(activeLists);
       // update to the database.
       fetch('http://localhost:3001/addItem', {
