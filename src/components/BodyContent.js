@@ -135,10 +135,30 @@ class BodyContent extends Component {
         listItemContent[0].title = titleInputText.value;
         listItemContent[0].isEdit = false;
         listItemContent[0].updatedAt = Helper.dateFormat(new Date());
-        this.props.onUpdateListItemContent(listItemContent[0]);
-        console.log('OK button click. Update list item succeed!');
+        console.log('OK button click.');
         // Todo, update to the database
-        Helper.notifyBox('更新成功', 'success');
+        fetch('http://localhost:3001/updateItem', {
+          method: 'POST',
+          body: JSON.stringify(listItemContent[0]),
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }).then((response) => response.json())
+          .then((json) => {
+            console.log(json);
+            if (json.success === '1' || json.success === 1) {
+              Helper.notifyBox('更新成功', 'success');
+              this.props.onUpdateListItemContent(listItemContent[0]);
+              console.log('Update list item succeed!')
+            } else {
+              Helper.notifyBox('更新失败, 请重试', 'danger');
+            }
+
+          }).catch((ex) => {
+            console.log(ex);
+            Helper.notifyBox('更新失败, 请重试', 'danger');
+          })
       }
     }
   }

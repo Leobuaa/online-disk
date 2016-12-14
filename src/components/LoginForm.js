@@ -45,6 +45,7 @@ class LoginForm extends Component {
             localStorage.setItem('rootDir', JSON.stringify(json.data.rootDir));
             console.log('localStorage: ', localStorage);
             this.props.onLoginStateChange(isLogin);
+              Helper.notifyBox('登录成功', 'success');
           } else {
             if (json.code === '1') {
               Helper.notifyBox('该用户名尚未注册.', 'danger');
