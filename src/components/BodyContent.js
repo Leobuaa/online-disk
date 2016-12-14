@@ -129,6 +129,7 @@ class BodyContent extends Component {
     const id = event.target.dataset.id;
     const titleInputText = document.getElementById('input_text_' + id);
     const activeLists = this.props.bodyContent.activeLists;
+    const listCheckedIds = this.props.bodyContent.listCheckedIds;
     if (titleInputText) {
       const listItemContent = activeLists.filter((val) => val.id === id);
       if (listItemContent.length > 0) {
@@ -150,6 +151,11 @@ class BodyContent extends Component {
             if (json.success === '1' || json.success === 1) {
               Helper.notifyBox('更新成功', 'success');
               this.props.onUpdateListItemContent(listItemContent[0]);
+              listCheckedIds.find((element, index, array) => {
+                if (element === listItemContent[0].id) {
+                  this.props.onUpdateListCheckedIds(element);
+                }
+              });
               console.log('Update list item succeed!')
             } else {
               Helper.notifyBox('更新失败, 请重试', 'danger');
@@ -167,10 +173,16 @@ class BodyContent extends Component {
     event.stopPropagation();
     const id = event.target.dataset.id;
     const activeLists = this.props.bodyContent.activeLists;
+    const listCheckedIds = this.props.bodyContent.listCheckedIds;
     const listItemContent = activeLists.filter((val) => val.id === id);
     if (listItemContent.length > 0) {
       listItemContent[0].isEdit = false;
       this.props.onUpdateListItemContent(listItemContent[0]);
+      listCheckedIds.find((element, index, array) => {
+        if (element === listItemContent[0].id) {
+          this.props.onUpdateListCheckedIds(element);
+        }
+      });
       console.log('Cancel button click. Update list item succeed!');
     }
   }
