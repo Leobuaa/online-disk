@@ -125,7 +125,7 @@ class BodyContent extends Component {
   }
 
   handleListItemOKButtonClick(event) {
-    //event.stopPropagation();
+    event.stopPropagation();
     const id = event.target.dataset.id;
     const titleInputText = document.getElementById('input_text_' + id);
     const activeLists = this.props.bodyContent.activeLists;
@@ -164,7 +164,7 @@ class BodyContent extends Component {
   }
 
   handleListItemCancelButtonClick(event) {
-    //event.stopPropagation();
+    event.stopPropagation();
     const id = event.target.dataset.id;
     const activeLists = this.props.bodyContent.activeLists;
     const listItemContent = activeLists.filter((val) => val.id === id);

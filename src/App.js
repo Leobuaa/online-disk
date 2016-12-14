@@ -459,6 +459,12 @@ class App extends Component {
     bodyContent.activeLists = activeLists;
     this.setState({
       bodyContent: bodyContent,
+    }, () => {
+      const inputText = document.getElementById('input_text_' + listItemContent.id);
+      if (inputText) {
+        inputText.focus();
+        inputText.select();
+      }
     });
   }
 
