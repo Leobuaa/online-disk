@@ -31,6 +31,7 @@ class App extends Component {
         allLists: [],
         activeLists: [],
         listCheckedIds: [],
+        bodyTitleIds: [],
         currentDir: '全部文件',
         currentDirId: 'root',
         sortStatus: {
@@ -110,8 +111,8 @@ class App extends Component {
 
   getItemList() {
     const bodyContent = this.state.bodyContent;
-    const allLists = bodyContent.allLists;
-    const activeLists = bodyContent.activeLists;
+    let activeLists = [];
+    let allLists = [];
 
     console.log('http://localhost:3001/getItemList/' + bodyContent.currentDirId);
 
@@ -122,12 +123,17 @@ class App extends Component {
       .then((json) => {
         if (json.success === '1' || json.success === 1) {
           const data = json.data;
-          console.log(bodyContent.activeLists);
+          // console.log(bodyContent.activeLists);
           data.map((obj) => {
             obj.isEdit = false;
             allLists.push(obj);
             activeLists.push(obj);
-          })
+          });
+
+          bodyContent.listCheckedIds = [];
+          bodyContent.activeLists = activeLists;
+          bodyContent.allLists = allLists;
+
           this.setState({
             bodyContent: bodyContent
           });
@@ -142,6 +148,7 @@ class App extends Component {
     bodyContent.allLists = [];
     bodyContent.activeLists = [];
     bodyContent.listCheckedIds = [];
+    bodyContent.bodyTitleIds = [];
     let rootDir;
     try {
       rootDir = JSON.parse(localStorage.rootDir);
@@ -152,6 +159,7 @@ class App extends Component {
     if (rootDir) {
       bodyContent.currentDir = rootDir.title || '';
       bodyContent.currentDirId = rootDir._id || '';
+      bodyContent.bodyTitleIds.push(rootDir._id);
     }
 
     this.setState({
@@ -395,12 +403,22 @@ class App extends Component {
     });
   }
 
-  handleCurrentDirChange(currentDir) {
+  handleCurrentDirChange(currentDir, currentDirId) {
     const bodyContent = this.state.bodyContent;
+    const bodyTitleIds = bodyContent.bodyTitleIds;
+    const dirs = currentDir.split('/').filter((val) => val !== '');
+
+    if (bodyTitleIds.length > dirs.length) {
+      bodyTitleIds.length = dirs.length;
+    } else {
+      bodyTitleIds.push(currentDirId);
+    }
+
+    bodyContent.currentDirId = currentDirId;
     bodyContent.currentDir = currentDir;
     this.setState({
       bodyContent: bodyContent
-    });
+    }, this.getItemList);
   }
 
   sortActiveLists(comp, name) {
@@ -515,7 +533,7 @@ class App extends Component {
               searchInfo={this.state.bodyToolBar.searchInfo}
               listCheckedIds={this.state.bodyContent.listCheckedIds}
               onUpdateListCheckedIds={(id) => this.updateListCheckedIds(id)}
-              onCurrentDirChange={(currentDir) => this.handleCurrentDirChange(currentDir)}
+              onCurrentDirChange={(currentDir, currentDirId) => this.handleCurrentDirChange(currentDir, currentDirId)}
               onItemCheck={(e) => this.handleListItemCheck(e)}
               onItemsAllCheck={(e) => this.handleListItemsAllCheck(e)}
               onSortActiveLists={(comp, name) => this.sortActiveLists(comp, name)}

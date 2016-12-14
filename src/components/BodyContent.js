@@ -61,11 +61,13 @@ class BodyContent extends Component {
 
   handleBodyTitleLinkClick(event) {
     const dir = event.target.dataset.dir;
-    this.props.onCurrentDirChange(dir);
+    const dirId = event.target.dataset.dirId
+    this.props.onCurrentDirChange(dir, dirId);
   }
 
   getBodyTitle() {
     let currentDir = this.props.bodyContent.currentDir;
+    const bodyTitleIds = this.props.bodyContent.bodyTitleIds;
 
     if (currentDir === '/') {
       currentDir = '/全部文件';
@@ -84,6 +86,7 @@ class BodyContent extends Component {
             <a
               href="#"
               data-dir={dir}
+              data-dir-id={bodyTitleIds[i]}
               onClick={(e) => this.handleBodyTitleLinkClick(e)}>{dirs[i]}</a>
           </li>
         );
@@ -152,6 +155,13 @@ class BodyContent extends Component {
     }
   }
 
+  handleDirectoryItemClick(event) {
+    event.stopPropagation();
+    const dir = event.target.dataset.dir;
+    const dirId = event.target.dataset.dirId;
+    this.props.onCurrentDirChange(dir, dirId);
+  }
+
   getIconOfListItem(type) {
     const icons = {
       'directory': 'glyphicon glyphicon-folder-open',
@@ -179,8 +189,22 @@ class BodyContent extends Component {
   }
 
   getTitleOfListItem(obj) {
+    const currentDir = this.props.bodyContent.currentDir;
+
     if (!obj.isEdit) {
-      return obj.title;
+      if (obj.type === 'directory') {
+        return (
+          <span
+            style={{cursor: 'pointer'}}
+            data-dir={currentDir + '/' + obj.title}
+            data-dir-id={obj.id}
+            onClick={(e) => this.handleDirectoryItemClick(e)}>
+            {obj.title}
+          </span>
+        );
+      } else {
+        return obj.title;
+      }
     }
 
     return (
