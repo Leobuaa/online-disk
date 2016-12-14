@@ -11,14 +11,14 @@ class ToolBarButtonGroup extends Component {
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
 
-    for (let id of listCheckedIds) {
-      activeLists.map((obj) => {
+    activeLists.map((obj) => {
+      for (let id of listCheckedIds) {
         if (obj.id === id) {
           obj.isEdit = !obj.isEdit;
+          this.props.onUpdateListItemContent(obj);
         }
-        this.props.onUpdateListItemContent(obj);
-      })
-    }
+      }
+    });
   }
 
   handleDeleteButtonClick(event) {

@@ -131,6 +131,11 @@ class App extends Component {
           });
 
           bodyContent.listCheckedIds = [];
+          bodyContent.sortStatus = {
+            'title': -1, // -1 unsorted, 0 ascend, 1 descend
+            'size': -1,
+            'updatedAt': -1,
+          };
           bodyContent.activeLists = activeLists;
           bodyContent.allLists = allLists;
 
@@ -455,9 +460,6 @@ class App extends Component {
     this.setState({
       bodyContent: bodyContent,
     });
-
-    // Todo, update to the database
-    //Helper.notifyBox('更新成功');
   }
 
   updateActiveLists(activeLists) {
