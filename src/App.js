@@ -44,79 +44,24 @@ class App extends Component {
   }
 
   componentDidMount() {
-
     Helper.isLogin((state) => this.handleLoginStateChange(state));
-
-    const lists= [];
-    const bodyContent = this.state.bodyContent;
-    const size = 10;
-
-    for (let i = 0; i < size; i++) {
-      lists.push({
-        id: i.toString(),
-        title: '生活大爆炸',
-        size: '223 MB',
-        updatedAt: '2016-11-28 11:22:30',
-        isEdit: false,
-      });
-
-      lists.push({
-        id: (i + size).toString(),
-        title: '神探夏洛克',
-        size: '588 MB',
-        updatedAt: '2016-11-28 12:20:11',
-        isEdit: false,
-      });
-
-      lists.push({
-        id: (i + size * 2).toString(),
-        title: 'Fantatic Beasts and Where to Find Them',
-        size: '2048 MB',
-        updatedAt: '2016-11-29 12:20:11',
-        isEdit: false,
-      });
-
-      lists.push({
-        id: (i + size * 3).toString(),
-        title: 'About Time',
-        size: '3048 MB',
-        updatedAt: '2016-11-30 12:20:11',
-        isEdit: false,
-      });
-
-      lists.push({
-        id: (i + size * 4).toString(),
-        title: 'Harry Potter',
-        size: '1059 MB',
-        updatedAt: '2016-11-30 12:20:11',
-        isEdit: false,
-      });
-
-      lists.push({
-        id: (i + size * 5).toString(),
-        title: '生活大爆炸S01',
-        size: '-',
-        updatedAt: '2016-12-04 11:11:11',
-        type: 'directory',
-        isEdit: false,
-      });
-    }
-
-    // bodyContent.allLists = lists;
-    // bodyContent.activeLists = lists;
-    this.setState({
-      bodyContent: bodyContent
-    });
   }
 
   getItemList() {
     const bodyContent = this.state.bodyContent;
+    const menuAside = this.state.menuAside;
     let activeLists = [];
     let allLists = [];
 
-    console.log('http://localhost:3001/getItemList/' + bodyContent.currentDirId);
+    let fetchLink = 'http://localhost:3001/';
+    if (menuAside.buttonActiveIndex === 5) {
+      fetchLink += 'getTrashItemList/' + bodyContent.currentDirId;
+    } else {
+      fetchLink += 'getItemList/' + bodyContent.currentDirId;
+    }
 
-    fetch('http://localhost:3001/getItemList/' + bodyContent.currentDirId, {
+    console.log(fetchLink);
+    fetch(fetchLink, {
       method: 'GET',
       credentials: 'include',
     }).then((response) => response.json())
@@ -172,9 +117,6 @@ class App extends Component {
         linkActiveIndex: 0,
         userMenuActiveIndex: -1,
       },
-      menuAside: {
-        buttonActiveIndex: 0,
-      },
       bodyToolBar: {
         buttonActiveIndex: -1,
         searchInfo: '',
@@ -227,31 +169,20 @@ class App extends Component {
     const menuAside = this.state.menuAside;
     menuAside.buttonActiveIndex = this.getMenuAsideButtonIndexByName(name);
     this.setState({
-      menuAside: menuAside
-    });
+      menuAside: menuAside,
+    }, this.initState);
   }
 
   getMenuAsideButtonIndexByName(name) {
-    let index = 0;
-    switch (name) {
-      case 'all':
-        index = 0;
-        break;
-      case 'image':
-        index = 1;
-        break;
-      case 'doc':
-        index = 2;
-        break;
-      case 'video':
-        index = 3;
-        break;
-      case 'music':
-        index = 4;
-        break;
-      default:
+    const nameMap = {
+      all: 0,
+      image: 1,
+      doc: 2,
+      video: 3,
+      music: 4,
+      trash: 5,
     }
-    return index;
+    return nameMap[name] || -1;
   }
 
   handleToolBarButtonClick(event) {

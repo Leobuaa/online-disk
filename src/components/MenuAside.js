@@ -43,6 +43,12 @@ class MenuAside extends Component {
         name: 'music',
         icon: 'glyphicon-music',
         'chinese': '音乐',
+      },
+      {
+        index: 5,
+        name: 'trash',
+        icon: 'glyphicon-trash',
+        'chinese': '回收站',
       }
     ];
 
