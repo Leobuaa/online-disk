@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import AlertBox from './AlertBox.js';
+import Helper from '../helper.js';
 
 class ToolBarButtonGroup extends Component {
   constructor(props) {
@@ -26,14 +27,39 @@ class ToolBarButtonGroup extends Component {
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
     const confirmClick = () => {
-      this.props.onUpdateActiveLists(activeLists.filter((obj) => {
-        for (let id of listCheckedIds) {
-          if (id === obj.id) {
-            return false;
+
+      const params = {
+        ids: listCheckedIds,
+        isDelete: true,
+      };
+
+      fetch('http://localhost:3001/deleteItem', {
+        method: 'POST',
+        body: JSON.stringify(params),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }).then((response) => response.json())
+        .then((json) => {
+          if (json.success === '1' || json.success === 1) {
+            this.props.onUpdateActiveLists(activeLists.filter((obj) => {
+              for (let id of listCheckedIds) {
+                if (id === obj.id) {
+                  return false;
+                }
+              }
+              return true;
+            }));
+            Helper.notifyBox('删除成功', 'success');
+          } else {
+            Helper.notifyBox('删除失败, 请重试', 'danger');
           }
-        }
-        return true;
-      }));
+        }).catch((ex) => {
+          console.log(ex);
+          Helper.notifyBox('删除失败, 请重试', 'danger');
+        })
+
     }
     const alertMessage = '确定要删除已选的' + listCheckedIds.length + '个文件吗?';
     ReactDOM.render(<AlertBox alertTitle="确认删除" alertMessage={alertMessage} confirm={confirmClick}/>,

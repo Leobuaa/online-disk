@@ -60,7 +60,7 @@ class LoginForm extends Component {
 
   handleInputChange(event) {
     this.props.onChange(event);
-    console.log(this.props.loginInfo);
+    // console.log(this.props.loginInfo);
   }
 
   handleInputFocus(event) {

@@ -52,7 +52,7 @@ class RegisterForm extends Component {
 
   handleInputChange(event) {
     this.props.onChange(event);
-    console.log(this.props.registerInfo);
+    // console.log(this.props.registerInfo);
   }
 
   handleInputFocus(event) {
