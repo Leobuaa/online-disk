@@ -40,6 +40,7 @@ class BodyToolBar extends Component {
           {this.props.isItemsChecked &&
             <ToolBarButtonGroup
              bodyContent={this.props.bodyContent}
+             menuAside={this.props.menuAside}
              onUpdateListItemContent={this.props.onUpdateListItemContent}
              onUpdateActiveLists={this.props.onUpdateActiveLists}/>}
         </div>

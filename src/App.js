@@ -461,6 +461,7 @@ class App extends Component {
             <BodyToolBar
               bodyToolBar={this.state.bodyToolBar}
               bodyContent={this.state.bodyContent}
+              menuAside={this.state.menuAside}
               onToolBarButtonClick={(e) => this.handleToolBarButtonClick(e)}
               onToolBarSearchInfoChange={(e) => this.handleToolBarSearchInfoChange(e)}
               onClearSearchInfo={() => this.clearSearchInfo()}

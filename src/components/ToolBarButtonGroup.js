@@ -9,6 +9,7 @@ class ToolBarButtonGroup extends Component {
   }
 
   handleRenameButtonClick(event) {
+    event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
 
@@ -66,35 +67,96 @@ class ToolBarButtonGroup extends Component {
                  document.getElementById('alertBox'));
   }
 
+  handleRecoverButtonClick(event) {
+    event.target.blur();
+    const activeLists = this.props.bodyContent.activeLists;
+    const listCheckedIds = this.props.bodyContent.listCheckedIds;
+
+    const params = {
+      ids: listCheckedIds,
+      isDelete: false,
+    };
+
+    fetch('http://localhost:3001/deleteItem', {
+      method: 'POST',
+      body: JSON.stringify(params),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then((response) => response.json())
+      .then((json) => {
+        if (json.success === '1' || json.success === 1) {
+          this.props.onUpdateActiveLists(activeLists.filter((obj) => {
+            for (let id of listCheckedIds) {
+              if (id === obj.id) {
+                return false;
+              }
+            }
+            return true;
+          }));
+          Helper.notifyBox('恢复成功', 'success');
+        } else {
+          Helper.notifyBox('恢复失败, 请重试', 'danger');
+        }
+      }).catch((ex) => {
+        console.log(ex);
+        Helper.notifyBox('恢复失败, 请重试', 'danger');
+      })
+  }
+
   render() {
-    return (
-      <div className="btn-group check-btn-group">
-        <button
-          name="share"
-          type="button"
-          className="btn btn-primary-outline">
-          <span className="glyphicon glyphicon-share" aria-hidden="true"></span> 分享</button>
-        <button
-          name="delete"
-          type="button"
-          className="btn btn-primary-outline"
-          onClick={(e) => this.handleDeleteButtonClick(e)}>
-          <span className="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
-        <button
-          name="rename"
-          type="button"
-          className="btn btn-primary-outline"
-          onClick={(e) => this.handleRenameButtonClick(e)}>重命名</button>
-        <button
-          name="moveTo"
-          type="button"
-          className="btn btn-primary-outline">移动到</button>
-        <button
-          name="copyTo"
-          type="button"
-          className="btn btn-primary-outline">复制到</button>
-      </div>
-    );
+    const menuAside = this.props.menuAside;
+    let renderBody;
+    if (menuAside.buttonActiveIndex === 5) {
+      renderBody = (
+        <div className="btn-group check-btn-group">
+          <button
+            name="recover"
+            type="button"
+            className="btn btn-primary-outline"
+            onClick={(e) => this.handleRecoverButtonClick(e)}>
+            <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span> 恢复
+            </button>
+            <button
+              name="rename"
+              type="button"
+              className="btn btn-primary-outline"
+              onClick={(e) => this.handleRenameButtonClick(e)}>重命名</button>
+        </div>
+      )
+    } else {
+      renderBody = (
+        <div className="btn-group check-btn-group">
+          <button
+            name="share"
+            type="button"
+            className="btn btn-primary-outline">
+            <span className="glyphicon glyphicon-share" aria-hidden="true"></span> 分享</button>
+          <button
+            name="delete"
+            type="button"
+            className="btn btn-primary-outline"
+            onClick={(e) => this.handleDeleteButtonClick(e)}>
+            <span className="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+          <button
+            name="rename"
+            type="button"
+            className="btn btn-primary-outline"
+            onClick={(e) => this.handleRenameButtonClick(e)}>重命名</button>
+          <button
+            name="moveTo"
+            type="button"
+            className="btn btn-primary-outline">移动到</button>
+          <button
+            name="copyTo"
+            type="button"
+            className="btn btn-primary-outline">复制到</button>
+        </div>
+      );
+    }
+
+    return renderBody;
   }
 }
 
