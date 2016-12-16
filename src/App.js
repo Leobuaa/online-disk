@@ -54,8 +54,8 @@ class App extends Component {
     let allLists = [];
 
     let fetchLink = 'http://localhost:3001/';
-    if (menuAside.buttonActiveIndex === 5) {
-      fetchLink += 'getTrashItemList/' + bodyContent.currentDirId;
+    if (menuAside.buttonActiveIndex === 5 && bodyContent.bodyTitleIds.length === 1) {
+      fetchLink += 'getTrashItemList';
     } else {
       fetchLink += 'getItemList/' + bodyContent.currentDirId;
     }
