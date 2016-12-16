@@ -112,6 +112,8 @@ class App extends Component {
       bodyContent.bodyTitleIds.push(rootDir._id);
     }
 
+    bodyContent.currentDir = this.getMenuAsideButtonName();
+
     this.setState({
       header: {
         linkActiveIndex: 0,
@@ -183,6 +185,19 @@ class App extends Component {
       trash: 5,
     }
     return nameMap[name] || -1;
+  }
+
+  getMenuAsideButtonName() {
+    const nameMap = [
+      '全部文件',
+      '图片',
+      '文档',
+      '视频',
+      '音乐',
+      '回收站',
+    ];
+
+    return nameMap[this.state.menuAside.buttonActiveIndex] || '全部文件';
   }
 
   handleToolBarButtonClick(event) {
