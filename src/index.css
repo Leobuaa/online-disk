@@ -484,7 +484,8 @@ label.error {
   width: 20%;
 }
 
-.body-content .list-group .list-group-item {
+.body-content .list-group .list-group-item,
+.directory-box .list-group .list-group-item {
   border-left-width: 0;
   border-right-width: 0;
   height: 46px;
@@ -493,6 +494,7 @@ label.error {
 }
 
 .body-content .list-group .list-group-item:hover,
+.directory-box .list-group .list-group-item:hover,
 .body-content .list-group .item-checked {
   background-color: #f6faff;
 }
@@ -753,7 +755,8 @@ label.error {
   margin-top: 40px;
 }
 
-.alert-box .alert-title {
+.alert-box .alert-title,
+.directory-box .alert-title {
   width: 100%;
   height: 44px;
   background-color: #f7faff;
@@ -769,7 +772,7 @@ label.error {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   display: block;
 }
 
@@ -816,4 +819,46 @@ label.error {
     top: 20px;
     opacity: 0;
   }
+}
+
+.directory-box {
+  position: fixed;
+  width: 600px;
+  top: 120px;
+  left: 420px;
+  border: 1px solid #efeaf1;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 1);
+  padding-bottom: 25px;
+}
+
+.directory-box .alert-title {
+  font-weight: bold;
+}
+
+.directory-box .alert-title .cancel-icon {
+  float: right;
+  font-size: 20px;
+  right: 20px;
+  line-height: 40px;
+  color: #b4caec;
+  cursor: pointer;
+}
+
+.directory-box .alert-title .cancel-icon:hover {
+  color: #7596c7;
+}
+
+.directory-box .list-group .list-group-item .title {
+  text-align: left;
+  padding-left: 30px;
+  line-height: 44px;
+}
+
+.directory-box .list-group .list-group-item .title .folder-icon {
+  color: #7bd6fb;
+  font-size: 20px;
+  margin-right: 15px;
+  top: 3px;
 }

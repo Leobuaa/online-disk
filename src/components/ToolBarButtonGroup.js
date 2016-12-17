@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import AlertBox from './AlertBox.js';
+import DirectoryBox from './DirectoryBox.js';
 import Helper from '../helper.js';
 
 class ToolBarButtonGroup extends Component {
@@ -105,6 +106,12 @@ class ToolBarButtonGroup extends Component {
       })
   }
 
+  handleMoveToButtonClick(event) {
+    event.target.blur();
+
+    ReactDOM.render(<DirectoryBox alertTitle="移动到..."/>, document.getElementById('directoryBox'));
+  }
+
   render() {
     const menuAside = this.props.menuAside;
     let renderBody;
@@ -147,7 +154,8 @@ class ToolBarButtonGroup extends Component {
           <button
             name="moveTo"
             type="button"
-            className="btn btn-primary-outline">移动到</button>
+            className="btn btn-primary-outline"
+            onClick={(e) => this.handleMoveToButtonClick(e)}>移动到</button>
           <button
             name="copyTo"
             type="button"

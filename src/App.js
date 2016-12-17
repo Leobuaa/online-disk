@@ -512,6 +512,7 @@ class App extends Component {
         {appBody}
         <div id="alertBox"></div>
         <div id="notifyBox"></div>
+        <div id="directoryBox"></div>
       </div>
     );
   }
