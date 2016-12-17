@@ -831,10 +831,13 @@ label.error {
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
   background-color: rgba(255, 255, 255, 1);
   padding-bottom: 25px;
+  min-height: 200px;
 }
 
 .directory-box .alert-title {
   font-weight: bold;
+  padding-left: 26px;
+  font-size: 16px;
 }
 
 .directory-box .alert-title .cancel-icon {
@@ -850,10 +853,27 @@ label.error {
   color: #7596c7;
 }
 
+.directory-box .directory-list {
+  overflow: scroll;
+}
+
+.directory-box .list-group {
+  position: relative;
+  max-height: 260px;
+}
+
 .directory-box .list-group .list-group-item .title {
   text-align: left;
   padding-left: 30px;
   line-height: 44px;
+}
+
+.directory-box .list-group li:first-child {
+  border-top: none;
+}
+
+.directory-box .list-group li:last-child {
+  border-bottom: none;
 }
 
 .directory-box .list-group .list-group-item .title .folder-icon {
@@ -861,4 +881,14 @@ label.error {
   font-size: 20px;
   margin-right: 15px;
   top: 3px;
+}
+
+.directory-box .content .directory-title .breadcrumb {
+  text-align: left;
+  padding-left: 28px;
+  background-color: #fff;
+  border-radius: 0px;
+  border-bottom: 1px solid #c4dbfe;
+  margin-bottom: 2px;
+  line-height: 30px;
 }

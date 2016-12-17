@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import NotifyBox from './NotifyBox.js';
 import Helper from '../helper.js';
+import BodyTitle from './BodyTitle.js';
 
 class BodyContent extends Component {
   constructor(props) {
@@ -63,47 +64,6 @@ class BodyContent extends Component {
     const dir = event.target.dataset.dir;
     const dirId = event.target.dataset.dirId
     this.props.onCurrentDirChange(dir, dirId);
-  }
-
-  getBodyTitle() {
-    let currentDir = this.props.bodyContent.currentDir;
-    const bodyTitleIds = this.props.bodyContent.bodyTitleIds;
-
-    if (currentDir === '/') {
-      currentDir = '/全部文件';
-    }
-
-    let dirs = currentDir.split('/').filter((val) => val !== '');
-    // console.log(dirs);
-    console.log('currentDir is: ' + currentDir);
-
-    let dirsList = [];
-    let dir = '';
-    for (let i = 0; i < dirs.length - 1; i++) {
-        dir += ('/' + dirs[i]);
-        dirsList.push(
-          <li key={dir}>
-            <a
-              href="#"
-              data-dir={dir}
-              data-dir-id={bodyTitleIds[i]}
-              onClick={(e) => this.handleBodyTitleLinkClick(e)}>{dirs[i]}</a>
-          </li>
-        );
-    }
-
-    dirsList.push(
-      <li className="active" key={dir + '/' + dirs[dirs.length - 1]}>
-        {dirs[dirs.length - 1]}
-      </li>
-    );
-
-    let bodyTitle =
-      <ol className="breadcrumb">
-        {dirsList}
-      </ol>
-
-    return bodyTitle;
   }
 
   handleListItemTitleClick(event) {
@@ -335,7 +295,11 @@ class BodyContent extends Component {
     return (
       <div className="body-content">
         <div className="body-title">
-          {this.getBodyTitle()}
+          <BodyTitle
+            currentDir={this.props.bodyContent.currentDir}
+            bodyTitleIds={this.props.bodyContent.bodyTitleIds}
+            handleBodyTitleLinkClick={(e) => this.handleBodyTitleLinkClick(e)}
+          />
           {this.getListGroupTitle()}
         </div>
         <div className="file-list">

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import BodyTitle from './BodyTitle.js';
 
 class DirectoryBox extends Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class DirectoryBox extends Component {
     this.state = {
       currentDirId: '',
       currentDir: '全部文件',
+      bodyTitleIds: [],
       lists: [],
     }
   }
@@ -15,9 +17,12 @@ class DirectoryBox extends Component {
     let rootDir;
     try {
       rootDir = JSON.parse(localStorage.rootDir);
+      let bodyTitleIds = [];
       if (rootDir) {
+        bodyTitleIds.push(rootDir._id);
         this.setState({
           currentDirId: rootDir._id,
+          bodyTitleIds: bodyTitleIds,
         }, this.fetchData);
       }
     } catch(e) {
@@ -55,13 +60,57 @@ class DirectoryBox extends Component {
         className="list-group-item"
         key={obj.id}>
         <div className="title">
-          <span className="glyphicon glyphicon-folder-open folder-icon" aria-hidden="true"></span> 
-          {obj.title}
+          <span className="glyphicon glyphicon-folder-open folder-icon" aria-hidden="true"></span>
+          <span
+            style={{cursor: 'pointer'}}
+            data-id={obj.id}
+            data-title={obj.title}
+            onClick={(e) => this.handleDirectoryItemClick(e)}
+            >{obj.title}</span>
         </div>
       </li>
     );
 
     return directoryList;
+  }
+
+  handleBodyTitleLinkClick(event) {
+    const dir = event.target.dataset.dir;
+    const dirId = event.target.dataset.dirId;
+
+    const bodyTitleIds = this.state.bodyTitleIds;
+
+    const dirs = dir.split('/').filter((val) => val !== '');
+
+    if (dirs.length < bodyTitleIds.length) {
+      bodyTitleIds.length = dirs.length;
+    } else {
+      bodyTitleIds.push(dirId);
+    }
+
+    this.setState({
+      currentDir: dir,
+      currentDirId: dirId,
+      bodyTitleIds: bodyTitleIds,
+    }, this.fetchData);
+  }
+
+  handleDirectoryItemClick(event) {
+    event.stopPropagation();
+    const dirId = event.target.dataset.id;
+    const title = event.target.dataset.title;
+
+    let currentDir = this.state.currentDir;
+    let bodyTitleIds = this.state.bodyTitleIds;
+
+    currentDir = currentDir + '/' + title;
+    bodyTitleIds.push(dirId);
+
+    this.setState({
+      currentDirId: dirId,
+      currentDir: currentDir,
+      bodyTitleIds: bodyTitleIds,
+    }, this.fetchData);
   }
 
   render() {
@@ -80,7 +129,11 @@ class DirectoryBox extends Component {
           </div>
           <div className="content">
             <div className="directory-title">
-
+              <BodyTitle
+                currentDir={this.state.currentDir}
+                bodyTitleIds={this.state.bodyTitleIds}
+                handleBodyTitleLinkClick={(e) => this.handleBodyTitleLinkClick(e)}
+                />
             </div>
             <div className="directory-list">
               <ul className="list-group">
