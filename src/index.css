@@ -924,3 +924,9 @@ label.error {
   vertical-align: top;
   padding: 6px 14px;
 }
+
+.hover-menu-list-wrapper {
+  position: relative;
+  display: inline-block;
+  left: 30px;
+}

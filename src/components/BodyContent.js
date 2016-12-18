@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import NotifyBox from './NotifyBox.js';
 import Helper from '../helper.js';
 import BodyTitle from './BodyTitle.js';
+import HoverMenuList from './HoverMenuList.js';
 
 class BodyContent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      hoverMenuListId: '',
+    };
   }
 
   filterLists(lists) {
@@ -154,6 +158,20 @@ class BodyContent extends Component {
     this.props.onCurrentDirChange(dir, dirId);
   }
 
+  handleHoverMenuListClick(event) {
+    event.stopPropagation();
+    const id = event.target.dataset.id;
+    this.setState({
+      hoverMenuListId: id,
+    });
+  }
+
+  handleMouseLeaveItem(event) {
+    this.setState({
+      hoverMenuListId: ' ',
+    });
+  }
+
   getIconOfListItem(type) {
     const icons = {
       'directory': 'glyphicon glyphicon-folder-open',
@@ -225,7 +243,8 @@ class BodyContent extends Component {
         className={ "list-group-item " + (((id) => this.itemIsChecked(id))(obj.id) ? 'item-checked' : '') }
         key={obj.id}
         data-id={obj.id}
-        onClick={(e) => this.handleWholeItemClick(e)}>
+        onClick={(e) => this.handleWholeItemClick(e)}
+        onMouseLeave={(e) => this.handleMouseLeaveItem(e)}>
         <div className="check">
           <input
             id={'input_checkbox_' + obj.id}
@@ -240,9 +259,13 @@ class BodyContent extends Component {
              aria-hidden="true"
              style={this.getIconStyleOfListItem(obj.type)}>
            </span>{this.getTitleOfListItem(obj)}
+           {!obj.isEdit &&
            <span
              className="hover-menu-list glyphicon glyphicon-option-horizontal"
-             aria-hidden="true"></span>
+             aria-hidden="true"
+             data-id={obj.id}
+             onClick={(e) => this.handleHoverMenuListClick(e)}></span>}
+            {!obj.isEdit && (obj.id === this.state.hoverMenuListId) && <HoverMenuList id={obj.id}/>}
         </div>
         <div className="size" data-id={obj.id}>{obj.size}</div>
         <div className="updatedAt" data-id={obj.id}>{obj.updatedAt}</div>
