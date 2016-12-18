@@ -482,7 +482,8 @@ class App extends Component {
               onClearSearchInfo={() => this.clearSearchInfo()}
               isItemsChecked={this.state.bodyContent.listCheckedIds.length > 0}
               onUpdateListItemContent={(listItemContent) => this.updateListItemContent(listItemContent)}
-              onUpdateActiveLists={(activeLists) => this.updateActiveLists(activeLists)}/>
+              onUpdateActiveLists={(activeLists) => this.updateActiveLists(activeLists)}
+              onFetchData={() => this.getItemList()}/>
             <BodyContent
               bodyContent={this.state.bodyContent}
               searchInfo={this.state.bodyToolBar.searchInfo}

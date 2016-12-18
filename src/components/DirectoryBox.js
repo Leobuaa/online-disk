@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import BodyTitle from './BodyTitle.js';
+import Helper from '../helper.js';
 
 class DirectoryBox extends Component {
   constructor(props) {
@@ -66,15 +67,15 @@ class DirectoryBox extends Component {
     const directoryList = lists.map((obj) =>
       <li
         className="list-group-item"
-        key={obj.id}>
-        <div className="title">
-          <span className="glyphicon glyphicon-folder-open folder-icon" aria-hidden="true"></span>
-          <span
-            style={{cursor: 'pointer'}}
-            data-id={obj.id}
-            data-title={obj.title}
-            onClick={(e) => this.handleDirectoryItemClick(e)}
-            >{obj.title}</span>
+        key={obj.id}
+        data-id={obj.id}
+        data-title={obj.title}
+        onClick={(e) => this.handleDirectoryItemClick(e)}
+        >
+        <div className="title" data-id={obj.id} data-title={obj.title}>
+          <span className="glyphicon glyphicon-folder-open folder-icon" aria-hidden="true"
+            data-id={obj.id} data-title={obj.title}></span>
+          <span style={{cursor: 'pointer'}} data-id={obj.id} data-title={obj.title}>{obj.title}</span>
         </div>
       </li>
     );
@@ -121,6 +122,37 @@ class DirectoryBox extends Component {
     }, this.fetchData);
   }
 
+  handleConfirmButtonClick(event) {
+    event.stopPropagation();
+    const params = {
+      ids: this.props.listCheckedIds,
+      parentId: this.state.currentDirId,
+    };
+
+    const fetchLink = 'http://localhost:3001/updateItems';
+    fetch(fetchLink, {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify(params),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then((response) => response.json())
+      .then((json) => {
+        if (json.success === '1' || json.success === 1) {
+          Helper.notifyBox('移动文件夹成功', 'success');
+          ReactDOM.render(<div></div>, document.getElementById('directoryBox'));
+          this.props.onFetchData();
+        } else {
+          Helper.notifyBox('移动文件夹失败, 请重试', 'danger');
+        }
+
+      }).catch((ex) => {
+        console.log(ex);
+        Helper.notifyBox('移动文件夹失败, 请重试', 'danger');
+      })
+  }
+
   render() {
     return (
       <div>
@@ -157,7 +189,8 @@ class DirectoryBox extends Component {
             </span>
             <button
               type="button"
-              className="btn btn-primary-outline">
+              className="btn btn-primary-outline"
+              onClick={(e) => this.handleConfirmButtonClick(e)}>
               确定
             </button>
             <button

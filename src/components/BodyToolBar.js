@@ -42,7 +42,8 @@ class BodyToolBar extends Component {
              bodyContent={this.props.bodyContent}
              menuAside={this.props.menuAside}
              onUpdateListItemContent={this.props.onUpdateListItemContent}
-             onUpdateActiveLists={this.props.onUpdateActiveLists}/>}
+             onUpdateActiveLists={this.props.onUpdateActiveLists}
+             onFetchData={this.props.onFetchData}/>}
         </div>
         <div className="search-bar">
           <input name="searchInfo"

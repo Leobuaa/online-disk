@@ -895,16 +895,17 @@ label.error {
 
 .directory-box .confirm-button {
   text-align: left;
-  padding: 15px 0 10px 30px;
+  padding: 18px 0 10px 30px;
   background-color: #fbfbfb;
 }
 
 .directory-box .confirm-button span {
   display: inline-block;
-  width: 420px;
+  width: 410px;
 }
 
 .directory-box .confirm-button button {
   margin-left: 10px;
   vertical-align: top;
+  padding: 6px 14px;
 }
