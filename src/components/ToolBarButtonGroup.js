@@ -109,7 +109,9 @@ class ToolBarButtonGroup extends Component {
   handleMoveToButtonClick(event) {
     event.target.blur();
 
-    ReactDOM.render(<DirectoryBox alertTitle="移动到..."/>, document.getElementById('directoryBox'));
+    ReactDOM.render(<DirectoryBox
+                      alertTitle="移动到..."
+                      listCheckedIds={this.props.bodyContent.listCheckedIds}/>, document.getElementById('directoryBox'));
   }
 
   render() {

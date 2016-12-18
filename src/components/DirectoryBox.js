@@ -32,10 +32,18 @@ class DirectoryBox extends Component {
   }
 
   fetchData() {
-    const fetchLink = 'http://localhost:3001/getItemList/' + this.state.currentDirId;
+    const fetchLink = 'http://localhost:3001/getDirectoryList';
+    const params = {
+      id: this.state.currentDirId,
+      listCheckedIds: this.props.listCheckedIds,
+    }
     fetch(fetchLink, {
-      method: 'GET',
+      method: 'POST',
       credentials: 'include',
+      body: JSON.stringify(params),
+      headers: {
+        'Content-Type': 'application/json'
+      },
     }).then((response) => response.json())
       .then((json) => {
         if (json.success === '1' || json.success === 1) {
