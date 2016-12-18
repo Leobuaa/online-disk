@@ -239,7 +239,11 @@ class BodyContent extends Component {
              className={this.getIconOfListItem(obj.type)}
              aria-hidden="true"
              style={this.getIconStyleOfListItem(obj.type)}>
-           </span>{this.getTitleOfListItem(obj)}</div>
+           </span>{this.getTitleOfListItem(obj)}
+           <span
+             className="hover-menu-list glyphicon glyphicon-option-horizontal"
+             aria-hidden="true"></span>
+        </div>
         <div className="size" data-id={obj.id}>{obj.size}</div>
         <div className="updatedAt" data-id={obj.id}>{obj.updatedAt}</div>
       </li>

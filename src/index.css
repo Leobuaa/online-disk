@@ -499,6 +499,21 @@ label.error {
   background-color: #f6faff;
 }
 
+.body-content .list-group .list-group-item .title .hover-menu-list {
+  visibility: hidden;
+  display: inline-block;
+  position: relative;
+  top: 6px;
+  left: 20px;
+  color: #7bd6fb;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.body-content .list-group .list-group-item:hover .title .hover-menu-list {
+  visibility: visible;
+}
+
 .body-content .list-group .list-group-title {
   border-top: none;
 }
