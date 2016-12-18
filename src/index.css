@@ -830,7 +830,6 @@ label.error {
   border-radius: 3px;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
   background-color: rgba(255, 255, 255, 1);
-  padding-bottom: 25px;
   min-height: 200px;
 }
 
@@ -859,6 +858,7 @@ label.error {
 
 .directory-box .list-group {
   position: relative;
+  min-height: 100px;
   max-height: 260px;
 }
 
@@ -891,4 +891,20 @@ label.error {
   border-bottom: 1px solid #c4dbfe;
   margin-bottom: 2px;
   line-height: 30px;
+}
+
+.directory-box .confirm-button {
+  text-align: left;
+  padding: 15px 0 10px 30px;
+  background-color: #fbfbfb;
+}
+
+.directory-box .confirm-button span {
+  display: inline-block;
+  width: 420px;
+}
+
+.directory-box .confirm-button button {
+  margin-left: 10px;
+  vertical-align: top;
 }

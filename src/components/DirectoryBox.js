@@ -142,7 +142,22 @@ class DirectoryBox extends Component {
             </div>
           </div>
           <div className="confirm-button">
-
+            <span>
+              确定要移动到
+              <b>{' ' +  this.state.currentDir + ' ' }</b>
+              文件夹内吗?
+            </span>
+            <button
+              type="button"
+              className="btn btn-primary-outline">
+              确定
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary-outline"
+              onClick={(e) => this.handleCancelButtonClick(e)}>
+              取消
+            </button>
           </div>
         </div>
       </div>
