@@ -182,7 +182,7 @@ class BodyContent extends Component {
     if (!id) {
       id = ' ';
     }
-    
+
     this.setState({
       hoverMenuListId: id,
     });
@@ -284,9 +284,11 @@ class BodyContent extends Component {
             {!obj.isEdit && (obj.id === this.state.hoverMenuListId) &&
               <HoverMenuList
                 id={obj.id}
+                isDelete={obj.isDelete}
                 bodyContent={this.props.bodyContent}
                 onUpdateListItemContent={this.props.onUpdateListItemContent}
-                onUpdateHoverMenuListId={(id) => this.updateHoverMenuListId(id)}/>}
+                onUpdateHoverMenuListId={(id) => this.updateHoverMenuListId(id)}
+                onUpdateActiveLists={this.props.onUpdateActiveLists}/>}
         </div>
         <div className="size" data-id={obj.id}>{obj.size}</div>
         <div className="updatedAt" data-id={obj.id}>{obj.updatedAt}</div>

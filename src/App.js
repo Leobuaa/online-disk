@@ -493,7 +493,8 @@ class App extends Component {
               onItemCheck={(e) => this.handleListItemCheck(e)}
               onItemsAllCheck={(e) => this.handleListItemsAllCheck(e)}
               onSortActiveLists={(comp, name) => this.sortActiveLists(comp, name)}
-              onUpdateListItemContent={(listItemContent) => this.updateListItemContent(listItemContent)}/>
+              onUpdateListItemContent={(listItemContent) => this.updateListItemContent(listItemContent)}
+              onUpdateActiveLists={(activeLists) => this.updateActiveLists(activeLists)}/>
           </div>;
       } else {
         appBody =
