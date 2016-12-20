@@ -174,9 +174,36 @@ class BodyContent extends Component {
   }
 
   handleMouseLeaveItem(event) {
-    this.setState({
-      hoverMenuListId: ' ',
-    });
+    const activeLists = this.props.bodyContent.activeLists;
+
+    let flag = true;
+
+    activeLists.forEach((obj) => {
+      if (obj.isEdit === true) {
+        flag = false;
+        return false;
+      }
+    })
+
+    if (flag) {
+      this.setState({
+        hoverMenuListId: ' '
+      });
+    }
+  }
+
+  handleTitleChange(event) {
+    const activeLists = this.props.bodyContent.activeLists;
+    const id = event.target.dataset.id;
+    const value = event.target.value;
+
+    activeLists.forEach((obj) => {
+      if (obj.id === id) {
+        obj.unSavedTitle = value;
+        this.props.onUpdateListItemContent(obj);
+        return false;
+      }
+    })
   }
 
   updateHoverMenuListId(id) {
