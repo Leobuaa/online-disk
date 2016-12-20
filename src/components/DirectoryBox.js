@@ -155,9 +155,10 @@ class DirectoryBox extends Component {
         } else {
           let message = action + '文件夹失败, 请重试';
           if (json.code === '111') {
-            message = '该文件夹下已经存在所需文件夹, 无需重复复制';
+            message = '该文件夹下已经存在所需文件夹, 无需重复操作';
             Helper.notifyBox(message, 'success');
             ReactDOM.render(<div></div>, document.getElementById('directoryBox'));
+            this.props.onFetchData();
           } else {
             Helper.notifyBox(message, 'danger');
           }
