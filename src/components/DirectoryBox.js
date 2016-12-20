@@ -124,10 +124,19 @@ class DirectoryBox extends Component {
 
   handleConfirmButtonClick(event) {
     event.stopPropagation();
-    const params = {
+    let params = {
       ids: this.props.listCheckedIds,
       parentId: this.state.currentDirId,
     };
+
+    let action = '移动';
+
+    if (this.props.type === 'copyTo') {
+      params.copy = true;
+      action = '复制';
+    }
+
+
 
     const fetchLink = 'http://localhost:3001/updateItems';
     fetch(fetchLink, {
@@ -140,16 +149,23 @@ class DirectoryBox extends Component {
     }).then((response) => response.json())
       .then((json) => {
         if (json.success === '1' || json.success === 1) {
-          Helper.notifyBox('移动文件夹成功', 'success');
+          Helper.notifyBox(action + '文件夹成功', 'success');
           ReactDOM.render(<div></div>, document.getElementById('directoryBox'));
           this.props.onFetchData();
         } else {
-          Helper.notifyBox('移动文件夹失败, 请重试', 'danger');
+          let message = action + '文件夹失败, 请重试';
+          if (json.code === '111') {
+            message = '该文件夹下已经存在所需文件夹, 无需重复复制';
+            Helper.notifyBox(message, 'success');
+            ReactDOM.render(<div></div>, document.getElementById('directoryBox'));
+          } else {
+            Helper.notifyBox(message, 'danger');
+          }
         }
 
       }).catch((ex) => {
         console.log(ex);
-        Helper.notifyBox('移动文件夹失败, 请重试', 'danger');
+        Helper.notifyBox(action + '文件夹失败, 请重试', 'danger');
       })
   }
 
@@ -183,7 +199,7 @@ class DirectoryBox extends Component {
           </div>
           <div className="confirm-button">
             <span>
-              确定要移动到
+              确定要{this.props.alertTitle.substr(0, 3)}
               <b>{' ' +  this.state.currentDir + ' ' }</b>
               文件夹内吗?
             </span>

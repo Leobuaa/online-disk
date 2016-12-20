@@ -4,6 +4,7 @@ import NotifyBox from './NotifyBox.js';
 import Helper from '../helper.js';
 import BodyTitle from './BodyTitle.js';
 import HoverMenuList from './HoverMenuList.js';
+import uniqid from 'uniqid';
 
 class BodyContent extends Component {
   constructor(props) {
@@ -257,7 +258,7 @@ class BodyContent extends Component {
     return lists.map((obj) =>
       <li
         className={ "list-group-item " + (((id) => this.itemIsChecked(id))(obj.id) ? 'item-checked' : '') }
-        key={obj.id}
+        key={uniqid()}
         data-id={obj.id}
         onClick={(e) => this.handleWholeItemClick(e)}
         onMouseLeave={(e) => this.handleMouseLeaveItem(e)}>

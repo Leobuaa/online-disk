@@ -110,7 +110,17 @@ class ToolBarButtonGroup extends Component {
   handleMoveToButtonClick(event) {
     event.target.blur();
     ReactDOM.render(<DirectoryBox
+                      type="moveTo"
                       alertTitle="移动到..."
+                      listCheckedIds={this.props.bodyContent.listCheckedIds}
+                      onFetchData={this.props.onFetchData} />, document.getElementById('directoryBox'));
+  }
+
+  handleCopyToButtonClick(event) {
+    event.target.blur();
+    ReactDOM.render(<DirectoryBox
+                      type="copyTo"
+                      alertTitle="复制到..."
                       listCheckedIds={this.props.bodyContent.listCheckedIds}
                       onFetchData={this.props.onFetchData} />, document.getElementById('directoryBox'));
   }
@@ -162,7 +172,8 @@ class ToolBarButtonGroup extends Component {
           <button
             name="copyTo"
             type="button"
-            className="btn btn-primary-outline">复制到</button>
+            className="btn btn-primary-outline"
+            onClick={(e) => this.handleCopyToButtonClick(e)}>复制到</button>
         </div>
       );
     }
