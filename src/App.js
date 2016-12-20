@@ -184,7 +184,11 @@ class App extends Component {
       music: 4,
       trash: 5,
     }
-    return nameMap[name] || -1;
+    if (isNaN(nameMap[name])) {
+      return -1;
+    }
+
+    return nameMap[name];
   }
 
   getMenuAsideButtonName() {
