@@ -101,12 +101,38 @@ class UserInfoContent extends Component {
 
     // 修改成功, Todo 发送网络请求修改成功
     if (validity === true) {
-      const fieldListEditState = this.state.fieldListEditState;
-      fieldListEditState[name] = !fieldListEditState[name];
-      this.setState({
-        fieldListEditState: fieldListEditState,
-        passwordFieldState: '',
-      });
+      const fetchLink = Helper.fetchLinkHeader + 'updatePassword';
+      const params = {
+        oldPassword: oldPassword,
+        newPassword: newPassword1,
+      };
+      fetch(fetchLink, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params),
+        credentials: 'include',
+      }).then((response) => response.json())
+        .then((json) => {
+          if (json.success === '1' || json.success === 1) {
+            const fieldListEditState = this.state.fieldListEditState;
+            fieldListEditState[name] = !fieldListEditState[name];
+            this.setState({
+              fieldListEditState: fieldListEditState,
+              passwordFieldState: '',
+            });
+            Helper.notifyBox('修改密码成功', 'success');
+          } else {
+            errorMsg = '旧密码错误, 请重新输入';
+            this.setState({
+              passwordFieldState: errorMsg,
+            });
+          }
+        }).catch((ex) => {
+          console.log(ex);
+        })
+
     }
   }
 
