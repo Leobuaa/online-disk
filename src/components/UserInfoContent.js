@@ -37,6 +37,7 @@ class UserInfoContent extends Component {
   fetchUserInfo() {
     const fetchLink = Helper.fetchLinkHeader + 'getUserInfo';
     const userInfo = this.state.userInfo;
+    const userInfoUnSave = this.state.userInfoUnSave;
     const params = {
       username: localStorage.username,
     };
@@ -54,11 +55,12 @@ class UserInfoContent extends Component {
           for (let props in userInfo) {
             if (json.data[props]) {
               userInfo[props] = json.data[props];
+              userInfoUnSave[props] = json.data[props];
             }
           }
           this.setState({
             userInfo: userInfo,
-            userInfoUnSave: userInfo,
+            userInfoUnSave: userInfoUnSave,
           });
         } else {
 
@@ -135,11 +137,33 @@ class UserInfoContent extends Component {
     // Update userInfoUnSave to userInfo
     const userInfo = this.state.userInfo;
     const userInfoUnSave = this.state.userInfoUnSave;
-    userInfo[name] = userInfoUnSave[name];
-    this.setState({
-      fieldListEditState: fieldListEditState,
-      userInfo: userInfo
-    });
+
+    let params = {};
+    params[name] = userInfoUnSave[name];
+    const fetchLink = Helper.fetchLinkHeader + 'updateUserInfo';
+    fetch(fetchLink, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params),
+      credentials: 'include'
+    }).then((response) => response.json())
+      .then((json) => {
+        if (json.success === '1' || json.success === 1) {
+          userInfo[name] = userInfoUnSave[name];
+          this.setState({
+            fieldListEditState: fieldListEditState,
+            userInfo: userInfo
+          });
+          Helper.notifyBox('更新用户信息成功', 'success');
+        } else {
+          Helper.notifyBox('更新用户信息失败, 请重试', 'danger');
+        }
+      }).catch((ex) => {
+        console.log(ex);
+        Helper.notifyBox('更新用户信息失败, 请重试', 'danger');
+      })
   }
 
   handleCancelButtonClick(event) {
