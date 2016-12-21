@@ -36,7 +36,7 @@ class UserInfoDesc extends Component {
             <i className="user-photo"></i>
           </span>
           <span className="user-name">
-            Leo Peng
+            {this.props.username}
           </span>
         </div>
         <div className="menu-list list-group">
