@@ -6,18 +6,18 @@ class UserInfoContent extends Component {
     super(props);
     this.state = {
       userInfo: {
-        username: 'Leo Peng',
-        gender: '男',
-        email: '616690602@qq.com',
-        phone: '18888888888',
-        userDesc: '程序员',
+        username: '无名氏',
+        gender: '未填写',
+        email: '未填写',
+        phone: '未填写',
+        userDesc: '未填写',
       },
       userInfoUnSave: {
-        username: 'Leo Peng',
-        gender: '男',
-        email: '616690602@qq.com',
-        phone: '18888888888',
-        userDesc: '程序员',
+        username: '无名氏',
+        gender: '未填写',
+        email: '未填写',
+        phone: '未填写',
+        userDesc: '未填写',
       },
       fieldListEditState: {
         gender: false,
@@ -28,6 +28,44 @@ class UserInfoContent extends Component {
       },
       passwordFieldState: '', // 0: 初始状态,无错误; 1: 旧密码错误; 2: 输入的两个新密码不相同
     }
+  }
+
+  componentDidMount() {
+    this.fetchUserInfo();
+  }
+
+  fetchUserInfo() {
+    const fetchLink = Helper.fetchLinkHeader + 'getUserInfo';
+    const userInfo = this.state.userInfo;
+    const params = {
+      username: localStorage.username,
+    };
+    fetch(fetchLink, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params),
+      credentials: 'include'
+    }).then((response) => response.json())
+      .then((json) => {
+        if (json.success === '1' || json.success === 1) {
+          console.log('user info: ', json.data);
+          for (let props in userInfo) {
+            if (json.data[props]) {
+              userInfo[props] = json.data[props];
+            }
+          }
+          this.setState({
+            userInfo: userInfo,
+            userInfoUnSave: userInfo,
+          });
+        } else {
+
+        }
+      }).catch((ex) => {
+        console.log(ex);
+      })
   }
 
   checkPassword(name) {
@@ -271,7 +309,7 @@ class UserInfoContent extends Component {
     const userInfo = this.state.userInfo;
     let otherFieldItems = [];
     for (let prop in userInfo) {
-      if (prop === 'username' || prop === 'gender') {
+      if (prop === 'username' || prop === 'gender' || prop === 'password') {
         continue;
       }
       const fieldItem =
@@ -330,7 +368,7 @@ class UserInfoContent extends Component {
           </div>
           <img
             className="avatar-large"
-            src="https://pic3.zhimg.com/v2-4aa340a64110c26e29db8057c339aac2_xll.jpg 2x"
+            src=""
             />
         </div>
         <div className="user-field-list">

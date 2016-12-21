@@ -43,6 +43,7 @@ class LoginForm extends Component {
             localStorage.setItem('sessionId', json.data.sessionId);
             console.log(JSON.stringify(json.data.rootDir));
             localStorage.setItem('rootDir', JSON.stringify(json.data.rootDir));
+            localStorage.setItem('username', json.data.username);
             console.log('localStorage: ', localStorage);
             this.props.onLoginStateChange(isLogin);
               Helper.notifyBox('登录成功', 'success');
@@ -55,7 +56,7 @@ class LoginForm extends Component {
           }
         });
     }
-    console.log(JSON.stringify(this.props.loginInfo, null, 4));
+    // console.log(JSON.stringify(this.props.loginInfo, null, 4));
   }
 
   handleInputChange(event) {

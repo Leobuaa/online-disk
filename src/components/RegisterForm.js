@@ -47,7 +47,7 @@ class RegisterForm extends Component {
           }
         });
     }
-    console.log(JSON.stringify(this.props.registerInfo, null, 4));
+    // console.log(JSON.stringify(this.props.registerInfo, null, 4));
   }
 
   handleInputChange(event) {

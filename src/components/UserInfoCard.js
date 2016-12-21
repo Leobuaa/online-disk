@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UserInfoContent from './UserInfoContent.js';
+import Helper from '../helper.js';
 
 class UserInfoCard extends Component {
   constructor(props) {

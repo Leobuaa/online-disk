@@ -5,7 +5,7 @@ import App from './App.js';
 
 // Global variable
 let notifyBoxTimeOut;
-
+const fetchLinkHeader = 'http://localhost:3001/';
 // help function
 function getCNFromEN(name) {
   const dictionary = {
@@ -86,4 +86,5 @@ export default {
   dateFormat: dateFormat,
   notifyBox: notifyBox,
   isLogin: isLogin,
+  fetchLinkHeader: fetchLinkHeader,
 }
