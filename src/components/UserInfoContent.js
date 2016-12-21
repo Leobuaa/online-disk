@@ -117,6 +117,12 @@ class UserInfoContent extends Component {
     fieldListEditState[name] = !fieldListEditState[name];
     this.setState({
       fieldListEditState: fieldListEditState
+    }, () => {
+      const inputTexts = document.getElementsByName(name);
+      if (inputTexts) {
+        inputTexts[0].focus();
+        inputTexts[0].select();
+      }
     });
   }
 
