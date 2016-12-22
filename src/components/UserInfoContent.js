@@ -6,14 +6,14 @@ class UserInfoContent extends Component {
     super(props);
     this.state = {
       userInfo: {
-        username: '无名氏',
+        username: '未填写',
         gender: '未填写',
         email: '未填写',
         phone: '未填写',
         userDesc: '未填写',
       },
       userInfoUnSave: {
-        username: '无名氏',
+        username: '未填写',
         gender: '未填写',
         email: '未填写',
         phone: '未填写',
@@ -62,12 +62,28 @@ class UserInfoContent extends Component {
             userInfo: userInfo,
             userInfoUnSave: userInfoUnSave,
           });
+
         } else {
 
         }
+        this.calculateCompletedVal();
       }).catch((ex) => {
         console.log(ex);
       })
+  }
+
+  calculateCompletedVal() {
+    const userInfo = this.state.userInfo;
+    let cnt = 0, total = 0;
+    for (let props in userInfo) {
+      total++;
+      const val = userInfo[props];
+      if (val !== '未填写' && val.trim() !== '') {
+        cnt++;
+      }
+    }
+
+    this.props.onUpdateCompletedVal((cnt / total * 100).toString());
   }
 
   checkPassword(name) {
@@ -163,12 +179,17 @@ class UserInfoContent extends Component {
       return;
     }
 
-    const fieldListEditState = this.state.fieldListEditState;
-    fieldListEditState[name] = !fieldListEditState[name];
-
     // Update userInfoUnSave to userInfo
     const userInfo = this.state.userInfo;
     const userInfoUnSave = this.state.userInfoUnSave;
+
+    if (userInfoUnSave[name] == '') {
+      Helper.notifyBox('内容不能为空', 'danger');
+      return;
+    }
+
+    const fieldListEditState = this.state.fieldListEditState;
+    fieldListEditState[name] = !fieldListEditState[name];
 
     let params = {};
     params[name] = userInfoUnSave[name];
@@ -192,6 +213,8 @@ class UserInfoContent extends Component {
         } else {
           Helper.notifyBox('更新用户信息失败, 请重试', 'danger');
         }
+
+        this.calculateCompletedVal();
       }).catch((ex) => {
         console.log(ex);
         Helper.notifyBox('更新用户信息失败, 请重试', 'danger');

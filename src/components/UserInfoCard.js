@@ -6,8 +6,15 @@ class UserInfoCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      compeletedVal: '80',
+      completedVal: '0',
     }
+  }
+
+  updateCompletedVal(val) {
+    this.setState({
+      completedVal: val,
+    });
+
   }
 
   render() {
@@ -21,15 +28,15 @@ class UserInfoCard extends Component {
             <div
               className="progress-bar"
               role="progressbar"
-              aria-valuenow={this.state.compeletedVal}
+              aria-valuenow={this.state.completedVal}
               aria-valuemin="0"
               aria-valuemax="100"
-              style={{width: this.state.compeletedVal + '%'}}>
-              {this.state.compeletedVal + '%'}
+              style={{width: this.state.completedVal + '%'}}>
+              {this.state.completedVal + '%'}
             </div>
           </div>
         </div>
-        <UserInfoContent />
+        <UserInfoContent onUpdateCompletedVal={(val) => this.updateCompletedVal(val)}/>
       </div>
     );
   }
