@@ -424,7 +424,7 @@ class UserInfoContent extends Component {
           </div>
           <img
             className="avatar-large"
-            src=""
+            src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg"
             />
         </div>
         <div className="user-field-list">
