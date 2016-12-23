@@ -442,8 +442,10 @@ class UserInfoContent extends Component {
     return (
       <div className="user-info-content">
         <div className="user-avatar">
-          <div className="user-avatar-editor-mask">
-
+          <div className="user-avatar-editor-mask"></div>
+          <div className="user-avatar-button">
+            <span className="glyphicon glyphicon-camera" aria-hidden="true"></span>
+            <span className="title">修改我的头像</span>
           </div>
           <img
             className="avatar-large"

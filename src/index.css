@@ -626,6 +626,44 @@ label.error {
   border-radius: 15px;
 }
 
+.user-info-card .user-info-content .user-avatar:hover .user-avatar-editor-mask {
+  position: absolute;
+  display: inline-block;
+  width: 180px;
+  height: 180px;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.user-info-card .user-info-content .user-avatar:hover .user-avatar-button {
+  visibility: visible;
+}
+
+.user-info-card .user-info-content .user-avatar .user-avatar-button {
+  position: absolute;
+  display: inline-block;
+  width: 180px;
+  height: 180px;
+  visibility: hidden;
+  cursor: pointer;
+}
+
+.user-info-card .user-info-content .user-avatar .user-avatar-button .glyphicon-camera {
+  position: relative;
+  display: block;
+  top: 65px;
+  font-size: 30px;
+  color: #ffffff;
+}
+
+.user-info-card .user-info-content .user-avatar .user-avatar-button .title {
+  position: relative;
+  display: block;
+  top: 75px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
 .user-info-card .user-info-content .user-field-list {
   display: inline-block;
   position: relative;
