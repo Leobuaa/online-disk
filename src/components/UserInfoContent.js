@@ -447,6 +447,7 @@ class UserInfoContent extends Component {
             <span className="glyphicon glyphicon-camera" aria-hidden="true"></span>
             <span className="title">修改我的头像</span>
           </div>
+          <input id="avatar-image-file" className="avatar-file" type="file" />
           <img
             className="avatar-large"
             src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg"
