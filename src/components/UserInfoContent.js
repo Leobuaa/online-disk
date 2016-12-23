@@ -438,6 +438,11 @@ class UserInfoContent extends Component {
     );
   }
 
+  handleAvatarChange(event) {
+    console.log(event.target);
+    console.log(event.target.files);
+  }
+
   render() {
     return (
       <div className="user-info-content">
@@ -447,7 +452,8 @@ class UserInfoContent extends Component {
             <span className="glyphicon glyphicon-camera" aria-hidden="true"></span>
             <span className="title">修改我的头像</span>
           </div>
-          <input id="avatar-image-file" className="avatar-file" type="file" />
+          <input className="avatar-file" type="file" accept="image/png,image/jpeg"
+            onChange={(e) => this.handleAvatarChange(e)}/>
           <img
             className="avatar-large"
             src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg"

@@ -10,6 +10,7 @@
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.3.2",
+    "resumable": "0.0.1-1",
     "uniqid": "^4.1.0"
   },
   "scripts": {
