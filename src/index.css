@@ -472,6 +472,10 @@ label.error {
   width: 5%;
 }
 
+.body-content .list-group .list-group-item .check input {
+  cursor: pointer;
+}
+
 .body-content .list-group .list-group-item .title {
   width: 60%;
 }
