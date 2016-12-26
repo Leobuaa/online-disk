@@ -29,10 +29,19 @@ class ToolBarButtonGroup extends Component {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
+    const listCheckedIdsArray = listCheckedIds.map((id) => {
+      let res = {id: id};
+      for (let obj of activeLists) {
+        if (obj.id === id) {
+          res.parentId = obj.parentId;
+          return res;
+        }
+      }
+    });
     const confirmClick = () => {
 
       const params = {
-        ids: listCheckedIds,
+        ids: listCheckedIdsArray,
         isDelete: true,
       };
 

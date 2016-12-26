@@ -285,7 +285,7 @@ class BodyContent extends Component {
     return lists.map((obj) =>
       <li
         className={ "list-group-item " + (((id) => this.itemIsChecked(id))(obj.id) ? 'item-checked' : '') }
-        key={uniqid()}
+        key={obj.id}
         data-id={obj.id}
         onClick={(e) => this.handleWholeItemClick(e)}
         onMouseLeave={(e) => this.handleMouseLeaveItem(e)}>
