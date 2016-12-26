@@ -7,28 +7,7 @@ class HeaderInfo extends Component {
     super(props);
     this.state = {
       showInfoDesc: false,
-      username: '',
-      avatarURL: 'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg',
     };
-  }
-
-  componentDidMount() {
-    let rootDir;
-    try {
-      rootDir = JSON.parse(localStorage.rootDir);
-    } catch(e) {
-      console.log('rootDir json ex: ', e);
-    }
-
-    if (rootDir) {
-      this.setState({
-        username: rootDir.owner,
-      });
-    }
-
-    this.setState({
-      avatarURL: Helper.fetchLinkHeader + localStorage.avatarURL,
-    });
   }
 
   handleMouseOver(event) {
@@ -52,18 +31,18 @@ class HeaderInfo extends Component {
         <span className="app-user-info">
           <span className="user-photo-box">
             <i className="user-photo"
-              style={{backgroundImage: 'url(' + this.state.avatarURL + ')'}}></i>
+              style={{backgroundImage: 'url(' + this.props.userInfo.avatarURL + ')'}}></i>
           </span>
           <span className="user-name">
-            {this.state.username}
+            {this.props.userInfo.username}
           </span>
         </span>
         {this.state.showInfoDesc &&
           <UserInfoDesc
             onLoginStateChange={this.props.onLoginStateChange}
             onUserMenuButtonClick={this.props.onUserMenuButtonClick}
-            username={this.state.username}
-            avatarURL={this.state.avatarURL}/>
+            username={this.props.userInfo.username}
+            avatarURL={this.props.userInfo.avatarURL}/>
         }
       </dd>
     );

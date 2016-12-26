@@ -39,14 +39,21 @@ class LoginForm extends Component {
           console.log(json);
           let isLogin = false;
           if (json.success === 1 || json.success === '1') {
+            const userInfo = {
+              username: json.data.username,
+              avatarURL: Helper.fetchLinkHeader + json.data.avatarURL,
+            };
+            this.props.onUpdateUserInfo(userInfo);
+
             isLogin = true;
             localStorage.setItem('sessionId', json.data.sessionId);
             localStorage.setItem('rootDir', JSON.stringify(json.data.rootDir));
             localStorage.setItem('username', json.data.username);
-            localStorage.setItem('avatarURL', json.data.avatarURL);
+            localStorage.setItem('avatarURL', Helper.fetchLinkHeader + json.data.avatarURL);
             console.log('localStorage: ', localStorage);
             this.props.onLoginStateChange(isLogin);
-              Helper.notifyBox('登录成功', 'success');
+            Helper.notifyBox('登录成功', 'success');
+
           } else {
             if (json.code === '1') {
               Helper.notifyBox('该用户名尚未注册.', 'danger');

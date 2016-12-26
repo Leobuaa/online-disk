@@ -36,7 +36,9 @@ class UserInfoCard extends Component {
             </div>
           </div>
         </div>
-        <UserInfoContent onUpdateCompletedVal={(val) => this.updateCompletedVal(val)}/>
+        <UserInfoContent onUpdateCompletedVal={(val) => this.updateCompletedVal(val)}
+          userInfo={this.props.userInfo}
+          onUpdateUserInfo={this.props.onUpdateUserInfo}/>
       </div>
     );
   }

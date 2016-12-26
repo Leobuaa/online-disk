@@ -21,6 +21,7 @@ class Header extends Component {
             headerLink={this.props.header}
             onHeaderLinkClick={this.props.onHeaderLinkClick}/>
           <HeaderInfo
+            userInfo={this.props.userInfo}
             onLoginStateChange={this.props.onLoginStateChange}
             onUserMenuButtonClick={this.props.onUserMenuButtonClick}/>
         </dl>

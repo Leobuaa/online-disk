@@ -82,7 +82,8 @@ class LoginRegisterBlock extends Component {
           <LoginForm
             loginInfo={this.state.loginInfo}
             onChange={(e) => this.handleLoginInfoChange(e)}
-            onLoginStateChange={this.props.onLoginStateChange}/>
+            onLoginStateChange={this.props.onLoginStateChange}
+            onUpdateUserInfo={this.props.onUpdateUserInfo}/>
         )}
       </div>
     );

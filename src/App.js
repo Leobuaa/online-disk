@@ -39,12 +39,22 @@ class App extends Component {
           'size': -1,
           'updatedAt': -1,
         },
-      }
+      },
+      userInfo: {
+        username: '',
+        avatarURL: 'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg',
+      },
     };
   }
 
   componentDidMount() {
     Helper.isLogin((state) => this.handleLoginStateChange(state));
+    const userInfo = this.state.userInfo;
+    userInfo.username = localStorage.username;
+    userInfo.avatarURL = localStorage.avatarURL;
+    this.setState({
+      userInfo: userInfo
+    });
   }
 
   getItemList() {
@@ -340,6 +350,17 @@ class App extends Component {
     console.log(listCheckedIds);
   }
 
+  updateUserInfo(newUserInfo) {
+    const userInfo = this.state.userInfo;
+    for (let prop in newUserInfo) {
+      userInfo[prop] = newUserInfo[prop];
+      localStorage.setItem(prop, newUserInfo[prop]);
+    }
+    this.setState({
+      userInfo: userInfo,
+    });
+  }
+
   updateListCheckedIds(id) {
     let listCheckedIds = this.state.bodyContent.listCheckedIds;
     const filterArray = listCheckedIds.filter((val) => val === id);
@@ -451,7 +472,8 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </div>;
-      appBody = <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}/>;
+      appBody = <LoginRegisterBlock onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}
+                  onUpdateUserInfo={(newUserInfo) => this.updateUserInfo(newUserInfo)} />;
     }
 
     if (this.state.isLogin) {
@@ -463,8 +485,10 @@ class App extends Component {
               header={this.state.header}
               onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}
               onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}
-              onUserMenuButtonClick={(e) => this.handleUserMenuButtonClick(e)}/>
-            <UserInfoCard />
+              onUserMenuButtonClick={(e) => this.handleUserMenuButtonClick(e)}
+              userInfo={this.state.userInfo}/>
+            <UserInfoCard userInfo={this.state.userInfo}
+              onUpdateUserInfo={(newUserInfo) => this.updateUserInfo(newUserInfo)}/>
           </div>
       } else if (activeIndex === -1) {
         appBody =
@@ -473,7 +497,8 @@ class App extends Component {
               header={this.state.header}
               onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}
               onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}
-              onUserMenuButtonClick={(e) => this.handleUserMenuButtonClick(e)}/>
+              onUserMenuButtonClick={(e) => this.handleUserMenuButtonClick(e)}
+              userInfo={this.state.userInfo}/>
             <MenuAside
               menuAside={this.state.menuAside}
               onMenuAsideButtonClick={(e) => this.handleMenuAsideButtonClick(e)}/>
@@ -507,7 +532,8 @@ class App extends Component {
               header={this.state.header}
               onHeaderLinkClick={(e) => this.handleHeaderLinkClick(e)}
               onLoginStateChange={(isLogin) => this.handleLoginStateChange(isLogin)}
-              onUserMenuButtonClick={(e) => this.handleUserMenuButtonClick(e)}/>
+              onUserMenuButtonClick={(e) => this.handleUserMenuButtonClick(e)}
+              userInfo={this.state.userInfo}/>
           </div>;
       }
     }

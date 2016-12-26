@@ -70,6 +70,12 @@ class UserInfoContent extends Component {
             userInfoUnSave: userInfoUnSave,
           });
 
+          const newUserInfo = {
+            username: json.data.username,
+            avatarURL: Helper.fetchLinkHeader + json.data.avatarURL,
+          };
+          this.props.onUpdateUserInfo(newUserInfo);
+
         } else {
 
         }
@@ -486,10 +492,10 @@ class UserInfoContent extends Component {
           </div>
           <input className="avatar-file" type="file" accept="image/png,image/jpeg"
             onChange={(e) => this.handleAvatarChange(e)}/>
-          <img
-            className="avatar-large"
-            src={this.state.userInfo.avatarURL}
-            />
+          <span className="avatar-large">
+            <i style={{backgroundImage: 'url(' + this.state.userInfo.avatarURL + ')'}}>
+            </i>
+          </span>
         </div>
         <div className="user-field-list">
           <div className="list-header">
