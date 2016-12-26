@@ -33,7 +33,8 @@ class UserInfoDesc extends Component {
       <div className="user-info-desc-wrapper">
         <div className="desc-header">
           <span className="user-photo-box">
-            <i className="user-photo"></i>
+            <i className="user-photo"
+              style={{backgroundImage: 'url(' + this.props.avatarURL +')'}}></i>
           </span>
           <span className="user-name">
             {this.props.username}

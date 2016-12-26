@@ -41,9 +41,9 @@ class LoginForm extends Component {
           if (json.success === 1 || json.success === '1') {
             isLogin = true;
             localStorage.setItem('sessionId', json.data.sessionId);
-            console.log(JSON.stringify(json.data.rootDir));
             localStorage.setItem('rootDir', JSON.stringify(json.data.rootDir));
             localStorage.setItem('username', json.data.username);
+            localStorage.setItem('avatarURL', json.data.avatarURL);
             console.log('localStorage: ', localStorage);
             this.props.onLoginStateChange(isLogin);
               Helper.notifyBox('登录成功', 'success');

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UserInfoDesc from './UserInfoDesc.js';
+import Helper from '../helper.js';
 
 class HeaderInfo extends Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class HeaderInfo extends Component {
     this.state = {
       showInfoDesc: false,
       username: '',
+      avatarURL: 'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg',
     };
   }
 
@@ -23,6 +25,10 @@ class HeaderInfo extends Component {
         username: rootDir.owner,
       });
     }
+
+    this.setState({
+      avatarURL: Helper.fetchLinkHeader + localStorage.avatarURL,
+    });
   }
 
   handleMouseOver(event) {
@@ -45,7 +51,8 @@ class HeaderInfo extends Component {
         onMouseLeave={(e) => this.handleMouseLeave(e)}>
         <span className="app-user-info">
           <span className="user-photo-box">
-            <i className="user-photo"></i>
+            <i className="user-photo"
+              style={{backgroundImage: 'url(' + this.state.avatarURL + ')'}}></i>
           </span>
           <span className="user-name">
             {this.state.username}
@@ -55,7 +62,8 @@ class HeaderInfo extends Component {
           <UserInfoDesc
             onLoginStateChange={this.props.onLoginStateChange}
             onUserMenuButtonClick={this.props.onUserMenuButtonClick}
-            username={this.state.username}/>
+            username={this.state.username}
+            avatarURL={this.state.avatarURL}/>
         }
       </dd>
     );
