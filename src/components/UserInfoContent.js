@@ -90,7 +90,7 @@ class UserInfoContent extends Component {
       }
     }
 
-    this.props.onUpdateCompletedVal((cnt / total * 100).toPrecision(2).toString());
+    this.props.onUpdateCompletedVal((cnt / total * 100).toPrecision(4).toString());
   }
 
   checkPassword(name) {
@@ -464,6 +464,7 @@ class UserInfoContent extends Component {
       .then((json) => {
         if (json.success === '1' || json.success === 1) {
           console.log(json.data);
+          this.fetchUserInfo();
           Helper.notifyBox('上传头像成功', 'success');
         } else {
           Helper.notifyBox('上传头像失败, 请重试', 'danger');
