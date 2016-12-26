@@ -11,6 +11,7 @@ class UserInfoContent extends Component {
         email: '未填写',
         phone: '未填写',
         userDesc: '未填写',
+        avatarURL: 'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg',
       },
       userInfoUnSave: {
         username: '未填写',
@@ -18,6 +19,7 @@ class UserInfoContent extends Component {
         email: '未填写',
         phone: '未填写',
         userDesc: '未填写',
+        avatarURL: 'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg',
       },
       fieldListEditState: {
         gender: false,
@@ -54,8 +56,13 @@ class UserInfoContent extends Component {
           console.log('user info: ', json.data);
           for (let props in userInfo) {
             if (json.data[props]) {
-              userInfo[props] = json.data[props];
-              userInfoUnSave[props] = json.data[props];
+              if (props === 'avatarURL') {
+                userInfo[props] = Helper.fetchLinkHeader + json.data[props];
+                userInfoUnSave[props] = Helper.fetchLinkHeader + json.data[props];
+              } else {
+                userInfo[props] = json.data[props];
+                userInfoUnSave[props] = json.data[props];
+              }
             }
           }
           this.setState({
@@ -83,7 +90,7 @@ class UserInfoContent extends Component {
       }
     }
 
-    this.props.onUpdateCompletedVal((cnt / total * 100).toString());
+    this.props.onUpdateCompletedVal((cnt / total * 100).toPrecision(2).toString());
   }
 
   checkPassword(name) {
@@ -388,7 +395,7 @@ class UserInfoContent extends Component {
     const userInfo = this.state.userInfo;
     let otherFieldItems = [];
     for (let prop in userInfo) {
-      if (prop === 'username' || prop === 'gender' || prop === 'password') {
+      if (prop === 'username' || prop === 'gender' || prop === 'password' || prop === 'avatarURL') {
         continue;
       }
       const fieldItem =
@@ -439,8 +446,32 @@ class UserInfoContent extends Component {
   }
 
   handleAvatarChange(event) {
-    console.log(event.target);
-    console.log(event.target.files);
+    const input = event.target;
+    console.log(input);
+    console.log(event.target.files[0]);
+
+    var params = new FormData();
+    if (input) {
+      params.append('avatar', input.files[0])
+    }
+
+    const fetchLink = Helper.fetchLinkHeader + 'updateAvatar';
+    fetch(fetchLink, {
+      method: 'POST',
+      body: params,
+      credentials: 'include',
+    }).then((response) => response.json())
+      .then((json) => {
+        if (json.success === '1' || json.success === 1) {
+          console.log(json.data);
+          Helper.notifyBox('上传头像成功', 'success');
+        } else {
+          Helper.notifyBox('上传头像失败, 请重试', 'danger');
+        }
+      }).catch((ex) => {
+        console.log(ex);
+        Helper.notifyBox('上传头像失败, 请重试', 'danger');
+      })
   }
 
   render() {
@@ -456,7 +487,7 @@ class UserInfoContent extends Component {
             onChange={(e) => this.handleAvatarChange(e)}/>
           <img
             className="avatar-large"
-            src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg"
+            src={this.state.userInfo.avatarURL}
             />
         </div>
         <div className="user-field-list">
