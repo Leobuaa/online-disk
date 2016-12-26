@@ -70,10 +70,16 @@ class UserInfoContent extends Component {
             userInfoUnSave: userInfoUnSave,
           });
 
+          let avatarURL = 'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg';
+          if (json.data.avatarURL) {
+            avatarURL = Helper.fetchLinkHeader + json.data.avatarURL
+          }
+
           const newUserInfo = {
             username: json.data.username,
-            avatarURL: Helper.fetchLinkHeader + json.data.avatarURL,
+            avatarURL: avatarURL,
           };
+
           this.props.onUpdateUserInfo(newUserInfo);
 
         } else {

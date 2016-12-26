@@ -39,17 +39,22 @@ class LoginForm extends Component {
           console.log(json);
           let isLogin = false;
           if (json.success === 1 || json.success === '1') {
+            let avatarURL = 'https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/0945792c.jpg';
+            if (json.data.avatarURL) {
+              avatarURL = Helper.fetchLinkHeader + json.data.avatarURL
+            }
             const userInfo = {
               username: json.data.username,
-              avatarURL: Helper.fetchLinkHeader + json.data.avatarURL,
+              avatarURL: avatarURL,
             };
+
             this.props.onUpdateUserInfo(userInfo);
+            localStorage.setItem('avatarURL', avatarURL);
 
             isLogin = true;
             localStorage.setItem('sessionId', json.data.sessionId);
             localStorage.setItem('rootDir', JSON.stringify(json.data.rootDir));
             localStorage.setItem('username', json.data.username);
-            localStorage.setItem('avatarURL', Helper.fetchLinkHeader + json.data.avatarURL);
             console.log('localStorage: ', localStorage);
             this.props.onLoginStateChange(isLogin);
             Helper.notifyBox('登录成功', 'success');
