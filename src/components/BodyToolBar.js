@@ -35,7 +35,7 @@ class BodyToolBar extends Component {
       id: uniqid(),
       parentId: this.props.bodyContent.currentDirId,
       title: file.name,
-      size: file.size + ' KB',
+      size: file.size + ' Bytes',
       updatedAt: Helper.dateFormat(new Date()),
       type: 'file',
       isEdit: false,
