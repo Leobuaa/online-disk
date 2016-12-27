@@ -82,9 +82,19 @@ class ToolBarButtonGroup extends Component {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
+    const listCheckedIdsArray = listCheckedIds.map((id) => {
+      let res = {id: id};
+      for (let obj of activeLists) {
+        if (obj.id === id) {
+          res.parentId = obj.parentId;
+          return res;
+        }
+      }
+    })
+
 
     const params = {
-      ids: listCheckedIds,
+      ids: listCheckedIdsArray,
       isDelete: false,
     };
 
@@ -134,6 +144,10 @@ class ToolBarButtonGroup extends Component {
                       onFetchData={this.props.onFetchData} />, document.getElementById('directoryBox'));
   }
 
+  handleCompleteDeleteButtonClick(event) {
+    event.target.blur();
+  }
+
   render() {
     const menuAside = this.props.menuAside;
     let renderBody;
@@ -146,12 +160,21 @@ class ToolBarButtonGroup extends Component {
             className="btn btn-primary-outline"
             onClick={(e) => this.handleRecoverButtonClick(e)}>
             <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span> 恢复
-            </button>
-            <button
-              name="rename"
-              type="button"
-              className="btn btn-primary-outline"
-              onClick={(e) => this.handleRenameButtonClick(e)}>重命名</button>
+          </button>
+          <button
+            name="rename"
+            type="button"
+            className="btn btn-primary-outline"
+            onClick={(e) => this.handleRenameButtonClick(e)}>重命名
+          </button>
+          <button
+            name="completeDelete"
+            type="button"
+            className="btn btn-primary-outline"
+            onClick={(e) => this.handleCompleteDeleteButtonClick(e)}
+            >
+            <span className="glyphicon glyphicon-trash" aria-hidden="true"></span> 永久删除
+          </button>
         </div>
       )
     } else {
