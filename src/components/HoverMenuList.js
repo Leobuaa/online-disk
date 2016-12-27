@@ -28,10 +28,19 @@ class HoverMenuList extends Component {
 
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = [this.props.id];
+    const listCheckedIdsArray = listCheckedIds.map((id) => {
+      for (let obj of activeLists) {
+        let res = {id: id};
+        if (obj.id === id) {
+          res.parentId = obj.parentId;
+          return res;
+        }
+      }
+    });
     const confirmClick = () => {
 
       const params = {
-        ids: listCheckedIds,
+        ids: listCheckedIdsArray,
         isDelete: true,
       };
 
@@ -75,10 +84,16 @@ class HoverMenuList extends Component {
           onClick={(e) => this.handleRenameButtonClick(e)}>
           重命名
         </button>
-        { !this.props.isDelete && 
+        { !this.props.isDelete &&
           <button name="delete" type="button" className="btn btn-primary-outline"
             onClick={(e) => this.handleDeleteButtonClick(e)}>
           <span className="glyphicon glyphicon-trash" aria-hidden="true" style={{position: 'relative', top: '2px'}}></span> 删除
+          </button>
+        }
+        { this.props.isDelete &&
+          <button name="delete" type="button" className="btn btn-primary-outline"
+            >
+          <span className="glyphicon glyphicon-trash" aria-hidden="true" style={{position: 'relative', top: '2px'}}></span> 永久删除
           </button>
         }
       </div>
