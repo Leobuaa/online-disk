@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ToolBarButtonGroup from './ToolBarButtonGroup.js';
+import Helper from '../helper.js';
+import uniqid from 'uniqid';
 
 class BodyToolBar extends Component {
   constructor(props) {
@@ -20,6 +22,51 @@ class BodyToolBar extends Component {
     this.props.onClearSearchInfo();
   }
 
+  handleUploadFileButtonClick(event) {
+    const fileInput = document.getElementById('uploadFile');
+    fileInput.click();
+  }
+
+  handleUploadFileChange(event) {
+    // Current, One file; Todo, more files.
+    const file = event.target.files[0];
+    console.log(file);
+    let newItem = {
+      id: uniqid(),
+      parentId: this.props.bodyContent.currentDirId,
+      title: file.name,
+      size: file.size + ' KB',
+      updatedAt: Helper.dateFormat(new Date()),
+      type: 'file',
+      isEdit: false,
+    }
+    console.log(newItem);
+
+    let params = new FormData();
+    for (let prop in newItem) {
+      params.append(prop, newItem[prop]);
+    }
+
+    //Todo, upLoadFile; Just add a item in the database.
+    const fetchLink = Helper.fetchLinkHeader + 'addItem';
+    fetch(fetchLink, {
+      method: 'POST',
+      body: params,
+      credentials: 'include'
+    }).then((response) => response.json())
+      .then((json) => {
+        if (json.success === '1' || json.success === 1) {
+          this.props.onFetchData();
+          Helper.notifyBox('上传文件成功', 'success');
+        } else {
+          Helper.notifyBox('上传失败, 请重试', 'danger');
+        }
+      }).catch((ex) => {
+        console.log(ex);
+        Helper.notifyBox('上传失败, 请重试', 'danger');
+      })
+  }
+
   render() {
     const removeIconStyle = {
       position: 'absolute',
@@ -31,8 +78,11 @@ class BodyToolBar extends Component {
     return (
       <div className="body-toolbar">
         <div className="button-group">
-          <button name="upload" type="button" className="btn btn-primary-outline" onClick={this.props.onToolBarButtonClick}>
-            <span className="glyphicon glyphicon-upload" aria-hidden="true"></span> 上传文件</button>
+          <button name="upload" type="button" className="btn btn-primary-outline" onClick={(e) => this.handleUploadFileButtonClick(e)}>
+            <span className="glyphicon glyphicon-upload" aria-hidden="true"></span> 上传文件
+            <input type="file" id="uploadFile" name="uploadfile" style={{display: 'none'}}
+              onChange={(e) => this.handleUploadFileChange(e)}/>
+          </button>
           <button name="newDirectory" type="button" className="btn btn-primary-outline" onClick={this.props.onToolBarButtonClick}>
             <span className="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 新建文件夹</button>
           <button name="download" type="button" className="btn btn-primary-outline" onClick={this.props.onToolBarButtonClick}>
