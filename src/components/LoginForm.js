@@ -66,6 +66,9 @@ class LoginForm extends Component {
               Helper.notifyBox('用户名或密码错误.', 'danger');
             }
           }
+        }).catch((ex) =>{
+          console.log(ex);
+          Helper.notifyBox('服务器未响应, 请稍后重试或向开发者反馈', 'danger')
         });
     }
     // console.log(JSON.stringify(this.props.loginInfo, null, 4));

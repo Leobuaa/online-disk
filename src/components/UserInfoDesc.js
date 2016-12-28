@@ -13,18 +13,23 @@ class UserInfoDesc extends Component {
     }).then((response) => response.json() )
       .then((json) => {
         console.log(json);
+        console.log('localStorage: ', localStorage);
+        this.props.onLoginStateChange(false);
+        localStorage.clear();
+        console.log('localStorage: ', localStorage);
+        Helper.notifyBox('退出登录成功.', 'success');
         if (json.success === 1 || json.success === '1') {
-          this.props.onLoginStateChange(false);
-          Helper.notifyBox('退出登录成功.', 'success');
-          console.log('localStorage: ', localStorage);
-          localStorage.clear();
-          console.log('localStorage: ', localStorage);
+          console.log('Logout succeed in server.');
         } else {
-          Helper.notifyBox('退出登录失败, 请再次尝试.', 'danger');
+          console.log('Logout failed in server. Maybe the server crashed.')
         }
       }).catch((ex) => {
         console.log(ex);
-        Helper.notifyBox('退出登录失败, 请再次尝试.', 'danger');
+        console.log('localStorage: ', localStorage);
+        this.props.onLoginStateChange(false);
+        localStorage.clear();
+        console.log('localStorage: ', localStorage);
+        Helper.notifyBox('退出登录成功.', 'success');
       });
   }
 
