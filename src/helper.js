@@ -81,10 +81,24 @@ function isLogin(cb) {
   });
 }
 
+function getFileSize(sizeNum) {
+  let cnt = 0;
+  while (sizeNum > 1024) {
+    sizeNum /= 1024;
+    cnt++;
+    if (cnt == 5) {
+      break;
+    }
+  }
+  const units = [' B', ' KB', ' MB', ' GB', ' TB', ' PB'];
+  return sizeNum.toFixed(2) + units[cnt];
+}
+
 export default {
   getCNFromEN: getCNFromEN,
   dateFormat: dateFormat,
   notifyBox: notifyBox,
   isLogin: isLogin,
   fetchLinkHeader: fetchLinkHeader,
+  getFileSize: getFileSize,
 }
