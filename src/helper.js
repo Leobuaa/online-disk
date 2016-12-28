@@ -57,7 +57,7 @@ function isLogin(cb) {
     sessionId: localStorage.sessionId,
   };
   console.log('isLogin params: ', params);
-  fetch('http://localhost:3001/isLogin', {
+  fetch(fetchLinkHeader + 'isLogin', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

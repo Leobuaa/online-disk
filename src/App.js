@@ -63,7 +63,7 @@ class App extends Component {
     let activeLists = [];
     let allLists = [];
 
-    let fetchLink = 'http://localhost:3001/';
+    let fetchLink = Helper.fetchLinkHeader;
     if (menuAside.buttonActiveIndex === 5 && bodyContent.bodyTitleIds.length === 1) {
       fetchLink += 'getTrashItemList';
     } else {
@@ -250,7 +250,7 @@ class App extends Component {
 
       // console.log(activeLists);
       // update to the database.
-      fetch('http://localhost:3001/addItem', {
+      fetch(Helper.fetchLinkHeader + 'addItem', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

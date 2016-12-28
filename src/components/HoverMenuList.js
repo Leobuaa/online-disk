@@ -44,7 +44,7 @@ class HoverMenuList extends Component {
         isDelete: true,
       };
 
-      fetch('http://localhost:3001/deleteItem', {
+      fetch(Helper.fetchLinkHeader + 'deleteItem', {
         method: 'POST',
         body: JSON.stringify(params),
         credentials: 'include',

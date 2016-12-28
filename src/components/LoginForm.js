@@ -25,7 +25,7 @@ class LoginForm extends Component {
       console.log('The login info is invalid!');
     } else {
       console.log('The login info is valid!');
-      fetch('http://localhost:3001/login', {
+      fetch(Helper.fetchLinkHeader + 'login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

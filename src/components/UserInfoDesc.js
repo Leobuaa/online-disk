@@ -7,7 +7,7 @@ class UserInfoDesc extends Component {
   }
 
   handleLogoutButtonClick(event) {
-    fetch('http://localhost:3001/logout', {
+    fetch(Helper.fetchLinkHeader + 'logout', {
       method: 'GET',
       credentials: 'include',
     }).then((response) => response.json() )

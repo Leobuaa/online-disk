@@ -26,7 +26,7 @@ class RegisterForm extends Component {
       console.log('The register info is invalid!');
     } else {
       console.log('The register info is valid!');
-      fetch('http://localhost:3001/register', {
+      fetch(Helper.fetchLinkHeader + 'register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

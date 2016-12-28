@@ -33,7 +33,7 @@ class DirectoryBox extends Component {
   }
 
   fetchData() {
-    const fetchLink = 'http://localhost:3001/getDirectoryList';
+    const fetchLink = Helper.fetchLinkHeader + 'getDirectoryList';
     const params = {
       id: this.state.currentDirId,
       listCheckedIds: this.props.listCheckedIdsArray,
@@ -138,7 +138,7 @@ class DirectoryBox extends Component {
 
 
 
-    const fetchLink = 'http://localhost:3001/updateItems';
+    const fetchLink = Helper.fetchLinkHeader + 'updateItems';
     fetch(fetchLink, {
       method: 'POST',
       credentials: 'include',

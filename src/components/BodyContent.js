@@ -103,7 +103,7 @@ class BodyContent extends Component {
         listItemContent[0].updatedAt = Helper.dateFormat(new Date());
         console.log('OK button click.');
         // Todo, update to the database
-        fetch('http://localhost:3001/updateItem', {
+        fetch(Helper.fetchLinkHeader + 'updateItem', {
           method: 'POST',
           body: JSON.stringify(listItemContent[0]),
           credentials: 'include',
