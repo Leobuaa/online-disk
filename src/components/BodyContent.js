@@ -257,6 +257,11 @@ class BodyContent extends Component {
           </span>
         );
       } else {
+        if (obj.filePath) {
+          return (
+            <a target="_blank" href={Helper.fetchLinkHeader + obj.filePath}>{obj.title}</a>
+          )
+        }
         return obj.title;
       }
     }

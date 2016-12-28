@@ -39,6 +39,7 @@ class BodyToolBar extends Component {
       updatedAt: Helper.dateFormat(new Date()),
       type: 'file',
       isEdit: false,
+      files: file,
     }
     console.log(newItem);
 
