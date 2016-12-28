@@ -826,6 +826,7 @@ label.error {
   animation-duration: .4s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
+  z-index: 9999;
 }
 
 .alert-box .alert-message {
@@ -851,6 +852,7 @@ label.error {
   left: 0;
   background-color: rgba(0, 0, 0, 0.6);
   display: block;
+  z-index: 999;
 }
 
 @keyframes slide-in {
@@ -874,6 +876,7 @@ label.error {
   animation-fill-mode: forwards;
   width: 400px;
   padding: 12px 15px !important;
+  z-index: 9999;
 }
 
 @keyframes slide-in-alpha {
@@ -908,6 +911,7 @@ label.error {
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
   background-color: rgba(255, 255, 255, 1);
   min-height: 200px;
+  z-index: 9999;
 }
 
 .directory-box .alert-title {
