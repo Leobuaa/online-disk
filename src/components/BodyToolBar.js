@@ -68,6 +68,44 @@ class BodyToolBar extends Component {
       })
   }
 
+  handleDownloadButtonClick(event) {
+    const listCheckedIds = this.props.bodyContent.listCheckedIds;
+    const activeLists = this.props.bodyContent.activeLists;
+    let listCheckedIdsArray = [];
+    listCheckedIds.forEach((id) => {
+      for (let obj of activeLists) {
+        if (obj.id === id) {
+          let res = {id: id, parentId: obj.parentId, filePath: obj.filePath};
+          listCheckedIdsArray.push(res);
+        }
+      }
+    });
+
+    if (listCheckedIdsArray.length === 1) {
+      if (listCheckedIdsArray[0].filePath) {
+        window.location = Helper.fetchLinkHeader + 'download/' + listCheckedIdsArray[0].filePath;
+      }
+    }
+
+
+    // const fetchLink = Helper.fetchLinkHeader + 'download';
+    // const params = {
+    //   ids: listCheckedIdsArray,
+    // }
+    // fetch(fetchLink, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(params),
+    //   credentials: 'include'
+    // }).then((response) => {
+    //   console.log(response);
+    // }).catch((ex) => {
+    //   console.log(ex);
+    // })
+  }
+
   render() {
     const removeIconStyle = {
       position: 'absolute',
@@ -86,7 +124,7 @@ class BodyToolBar extends Component {
           </button>
           <button name="newDirectory" type="button" className="btn btn-primary-outline" onClick={this.props.onToolBarButtonClick}>
             <span className="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 新建文件夹</button>
-          <button name="download" type="button" className="btn btn-primary-outline" onClick={this.props.onToolBarButtonClick}>
+          <button name="download" type="button" className="btn btn-primary-outline" onClick={(e) => this.handleDownloadButtonClick(e)}>
             <span className="glyphicon glyphicon-download" aria-hidden="true"></span> 下载</button>
           {this.props.isItemsChecked &&
             <ToolBarButtonGroup
