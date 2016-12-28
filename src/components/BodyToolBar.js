@@ -84,7 +84,11 @@ class BodyToolBar extends Component {
     if (listCheckedIdsArray.length === 1) {
       if (listCheckedIdsArray[0].filePath) {
         window.location = Helper.fetchLinkHeader + 'download/' + listCheckedIdsArray[0].filePath;
+      } else {
+        Helper.notifyBox('抱歉, 请选择可下载的文件(目前不支持文件夹下载)', 'danger');
       }
+    } else if (listCheckedIdsArray.length > 1){
+      Helper.notifyBox('抱歉, 目前仅支持单个文件下载, 请选择一个可下载文件', 'danger');
     }
 
 
