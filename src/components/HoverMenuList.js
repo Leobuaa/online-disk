@@ -77,13 +77,71 @@ class HoverMenuList extends Component {
                  document.getElementById('alertBox'));
   }
 
+  handleRecoverButtonClick(event) {
+    event.target.blur();
+    const activeLists = this.props.bodyContent.activeLists;
+    const listCheckedIds = [this.props.id];
+    const listCheckedIdsArray = [];
+    listCheckedIds.forEach((id) => {
+      for (let obj of activeLists) {
+        if (obj.id === id) {
+          let res = {id: id, parentId: obj.parentId};
+          listCheckedIdsArray.push(res);
+        }
+      }
+    });
+
+    const params = {
+      ids: listCheckedIdsArray,
+      isDelete: false,
+    };
+
+    fetch(Helper.fetchLinkHeader + 'deleteItem', {
+      method: 'POST',
+      body: JSON.stringify(params),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then((response) => response.json())
+      .then((json) => {
+        if (json.success === '1' || json.success === 1) {
+          this.props.onUpdateActiveLists(activeLists.filter((obj) => {
+            for (let id of listCheckedIds) {
+              if (id === obj.id) {
+                return false;
+              }
+            }
+            return true;
+          }));
+          Helper.notifyBox('恢复成功', 'success');
+        } else {
+          Helper.notifyBox('恢复失败, 请重试', 'danger');
+        }
+      }).catch((ex) => {
+        console.log(ex);
+        Helper.notifyBox('恢复失败, 请重试', 'danger');
+      })
+  }
+
   render() {
     return (
       <div className="hover-menu-list-wrapper btn-group">
-        <button name="rename" type="button" className="btn btn-primary-outline"
-          onClick={(e) => this.handleRenameButtonClick(e)}>
-          重命名
-        </button>
+        { this.props.isDelete ? (
+            <button
+              name="recover"
+              type="button"
+              className="btn btn-primary-outline"
+              onClick={(e) => this.handleRecoverButtonClick(e)}>
+              <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span> 恢复
+            </button>
+          ) : (
+            <button name="rename" type="button" className="btn btn-primary-outline"
+              onClick={(e) => this.handleRenameButtonClick(e)}>
+              重命名
+            </button>
+          )
+        }
         { !this.props.isDelete &&
           <button name="delete" type="button" className="btn btn-primary-outline"
             onClick={(e) => this.handleDeleteButtonClick(e)}>

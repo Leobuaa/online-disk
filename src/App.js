@@ -523,7 +523,8 @@ class App extends Component {
               onItemsAllCheck={(e) => this.handleListItemsAllCheck(e)}
               onSortActiveLists={(comp, name) => this.sortActiveLists(comp, name)}
               onUpdateListItemContent={(listItemContent) => this.updateListItemContent(listItemContent)}
-              onUpdateActiveLists={(activeLists) => this.updateActiveLists(activeLists)}/>
+              onUpdateActiveLists={(activeLists) => this.updateActiveLists(activeLists)}
+              onFetchData={() => this.getItemList()}/>
           </div>;
       } else {
         appBody =
