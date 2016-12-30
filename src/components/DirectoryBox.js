@@ -36,7 +36,7 @@ class DirectoryBox extends Component {
     const fetchLink = Helper.fetchLinkHeader + 'getDirectoryList';
     const params = {
       id: this.state.currentDirId,
-      listCheckedIds: this.props.listCheckedIdsArray,
+      listCheckedIds: this.props.listCheckedIds,
     }
     fetch(fetchLink, {
       method: 'POST',
@@ -126,7 +126,7 @@ class DirectoryBox extends Component {
   handleConfirmButtonClick(event) {
     event.stopPropagation();
     let params = {
-      ids: this.props.listCheckedIdsArray,
+      ids: this.props.listCheckedIds,
       parentId: this.state.currentDirId,
     };
 

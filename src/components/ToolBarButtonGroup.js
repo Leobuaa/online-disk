@@ -110,17 +110,10 @@ class ToolBarButtonGroup extends Component {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
-    const listCheckedIdsArray = listCheckedIds.map((_id) => {
-      for (let obj of activeLists) {
-        if (obj._id === _id) {
-          return {id: obj.id, parentId: obj.parentId};
-        }
-      }
-    })
     ReactDOM.render(<DirectoryBox
                       type="moveTo"
                       alertTitle="移动到..."
-                      listCheckedIdsArray={listCheckedIdsArray}
+                      listCheckedIds={listCheckedIds}
                       onFetchData={this.props.onFetchData} />, document.getElementById('directoryBox'));
   }
 
@@ -128,17 +121,10 @@ class ToolBarButtonGroup extends Component {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
-    const listCheckedIdsArray = listCheckedIds.map((_id) => {
-      for (let obj of activeLists) {
-        if (obj._id === _id) {
-          return {id: obj.id, parentId: obj.parentId};
-        }
-      }
-    })
     ReactDOM.render(<DirectoryBox
                       type="copyTo"
                       alertTitle="复制到..."
-                      listCheckedIdsArray={listCheckedIdsArray}
+                      listCheckedIds={listCheckedIds}
                       onFetchData={this.props.onFetchData} />, document.getElementById('directoryBox'));
   }
 
