@@ -420,7 +420,7 @@ class App extends Component {
     const activeLists = this.state.bodyContent.activeLists;
     activeLists.forEach((obj) => {
       if (obj.id === listItemContent.id) {
-        for (let props in obj) {
+        for (let props in listItemContent) {
           obj[props] = listItemContent[props];
         }
       }

@@ -18,8 +18,8 @@ class ToolBarButtonGroup extends Component {
       activeLists.forEach((obj) => {
         if (obj.id === id) {
           obj.isEdit = !obj.isEdit;
-          this.props.onUpdateListItemContent(obj);
-          return false;
+          const listItemContent = {id: id, isEdit: obj.isEdit};
+          this.props.onUpdateListItemContent(listItemContent);
         }
       })
     };
