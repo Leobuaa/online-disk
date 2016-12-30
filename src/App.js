@@ -39,6 +39,7 @@ class App extends Component {
           'size': -1,
           'updatedAt': -1,
         },
+        allCheck: false,
       },
       userInfo: {
         username: '',
@@ -86,6 +87,7 @@ class App extends Component {
           });
 
           bodyContent.listCheckedIds = [];
+          bodyContent.allCheck = false;
           bodyContent.sortStatus = {
             'title': -1, // -1 unsorted, 0 ascend, 1 descend
             'size': -1,
@@ -224,15 +226,18 @@ class App extends Component {
 
     const callback = (newItem) => {
       activeLists.unshift(newItem);
-      listCheckedIds.push(newItem.id);
+      listCheckedIds.push(newItem._id);
       bodyContent.activeLists = activeLists;
 
       this.setState({
         bodyContent: bodyContent,
         bodyToolBar: bodyToolBar,
       }, () => {
-        document.getElementById('input_text_' + activeLists[0].id).focus();
-        document.getElementById('input_text_' + activeLists[0].id).select();
+        const inputText = document.getElementById('input_text_' + activeLists[0]._id);
+        if (inputText) {
+          inputText.focus();
+          inputText.select();
+        }
       });
     }
 
@@ -263,7 +268,7 @@ class App extends Component {
         }).then((json) => {
           console.log(json);
           if (json.success === 1 || json.success === '1') {
-            callback(newItem);
+            callback(JSON.parse(json.data));
           } else {
             // 用户未登录
             if (json.code === '110') {
@@ -314,11 +319,12 @@ class App extends Component {
     if (checked === true) {
       const lists = this.state.bodyContent.activeLists;
       for (let item of lists) {
-        listCheckedIds.push(item.id);
+        listCheckedIds.push(item._id);
       }
     }
     const bodyContent = this.state.bodyContent;
     bodyContent.listCheckedIds = listCheckedIds;
+    bodyContent.allCheck = !bodyContent.allCheck;
     this.setState({
       bodyContent: bodyContent
     });
@@ -361,13 +367,13 @@ class App extends Component {
     });
   }
 
-  updateListCheckedIds(id) {
+  updateListCheckedIds(_id) {
     let listCheckedIds = this.state.bodyContent.listCheckedIds;
-    const filterArray = listCheckedIds.filter((val) => val === id);
+    const filterArray = listCheckedIds.filter((val) => val === _id);
     if (filterArray.length > 0) {
-      listCheckedIds = listCheckedIds.filter((val) => val !== id);
+      listCheckedIds = listCheckedIds.filter((val) => val !== _id);
     } else {
-      listCheckedIds.push(id);
+      listCheckedIds.push(_id);
     }
 
     console.log(listCheckedIds);
@@ -419,7 +425,7 @@ class App extends Component {
   updateListItemContent(listItemContent) {
     const activeLists = this.state.bodyContent.activeLists;
     activeLists.forEach((obj) => {
-      if (obj.id === listItemContent.id) {
+      if (obj._id === listItemContent._id) {
         for (let props in listItemContent) {
           obj[props] = listItemContent[props];
         }
@@ -431,7 +437,7 @@ class App extends Component {
     this.setState({
       bodyContent: bodyContent,
     }, () => {
-      const inputText = document.getElementById('input_text_' + listItemContent.id);
+      const inputText = document.getElementById('input_text_' + listItemContent._id);
       if (inputText) {
         inputText.focus();
         inputText.select();
@@ -443,9 +449,9 @@ class App extends Component {
     const bodyContent = this.state.bodyContent;
     let listCheckedIds = bodyContent.listCheckedIds;
 
-    listCheckedIds = listCheckedIds.filter((id) => {
+    listCheckedIds = listCheckedIds.filter((_id) => {
       for (let obj of activeLists) {
-        if (id === obj.id) {
+        if (_id === obj._id) {
           return true;
         }
         return false;
@@ -517,7 +523,7 @@ class App extends Component {
               bodyContent={this.state.bodyContent}
               searchInfo={this.state.bodyToolBar.searchInfo}
               listCheckedIds={this.state.bodyContent.listCheckedIds}
-              onUpdateListCheckedIds={(id) => this.updateListCheckedIds(id)}
+              onUpdateListCheckedIds={(_id) => this.updateListCheckedIds(_id)}
               onCurrentDirChange={(currentDir, currentDirId) => this.handleCurrentDirChange(currentDir, currentDirId)}
               onItemCheck={(e) => this.handleListItemCheck(e)}
               onItemsAllCheck={(e) => this.handleListItemsAllCheck(e)}

@@ -49,19 +49,19 @@ class BodyContent extends Component {
     });
   }
 
-  itemIsChecked(id) {
+  itemIsChecked(_id) {
     const listCheckedIds = this.props.listCheckedIds;
-    const isChecked = listCheckedIds.filter((val) => val === id).length > 0;
+    const isChecked = listCheckedIds.filter((val) => val === _id).length > 0;
     return isChecked;
   }
 
   handleWholeItemClick(event) {
-    const id = event.target.dataset.id;
-    const inputItem = document.getElementById('input_checkbox_' + id);
+    const _id = event.target.dataset._id;
+    const inputItem = document.getElementById('input_checkbox_' + _id);
     //console.log(event.target);
     //console.log('click' + id);
     if (inputItem) {
-      this.props.onUpdateListCheckedIds(id);
+      this.props.onUpdateListCheckedIds(_id);
     }
   }
 
@@ -91,12 +91,12 @@ class BodyContent extends Component {
 
   handleListItemOKButtonClick(event) {
     event.stopPropagation();
-    const id = event.target.dataset.id;
-    const titleInputText = document.getElementById('input_text_' + id);
+    const _id = event.target.dataset._id;
+    const titleInputText = document.getElementById('input_text_' + _id);
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
     if (titleInputText) {
-      const listItemContent = activeLists.filter((val) => val.id === id);
+      const listItemContent = activeLists.filter((val) => val._id === _id);
       if (listItemContent.length > 0) {
         listItemContent[0].title = titleInputText.value;
         listItemContent[0].isEdit = false;
@@ -117,7 +117,7 @@ class BodyContent extends Component {
               Helper.notifyBox('更新成功', 'success');
               this.props.onUpdateListItemContent(listItemContent[0]);
               listCheckedIds.find((element, index, array) => {
-                if (element === listItemContent[0].id) {
+                if (element === listItemContent[0]._id) {
                   this.props.onUpdateListCheckedIds(element);
                 }
               });
@@ -136,15 +136,15 @@ class BodyContent extends Component {
 
   handleListItemCancelButtonClick(event) {
     event.stopPropagation();
-    const id = event.target.dataset.id;
+    const _id = event.target.dataset._id;
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
-    const listItemContent = activeLists.filter((val) => val.id === id);
+    const listItemContent = activeLists.filter((val) => val._id === _id);
     if (listItemContent.length > 0) {
       listItemContent[0].isEdit = false;
       this.props.onUpdateListItemContent(listItemContent[0]);
       listCheckedIds.find((element, index, array) => {
-        if (element === listItemContent[0].id) {
+        if (element === listItemContent[0]._id) {
           this.props.onUpdateListCheckedIds(element);
         }
       });
@@ -161,14 +161,14 @@ class BodyContent extends Component {
 
   handleHoverMenuListClick(event) {
     event.stopPropagation();
-    const id = event.target.dataset.id;
-    if (this.state.hoverMenuListId === id) {
+    const _id = event.target.dataset._id;
+    if (this.state.hoverMenuListId === _id) {
       this.setState({
         hoverMenuListId: ' ',
       });
     } else {
       this.setState({
-        hoverMenuListId: id,
+        hoverMenuListId: _id,
       });
     }
   }
@@ -194,11 +194,11 @@ class BodyContent extends Component {
 
   handleTitleChange(event) {
     const activeLists = this.props.bodyContent.activeLists;
-    const id = event.target.dataset.id;
+    const _id = event.target.dataset._id;
     const value = event.target.value;
 
     activeLists.forEach((obj) => {
-      if (obj.id === id) {
+      if (obj._id === _id) {
         obj.unSavedTitle = value;
         this.props.onUpdateListItemContent(obj);
         return false;
@@ -206,13 +206,13 @@ class BodyContent extends Component {
     })
   }
 
-  updateHoverMenuListId(id) {
-    if (!id) {
-      id = ' ';
+  updateHoverMenuListId(_id) {
+    if (!_id) {
+      _id = ' ';
     }
 
     this.setState({
-      hoverMenuListId: id,
+      hoverMenuListId: _id,
     });
   }
 
@@ -269,15 +269,15 @@ class BodyContent extends Component {
     return (
       <div className="list-item-edit">
         <input
-          id={"input_text_" + obj.id}
+          id={"input_text_" + obj._id}
           type="text"
           defaultValue={obj.title}
           className="list-item-title"/>
-        <button type="button" className="btn" data-id={obj.id} onClick={(e) => this.handleListItemOKButtonClick(e)}>
-          <span className="glyphicon glyphicon-ok" data-id={obj.id}></span>
+        <button type="button" className="btn" data-_id={obj._id} onClick={(e) => this.handleListItemOKButtonClick(e)}>
+          <span className="glyphicon glyphicon-ok" data-_id={obj._id}></span>
         </button>
-        <button type="button" className="btn" data-id={obj.id} onClick={(e) => this.handleListItemCancelButtonClick(e)}>
-          <span className="glyphicon glyphicon-remove" data-id={obj.id}></span>
+        <button type="button" className="btn" data-_id={obj._id} onClick={(e) => this.handleListItemCancelButtonClick(e)}>
+          <span className="glyphicon glyphicon-remove" data-_id={obj._id}></span>
         </button>
       </div>
     );
@@ -289,20 +289,20 @@ class BodyContent extends Component {
 
     return lists.map((obj) =>
       <li
-        className={ "list-group-item " + (((id) => this.itemIsChecked(id))(obj.id) ? 'item-checked' : '') }
+        className={ "list-group-item " + (((_id) => this.itemIsChecked(_id))(obj._id) ? 'item-checked' : '') }
         key={obj._id}
-        data-id={obj.id}
+        data-_id={obj._id}
         onClick={(e) => this.handleWholeItemClick(e)}
         onMouseLeave={(e) => this.handleMouseLeaveItem(e)}>
         <div className="check">
           <input
-            id={'input_checkbox_' + obj.id}
-            value={obj.id}
+            id={'input_checkbox_' + obj._id}
+            value={obj._id}
             type="checkbox"
-            checked={((id) => this.itemIsChecked(id))(obj.id)}
+            checked={((_id) => this.itemIsChecked(_id))(obj._id)}
             onChange={this.props.onItemCheck}/>
         </div>
-        <div className="title" data-id={obj.id}>
+        <div className="title" data-_id={obj._id}>
            <span
              className={this.getIconOfListItem(obj.type)}
              aria-hidden="true"
@@ -312,19 +312,20 @@ class BodyContent extends Component {
            <span
              className="hover-menu-list glyphicon glyphicon-option-horizontal"
              aria-hidden="true"
-             data-id={obj.id}
+             data-_id={obj._id}
              onClick={(e) => this.handleHoverMenuListClick(e)}></span>}
-            {!obj.isEdit && (obj.id === this.state.hoverMenuListId) &&
+            {!obj.isEdit && (obj._id === this.state.hoverMenuListId) &&
               <HoverMenuList
                 id={obj.id}
+                _id={obj._id}
                 isDelete={obj.isDelete}
                 bodyContent={this.props.bodyContent}
                 onUpdateListItemContent={this.props.onUpdateListItemContent}
-                onUpdateHoverMenuListId={(id) => this.updateHoverMenuListId(id)}
+                onUpdateHoverMenuListId={(_id) => this.updateHoverMenuListId(_id)}
                 onUpdateActiveLists={this.props.onUpdateActiveLists}/>}
         </div>
-        <div className="size" data-id={obj.id}>{obj.size}</div>
-        <div className="updatedAt" data-id={obj.id}>{obj.updatedAt}</div>
+        <div className="size" data-_id={obj._id}>{obj.size}</div>
+        <div className="updatedAt" data-_id={obj._id}>{obj.updatedAt}</div>
       </li>
     );
   }
@@ -346,7 +347,8 @@ class BodyContent extends Component {
             <input
               name="allCheck"
               type="checkbox"
-              onClick={this.props.onItemsAllCheck}/>
+              checked={this.props.bodyContent.allCheck}
+              onChange={this.props.onItemsAllCheck}/>
           </div>
           <div className="title" onClick={(e) => this.handleListItemTitleClick(e)}>
             文件名

@@ -11,10 +11,10 @@ class HoverMenuList extends Component {
   handleRenameButtonClick(event) {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
-    const id = this.props.id;
+    const _id = this.props._id;
 
     activeLists.forEach((obj) => {
-      if (obj.id === id) {
+      if (obj._id === _id) {
         obj.isEdit = true;
         this.props.onUpdateListItemContent(obj);
         this.props.onUpdateHoverMenuListId();
@@ -27,13 +27,11 @@ class HoverMenuList extends Component {
     event.target.blur();
 
     const activeLists = this.props.bodyContent.activeLists;
-    const listCheckedIds = [this.props.id];
-    const listCheckedIdsArray = listCheckedIds.map((id) => {
+    const listCheckedIds = [this.props._id];
+    const listCheckedIdsArray = listCheckedIds.map((_id) => {
       for (let obj of activeLists) {
-        let res = {id: id};
-        if (obj.id === id) {
-          res.parentId = obj.parentId;
-          return res;
+        if (obj._id === _id) {
+          return {id: obj.id, parentId: obj.parentId};
         }
       }
     });
@@ -55,8 +53,8 @@ class HoverMenuList extends Component {
         .then((json) => {
           if (json.success === '1' || json.success === 1) {
             this.props.onUpdateActiveLists(activeLists.filter((obj) => {
-              for (let id of listCheckedIds) {
-                if (id === obj.id) {
+              for (let _id of listCheckedIds) {
+                if (_id === obj._id) {
                   return false;
                 }
               }
@@ -80,12 +78,12 @@ class HoverMenuList extends Component {
   handleRecoverButtonClick(event) {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
-    const listCheckedIds = [this.props.id];
+    const listCheckedIds = [this.props._id];
     const listCheckedIdsArray = [];
-    listCheckedIds.forEach((id) => {
+    listCheckedIds.forEach((_id) => {
       for (let obj of activeLists) {
-        if (obj.id === id) {
-          let res = {id: id, parentId: obj.parentId};
+        if (obj._id === _id) {
+          let res = {id: obj.id, parentId: obj.parentId};
           listCheckedIdsArray.push(res);
         }
       }
@@ -107,8 +105,8 @@ class HoverMenuList extends Component {
       .then((json) => {
         if (json.success === '1' || json.success === 1) {
           this.props.onUpdateActiveLists(activeLists.filter((obj) => {
-            for (let id of listCheckedIds) {
-              if (id === obj.id) {
+            for (let _id of listCheckedIds) {
+              if (_id === obj._id) {
                 return false;
               }
             }

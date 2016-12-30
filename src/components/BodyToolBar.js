@@ -72,10 +72,10 @@ class BodyToolBar extends Component {
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
     const activeLists = this.props.bodyContent.activeLists;
     let listCheckedIdsArray = [];
-    listCheckedIds.forEach((id) => {
+    listCheckedIds.forEach((_id) => {
       for (let obj of activeLists) {
-        if (obj.id === id) {
-          let res = {id: id, parentId: obj.parentId, filePath: obj.filePath};
+        if (obj._id === _id) {
+          let res = {id: obj.id, parentId: obj.parentId, filePath: obj.filePath};
           listCheckedIdsArray.push(res);
         }
       }

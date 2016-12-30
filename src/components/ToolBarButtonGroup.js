@@ -14,11 +14,11 @@ class ToolBarButtonGroup extends Component {
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
 
-    for (let id of listCheckedIds) {
+    for (let _id of listCheckedIds) {
       activeLists.forEach((obj) => {
-        if (obj.id === id) {
+        if (obj._id === _id) {
           obj.isEdit = !obj.isEdit;
-          const listItemContent = {id: id, isEdit: obj.isEdit};
+          const listItemContent = {_id: obj._id, isEdit: obj.isEdit};
           this.props.onUpdateListItemContent(listItemContent);
         }
       })
@@ -29,12 +29,10 @@ class ToolBarButtonGroup extends Component {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
-    const listCheckedIdsArray = listCheckedIds.map((id) => {
-      let res = {id: id};
+    const listCheckedIdsArray = listCheckedIds.map((_id) => {
       for (let obj of activeLists) {
-        if (obj.id === id) {
-          res.parentId = obj.parentId;
-          return res;
+        if (obj._id === _id) {
+          return {id: obj.id, parentId: obj.parentId};
         }
       }
     });
@@ -56,8 +54,8 @@ class ToolBarButtonGroup extends Component {
         .then((json) => {
           if (json.success === '1' || json.success === 1) {
             this.props.onUpdateActiveLists(activeLists.filter((obj) => {
-              for (let id of listCheckedIds) {
-                if (id === obj.id) {
+              for (let _id of listCheckedIds) {
+                if (_id === obj._id) {
                   return false;
                 }
               }
@@ -83,14 +81,13 @@ class ToolBarButtonGroup extends Component {
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
     let listCheckedIdsArray = [];
-    listCheckedIds.forEach((id) => {
+    listCheckedIds.forEach((_id) => {
       for (let obj of activeLists) {
-        if (obj.id === id) {
-          let res = {
-            id: id,
+        if (obj._id === _id) {
+          listCheckedIdsArray.push({
+            id: obj.id,
             parentId: obj.parentId,
-          };
-          listCheckedIdsArray.push(res);
+          });
         }
       }
     })
@@ -112,8 +109,8 @@ class ToolBarButtonGroup extends Component {
       .then((json) => {
         if (json.success === '1' || json.success === 1) {
           this.props.onUpdateActiveLists(activeLists.filter((obj) => {
-            for (let id of listCheckedIds) {
-              if (id === obj.id) {
+            for (let _id of listCheckedIds) {
+              if (_id === obj._id) {
                 return false;
               }
             }
@@ -133,12 +130,10 @@ class ToolBarButtonGroup extends Component {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
-    const listCheckedIdsArray = listCheckedIds.map((id) => {
-      let res = {id: id};
+    const listCheckedIdsArray = listCheckedIds.map((_id) => {
       for (let obj of activeLists) {
-        if (obj.id === id) {
-          res.parentId = obj.parentId;
-          return res;
+        if (obj._id === _id) {
+          return {id: obj.id, parentId: obj.parentId};
         }
       }
     })
@@ -153,12 +148,10 @@ class ToolBarButtonGroup extends Component {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
-    const listCheckedIdsArray = listCheckedIds.map((id) => {
-      let res = {id: id};
+    const listCheckedIdsArray = listCheckedIds.map((_id) => {
       for (let obj of activeLists) {
-        if (obj.id === id) {
-          res.parentId = obj.parentId;
-          return res;
+        if (obj._id === _id) {
+          return {id: obj.id, parentId: obj.parentId};
         }
       }
     })

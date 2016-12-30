@@ -67,15 +67,16 @@ class DirectoryBox extends Component {
     const directoryList = lists.map((obj) =>
       <li
         className="list-group-item"
-        key={obj.id}
+        key={obj._id}
         data-id={obj.id}
+        data-_id={obj._id}
         data-title={obj.title}
         onClick={(e) => this.handleDirectoryItemClick(e)}
         >
-        <div className="title" data-id={obj.id} data-title={obj.title}>
+        <div className="title" data-id={obj.id} data-_id={obj._id} data-title={obj.title}>
           <span className="glyphicon glyphicon-folder-open folder-icon" aria-hidden="true"
-            data-id={obj.id} data-title={obj.title}></span>
-          <span style={{cursor: 'pointer'}} data-id={obj.id} data-title={obj.title}>{obj.title}</span>
+            data-id={obj.id} data-_id={obj._id} data-title={obj.title}></span>
+          <span style={{cursor: 'pointer'}} data-id={obj.id} data-_id={obj._id} data-title={obj.title}>{obj.title}</span>
         </div>
       </li>
     );
