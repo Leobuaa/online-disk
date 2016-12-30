@@ -365,7 +365,7 @@ class BodyContent extends Component {
                 aria-hidden="true"
                 style={arrowStyle}></span> }</div>
           <div className="updatedAt" onClick={(e) => this.handleListItemTitleClick(e)}>
-            修改时间
+            最后修改时间
             { (sortStatus.updatedAt !== -1) &&
               <span
                 className={"glyphicon glyphicon-arrow-" + (sortStatus.updatedAt === 0 ? "up" : "down") }

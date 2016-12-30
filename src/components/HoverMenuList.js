@@ -28,17 +28,11 @@ class HoverMenuList extends Component {
 
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = [this.props._id];
-    const listCheckedIdsArray = listCheckedIds.map((_id) => {
-      for (let obj of activeLists) {
-        if (obj._id === _id) {
-          return {id: obj.id, parentId: obj.parentId};
-        }
-      }
-    });
+
     const confirmClick = () => {
 
       const params = {
-        ids: listCheckedIdsArray,
+        ids: listCheckedIds,
         isDelete: true,
       };
 
@@ -79,18 +73,9 @@ class HoverMenuList extends Component {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = [this.props._id];
-    const listCheckedIdsArray = [];
-    listCheckedIds.forEach((_id) => {
-      for (let obj of activeLists) {
-        if (obj._id === _id) {
-          let res = {id: obj.id, parentId: obj.parentId};
-          listCheckedIdsArray.push(res);
-        }
-      }
-    });
 
     const params = {
-      ids: listCheckedIdsArray,
+      ids: listCheckedIds,
       isDelete: false,
     };
 

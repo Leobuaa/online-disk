@@ -29,17 +29,9 @@ class ToolBarButtonGroup extends Component {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
-    const listCheckedIdsArray = listCheckedIds.map((_id) => {
-      for (let obj of activeLists) {
-        if (obj._id === _id) {
-          return {id: obj.id, parentId: obj.parentId};
-        }
-      }
-    });
     const confirmClick = () => {
-
       const params = {
-        ids: listCheckedIdsArray,
+        ids: listCheckedIds,
         isDelete: true,
       };
 
@@ -80,21 +72,9 @@ class ToolBarButtonGroup extends Component {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
     const listCheckedIds = this.props.bodyContent.listCheckedIds;
-    let listCheckedIdsArray = [];
-    listCheckedIds.forEach((_id) => {
-      for (let obj of activeLists) {
-        if (obj._id === _id) {
-          listCheckedIdsArray.push({
-            id: obj.id,
-            parentId: obj.parentId,
-          });
-        }
-      }
-    })
-
 
     const params = {
-      ids: listCheckedIdsArray,
+      ids: listCheckedIds,
       isDelete: false,
     };
 
