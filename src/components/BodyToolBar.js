@@ -119,6 +119,10 @@ class BodyToolBar extends Component {
     return false;
   }
 
+  isTrashContent() {
+    return this.props.menuAside.buttonActiveIndex === 5;
+  }
+
   render() {
     const removeIconStyle = {
       position: 'absolute',
@@ -130,18 +134,20 @@ class BodyToolBar extends Component {
     return (
       <div className="body-toolbar">
         <div className="button-group">
-          {this.isShowButtonGroup() &&
-            <div style={{display: 'inline-block'}}>
+          {!this.isTrashContent() &&
               <button name="upload" type="button" className="btn btn-primary-outline" onClick={(e) => this.handleUploadFileButtonClick(e)}>
-                <span className="glyphicon glyphicon-upload" aria-hidden="true"></span> 上传文件
-                <input type="file" id="uploadFile" name="uploadfile" style={{display: 'none'}}
-                  onChange={(e) => this.handleUploadFileChange(e)}/>
-              </button>
-              <button name="newDirectory" type="button" className="btn btn-primary-outline" onClick={this.props.onToolBarButtonClick}>
-                <span className="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 新建文件夹</button>
-              <button name="download" type="button" className="btn btn-primary-outline" onClick={(e) => this.handleDownloadButtonClick(e)}>
-                <span className="glyphicon glyphicon-download" aria-hidden="true"></span> 下载</button>
-            </div>
+              <span className="glyphicon glyphicon-upload" aria-hidden="true"></span> 上传文件
+              <input type="file" id="uploadFile" name="uploadfile" style={{display: 'none'}}
+                onChange={(e) => this.handleUploadFileChange(e)}/>
+            </button>
+          }
+          {this.isShowButtonGroup() &&
+            <button name="newDirectory" type="button" className="btn btn-primary-outline" onClick={this.props.onToolBarButtonClick}>
+              <span className="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 新建文件夹</button>
+          }
+          {!this.isTrashContent() &&
+            <button name="download" type="button" className="btn btn-primary-outline" onClick={(e) => this.handleDownloadButtonClick(e)}>
+              <span className="glyphicon glyphicon-download" aria-hidden="true"></span> 下载</button>
           }
           {this.props.isItemsChecked &&
             <ToolBarButtonGroup
