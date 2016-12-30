@@ -110,6 +110,15 @@ class BodyToolBar extends Component {
     // })
   }
 
+  isShowButtonGroup() {
+    const currentDir = this.props.bodyContent.currentDir;
+    if (currentDir.substr(0, 4) === '全部文件' || currentDir.substr(0, 5) === '/全部文件') {
+      return true;
+    }
+
+    return false;
+  }
+
   render() {
     const removeIconStyle = {
       position: 'absolute',
@@ -121,15 +130,19 @@ class BodyToolBar extends Component {
     return (
       <div className="body-toolbar">
         <div className="button-group">
-          <button name="upload" type="button" className="btn btn-primary-outline" onClick={(e) => this.handleUploadFileButtonClick(e)}>
-            <span className="glyphicon glyphicon-upload" aria-hidden="true"></span> 上传文件
-            <input type="file" id="uploadFile" name="uploadfile" style={{display: 'none'}}
-              onChange={(e) => this.handleUploadFileChange(e)}/>
-          </button>
-          <button name="newDirectory" type="button" className="btn btn-primary-outline" onClick={this.props.onToolBarButtonClick}>
-            <span className="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 新建文件夹</button>
-          <button name="download" type="button" className="btn btn-primary-outline" onClick={(e) => this.handleDownloadButtonClick(e)}>
-            <span className="glyphicon glyphicon-download" aria-hidden="true"></span> 下载</button>
+          {this.isShowButtonGroup() &&
+            <div style={{display: 'inline-block'}}>
+              <button name="upload" type="button" className="btn btn-primary-outline" onClick={(e) => this.handleUploadFileButtonClick(e)}>
+                <span className="glyphicon glyphicon-upload" aria-hidden="true"></span> 上传文件
+                <input type="file" id="uploadFile" name="uploadfile" style={{display: 'none'}}
+                  onChange={(e) => this.handleUploadFileChange(e)}/>
+              </button>
+              <button name="newDirectory" type="button" className="btn btn-primary-outline" onClick={this.props.onToolBarButtonClick}>
+                <span className="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 新建文件夹</button>
+              <button name="download" type="button" className="btn btn-primary-outline" onClick={(e) => this.handleDownloadButtonClick(e)}>
+                <span className="glyphicon glyphicon-download" aria-hidden="true"></span> 下载</button>
+            </div>
+          }
           {this.props.isItemsChecked &&
             <ToolBarButtonGroup
              bodyContent={this.props.bodyContent}
