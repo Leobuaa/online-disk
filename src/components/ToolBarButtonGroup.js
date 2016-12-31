@@ -3,28 +3,9 @@ import ReactDOM from 'react-dom';
 import AlertBox from './AlertBox.js';
 import DirectoryBox from './DirectoryBox.js';
 import Helper from '../helper.js';
+import RenameButton from './RenameButton';
 
 class ToolBarButtonGroup extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  handleRenameButtonClick(event) {
-    event.target.blur();
-    const activeLists = this.props.bodyContent.activeLists;
-    const listCheckedIds = this.props.bodyContent.listCheckedIds;
-
-    for (let _id of listCheckedIds) {
-      activeLists.forEach((obj) => {
-        if (obj._id === _id) {
-          obj.isEdit = !obj.isEdit;
-          const listItemContent = {_id: obj._id, isEdit: obj.isEdit};
-          this.props.onUpdateListItemContent(listItemContent);
-        }
-      })
-    };
-  }
-
   handleDeleteButtonClick(event) {
     event.target.blur();
     const activeLists = this.props.bodyContent.activeLists;
@@ -214,11 +195,8 @@ class ToolBarButtonGroup extends Component {
             className="btn btn-primary-outline"
             onClick={(e) => this.handleDeleteButtonClick(e)}>
             <span className="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
-          <button
-            name="rename"
-            type="button"
-            className="btn btn-primary-outline"
-            onClick={(e) => this.handleRenameButtonClick(e)}>重命名</button>
+          <RenameButton listCheckedIds={this.props.bodyContent.listCheckedIds} activeLists={this.props.bodyContent.activeLists}
+            onUpdateListItemContent={this.props.onUpdateListItemContent}/>
           <button
             name="moveTo"
             type="button"
