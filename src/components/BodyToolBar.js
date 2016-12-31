@@ -6,6 +6,9 @@ import uniqid from 'uniqid';
 class BodyToolBar extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      searchInfo: '',
+    };
   }
 
   handleInputFocus(event) {
@@ -18,8 +21,23 @@ class BodyToolBar extends Component {
     }
   }
 
+  handleSearchInfoChange(event) {
+    const value = event.target.value;
+    if (event.target.name === 'searchInfo') {
+      this.setState({
+        searchInfo: value,
+      });
+    }
+  }
+
   handleRemoveIconClick(event) {
-    this.props.onClearSearchInfo();
+    this.setState({
+      searchInfo: '',
+    }, this.props.onClearSearchInfo);
+  }
+
+  handleSearchButtonClick(event) {
+    this.props.onToolBarSearchInfoChange(this.state.searchInfo);
   }
 
   handleUploadFileButtonClick(event) {
@@ -161,18 +179,19 @@ class BodyToolBar extends Component {
           <input name="searchInfo"
             type="text"
             placeholder="输入文件名"
-            value={this.props.bodyToolBar.searchInfo}
+            value={this.state.searchInfo}
             onFocus={(e) => this.handleInputFocus(e)}
             onBlur={(e) => this.handleInputBlur(e)}
-            onChange={this.props.onToolBarSearchInfoChange}></input>
-          {this.props.bodyToolBar.searchInfo !== '' &&
+            onChange={(e) => this.handleSearchInfoChange(e)}></input>
+          {this.state.searchInfo !== '' &&
            <span
              className="glyphicon glyphicon-remove"
              aria-hidden="true"
              style={removeIconStyle}
              onClick={(e) => this.handleRemoveIconClick(e)}>
              </span>}
-          <button name="searchButton" type="button" className="btn btn-success-outline" onClick={this.props.onToolBarButtonClick}>
+          <button name="searchButton" type="button" className="btn btn-success-outline"
+            onClick={(e) => this.handleSearchButtonClick(e)}>
             <span className="glyphicon glyphicon-search" aria-hidden="true"></span> 搜索</button>
         </div>
       </div>

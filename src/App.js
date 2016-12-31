@@ -283,10 +283,9 @@ class App extends Component {
 
   }
 
-  handleToolBarSearchInfoChange(event) {
-    const value = event.target.value;
+  handleToolBarSearchInfoChange(searchInfo) {
     const bodyToolBar = this.state.bodyToolBar;
-    bodyToolBar.searchInfo = value;
+    bodyToolBar.searchInfo = searchInfo ? searchInfo : '';
     this.setState({
       bodyToolBar: bodyToolBar
     });
