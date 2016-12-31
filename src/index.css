@@ -418,7 +418,7 @@ label.error {
   color: #fff !important;
 }
 
-.body-toolbar button span {
+.body-toolbar button span, .hover-menu-list-wrapper button span{
   margin-right: 4px;
   position: relative;
   top: 2px;
