@@ -5,6 +5,7 @@ import Helper from '../helper.js';
 import RenameButton from './RenameButton';
 import DeleteButton from './DeleteButton';
 import RecoverButton from './RecoverButton';
+import CompleteDeleteButton from './CompleteDeleteButton';
 
 class HoverMenuList extends Component {
   handleCompleteDeleteButtonClick(event) {
@@ -67,10 +68,8 @@ class HoverMenuList extends Component {
             onUpdateActiveLists={this.props.onUpdateActiveLists} />
         }
         { this.props.isDelete &&
-          <button name="delete" type="button" className="btn btn-primary-outline"
-            onClick={(e) => this.handleCompleteDeleteButtonClick(e)}>
-          <span className="glyphicon glyphicon-trash" aria-hidden="true" style={{position: 'relative', top: '2px'}}></span> 永久删除
-          </button>
+          <CompleteDeleteButton listCheckedIds={[this.props._id]} activeLists={this.props.bodyContent.activeLists}
+            onUpdateActiveLists={this.props.onUpdateActiveLists} />
         }
       </div>
     );
