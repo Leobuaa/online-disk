@@ -184,7 +184,10 @@ class UserInfoContent extends Component {
         inputTexts[0].focus();
         inputTexts[0].select();
       }
+      if (name === 'password')
+        window.scroll(0, 100);
     });
+
   }
 
   handleSaveButtonClick(event) {
