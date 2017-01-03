@@ -94,6 +94,18 @@ function getFileSize(sizeNum) {
   return sizeNum.toFixed(2) + units[cnt];
 }
 
+function getFileType(fileName) {
+  const length = fileName.length;
+  const extention = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+  const image = ['jpg', 'gif', 'jpeg', 'png'];
+
+  if (image.indexOf(extention) !== -1) {
+    return 'image';
+  }
+
+  return 'file';
+}
+
 export default {
   getCNFromEN: getCNFromEN,
   dateFormat: dateFormat,
@@ -101,4 +113,5 @@ export default {
   isLogin: isLogin,
   fetchLinkHeader: fetchLinkHeader,
   getFileSize: getFileSize,
+  getFileType: getFileType,
 }
