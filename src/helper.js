@@ -98,9 +98,14 @@ function getFileType(fileName) {
   const length = fileName.length;
   const extention = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
   const image = ['jpg', 'gif', 'jpeg', 'png'];
+  const video = ['avi', 'mp4', 'mkv', 'wmv', 'flv', 'webm', 'vob', 'qt', 'rm', 'rmvb'];
 
   if (image.indexOf(extention) !== -1) {
     return 'image';
+  }
+
+  if (video.indexOf(extention) !== -1) {
+    return 'video';
   }
 
   return 'file';
