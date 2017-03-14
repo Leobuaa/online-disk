@@ -49,13 +49,14 @@ class BodyToolBar extends Component {
     // Current, One file; Todo, more files.
     const file = event.target.files[0];
     console.log(file);
+    const fileType = Helper.getFileType(file.name);
     let newItem = {
       id: uniqid(),
       parentId: this.props.bodyContent.currentDirId,
       title: file.name,
       size: Helper.getFileSize(file.size),
       updatedAt: Helper.dateFormat(new Date()),
-      type: 'file',
+      type: fileType,
       isEdit: false,
       files: file,
     }
