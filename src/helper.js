@@ -99,6 +99,7 @@ function getFileType(fileName) {
   const extention = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
   const image = ['jpg', 'gif', 'jpeg', 'png'];
   const video = ['avi', 'mp4', 'mkv', 'wmv', 'flv', 'webm', 'vob', 'qt', 'rm', 'rmvb'];
+  const music = ['wav', 'aif', 'au', 'mp3', 'ram', 'wma', 'mmf', 'amr', 'aac', 'flac', 'm4r'];
 
   if (image.indexOf(extention) !== -1) {
     return 'image';
@@ -106,6 +107,10 @@ function getFileType(fileName) {
 
   if (video.indexOf(extention) !== -1) {
     return 'video';
+  }
+
+  if (video.indexOf(extention) !== -1) {
+    return 'music';
   }
 
   return 'file';
