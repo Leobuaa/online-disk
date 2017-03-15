@@ -67,9 +67,7 @@ class App extends Component {
     let fetchLink = Helper.fetchLinkHeader;
     if (menuAside.buttonActiveIndex === 5 && bodyContent.bodyTitleIds.length === 1) {
       fetchLink += 'getTrashItemList';
-    } else if (menuAside.buttonActiveIndex === 1 ||
-               menuAside.buttonActiveIndex === 3 ||
-               menuAside.buttonActiveIndex === 4) {
+    } else if (menuAside.buttonActiveIndex >= 1 && menuAside.buttonActiveIndex <= 4) {
       const typeNameList = ['all', 'image', 'doc', 'video', 'music']
       fetchLink += 'getItemList/type/' + typeNameList[menuAside.buttonActiveIndex];
     } else {
