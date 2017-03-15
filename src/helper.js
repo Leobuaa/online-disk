@@ -109,11 +109,11 @@ function getFileType(fileName) {
     return 'video';
   }
 
-  if (video.indexOf(extention) !== -1) {
+  if (music.indexOf(extention) !== -1) {
     return 'music';
   }
 
-  return 'file';
+  return 'doc';
 }
 
 export default {
