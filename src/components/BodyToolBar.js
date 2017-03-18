@@ -100,6 +100,10 @@ class BodyToolBar extends Component {
       }
     });
 
+    if (listCheckedIdsArray.length <= 0) {
+      Helper.notifyBox('请先勾选要下载的文件或文件夹', 'success');
+    }
+
     if (listCheckedIdsArray.length === 1) {
       if (listCheckedIdsArray[0].filePath) {
         window.location = Helper.fetchLinkHeader + 'download/' + listCheckedIdsArray[0].filePath;
@@ -107,7 +111,28 @@ class BodyToolBar extends Component {
         Helper.notifyBox('抱歉, 请选择可下载的文件(目前不支持文件夹下载)', 'danger');
       }
     } else if (listCheckedIdsArray.length > 1){
-      Helper.notifyBox('抱歉, 目前仅支持单个文件下载, 请选择一个可下载文件', 'danger');
+      // Helper.notifyBox('抱歉, 目前仅支持单个文件下载, 请选择一个可下载文件', 'danger');
+      const fetchLink = Helper.fetchLinkHeader + 'downloadList';
+      const params = {
+        tasksIdList: listCheckedIdsArray,
+      };
+      fetch(fetchLink, {
+        method: 'POST',
+        body: JSON.stringify(params),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+      }).then((response) => response.json())
+        .then((json) => {
+          if (json.success === '1' || json.success === 1) {
+            console.log('Add downloadTask succeed');
+            console.log(json.data);
+            window.location = Helper.fetchLinkHeader + 'downloadByTaskId/' + json.data._id;
+          }
+        }).catch((ex) => {
+          console.log(ex);
+        })
     }
 
 
