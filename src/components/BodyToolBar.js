@@ -46,34 +46,34 @@ class BodyToolBar extends Component {
   }
 
   handleUploadFileChange(event) {
-    // Current, One file; Todo, more files.
-    const file = event.target.files[0];
-    console.log(file);
-    const fileType = Helper.getFileType(file.name);
-    let newItem = {
-      id: uniqid(),
-      parentId: this.props.bodyContent.currentDirId,
-      title: file.name,
-      size: Helper.getFileSize(file.size),
-      updatedAt: Helper.dateFormat(new Date()),
-      type: fileType,
-      isEdit: false,
-      files: file,
-    }
-    console.log(newItem);
+    for (let i = 0; i < event.target.files.length; i++) {
+      const file = event.target.files[i];
+      console.log(file);
+      const fileType = Helper.getFileType(file.name);
+      let newItem = {
+        id: uniqid(),
+        parentId: this.props.bodyContent.currentDirId,
+        title: file.name,
+        size: Helper.getFileSize(file.size),
+        updatedAt: Helper.dateFormat(new Date()),
+        type: fileType,
+        isEdit: false,
+        files: file,
+      }
+      console.log(newItem);
 
-    let params = new FormData();
-    for (let prop in newItem) {
-      params.append(prop, newItem[prop]);
-    }
+      let params = new FormData();
+      for (let prop in newItem) {
+        params.append(prop, newItem[prop]);
+      }
 
-    //Todo, upLoadFile; Just add a item in the database.
-    const fetchLink = Helper.fetchLinkHeader + 'addItem';
-    fetch(fetchLink, {
-      method: 'POST',
-      body: params,
-      credentials: 'include'
-    }).then((response) => response.json())
+      //Todo, upLoadFile; Just add a item in the database.
+      const fetchLink = Helper.fetchLinkHeader + 'addItem';
+      fetch(fetchLink, {
+        method: 'POST',
+        body: params,
+        credentials: 'include'
+      }).then((response) => response.json())
       .then((json) => {
         if (json.success === '1' || json.success === 1) {
           this.props.onFetchData();
@@ -85,6 +85,7 @@ class BodyToolBar extends Component {
         console.log(ex);
         Helper.notifyBox('上传失败, 请重试', 'danger');
       })
+    }
   }
 
   handleDownloadButtonClick(event) {
@@ -183,7 +184,7 @@ class BodyToolBar extends Component {
               <button name="upload" type="button" className="btn btn-primary-outline" onClick={(e) => this.handleUploadFileButtonClick(e)}>
               <span className="glyphicon glyphicon-upload" aria-hidden="true"></span> 上传文件
               <input type="file" id="uploadFile" name="uploadfile" style={{display: 'none'}}
-                onChange={(e) => this.handleUploadFileChange(e)}/>
+                onChange={(e) => this.handleUploadFileChange(e)} webkitdirectory directory multiple/>
             </button>
           }
           {this.isShowButtonGroup() &&
